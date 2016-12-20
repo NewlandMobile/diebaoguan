@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">diebaoguan</string>
+
+    <string name="diebaoguan">谍报馆</string>
+    <string name="fengshanbiao">风尚标</string>
+    <string name="guangyinji">光影集</string>
+    <string name="aimeifang">爱美坊</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
