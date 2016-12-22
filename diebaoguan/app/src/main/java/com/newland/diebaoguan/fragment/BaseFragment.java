@@ -15,15 +15,17 @@ import com.newland.diebaoguan.R;
 
 /**
  * A simple {@link Fragment} subclass.
+ * 作为每个大话题的基础类
  */
 public class BaseFragment extends Fragment {
 
 
-    private String topTitle;
-
     private View inflate;
+
     private TextView text_top;
     private RelativeLayout rl_content;
+
+    private String topTitle;
     private int layoutId;
     private Context context;
 
@@ -49,16 +51,21 @@ public class BaseFragment extends Fragment {
     /**
      * 初始化界面
      */
-    private void initView() {
+    protected void initView() {
         text_top = (TextView) inflate.findViewById(R.id.base_toptext);
         rl_content = (RelativeLayout) inflate.findViewById(R.id.base_content);
         text_top.setText(topTitle);
         View inflate = LayoutInflater.from(context).inflate(layoutId, null);
-        rl_content.addView(inflate);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        rl_content.addView(inflate, params);
     }
 
     /**
-     * 初始化参数
+     * 初始化主要参数.
+     *
+     * @param context  上下文
+     * @param topTitle 大模块的标题
+     * @param layoutId layout
      */
     public void initArgument(Context context, String topTitle, int layoutId) {
         this.topTitle = topTitle;

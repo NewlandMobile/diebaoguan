@@ -6,11 +6,13 @@ import android.support.v4.app.FragmentTabHost;
 import android.view.View;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.newland.diebaoguan.fragment.AiMeiFangFragment;
 import com.newland.diebaoguan.fragment.DieBaoGuanFragment;
 import com.newland.diebaoguan.fragment.FengShangBiaoFragment;
 import com.newland.diebaoguan.fragment.GuangYinJiFragment;
+
 
 public class MainActivity extends FragmentActivity {
     private FragmentTabHost mTabHost;
@@ -41,5 +43,18 @@ public class MainActivity extends FragmentActivity {
         textview.setTextColor(getResources().getColor(R.color.white));
         textview.setBackgroundResource(srcID);
         mTabHost.addTab(newTabSpec.setIndicator(view), cls, null);
+        if (indicator == R.string.aimeifang) {
+            view.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    /**
+                     * 预留 TODO 做跳转使用
+                     */
+                    Toast.makeText(MainActivity.this, "==长点击==", Toast.LENGTH_SHORT).show();
+                    mTabHost.setCurrentTab(0);
+                    return true;
+                }
+            });
+        }
     }
 }

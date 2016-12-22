@@ -9,12 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.newland.diebaoguan.R;
+import com.newland.diebaoguan.common.Const;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DieBaoGuanFragment extends BaseFragment {
-
+public class DieBaoGuanFragment extends EvolveFragment {
 
     public DieBaoGuanFragment() {
         // Required empty public constructor
@@ -23,7 +23,7 @@ public class DieBaoGuanFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initArgument(getActivity(), getResources().getString(R.string.diebaoguan), R.layout.fragment_die_bao_guan);
+        initArgument(getActivity(), getResources().getString(R.string.diebaoguan), Const.DBG_TOPICS, Const.DBG_Fragments);
     }
 
     @Override

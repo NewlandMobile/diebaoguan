@@ -13,7 +13,7 @@ import com.newland.diebaoguan.R;
 
 /**
  * A simple {@link Fragment} subclass.
- */
+        */
 public class AiMeiFangFragment extends BaseFragment {
 
 
