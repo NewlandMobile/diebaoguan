@@ -1,4 +1,4 @@
-package com.newland.diebaoguan.dbg.fragment;
+package com.lin.diebaoguan.dbg.fragment;
 
 
 import android.os.Bundle;
@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.newland.diebaoguan.R;
+import com.lin.diebaoguan.R;
 
 /**
  * A simple {@link Fragment} subclass.

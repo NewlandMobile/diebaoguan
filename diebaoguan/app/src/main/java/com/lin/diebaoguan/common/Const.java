@@ -1,10 +1,10 @@
-package com.newland.diebaoguan.common;
+package com.lin.diebaoguan.common;
 
-import com.newland.diebaoguan.dbg.fragment.ApplyFragment;
-import com.newland.diebaoguan.dbg.fragment.ExperienceFragment;
-import com.newland.diebaoguan.dbg.fragment.HeadlineFragment;
-import com.newland.diebaoguan.dbg.fragment.PriceFragment;
-import com.newland.diebaoguan.dbg.fragment.TitleFragment;
+import com.lin.diebaoguan.dbg.fragment.ApplyFragment;
+import com.lin.diebaoguan.dbg.fragment.ExperienceFragment;
+import com.lin.diebaoguan.dbg.fragment.HeadlineFragment;
+import com.lin.diebaoguan.dbg.fragment.PriceFragment;
+import com.lin.diebaoguan.dbg.fragment.TitleFragment;
 
 /**
  * Created by linx on 2016/12/2116:21.

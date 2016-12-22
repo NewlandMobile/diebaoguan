@@ -1,4 +1,4 @@
-package com.newland.diebaoguan.fragment;
+package com.lin.diebaoguan.fragment;
 
 
 import android.os.Bundle;
@@ -7,31 +7,28 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.newland.diebaoguan.R;
+import com.lin.diebaoguan.R;
 
 /**
  * A simple {@link Fragment} subclass.
-        */
-public class AiMeiFangFragment extends BaseFragment {
+ */
+public class FengShangBiaoFragment extends BaseFragment {
 
 
-    public AiMeiFangFragment() {
+    public FengShangBiaoFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initArgument(getActivity(), getResources().getString(R.string.aimeifang), R.layout.fragment_ai_mei_fang);
+        initArgument(getActivity(), getResources().getString(R.string.fengshanbiao), R.layout.fragment_feng_shang_biao);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        TextView textView = (TextView)view.findViewById(R.id.text101);
-        textView.setText("aaaaaaaaaaaaaa");
         return view;
     }
 }

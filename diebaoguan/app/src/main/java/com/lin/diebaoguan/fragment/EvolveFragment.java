@@ -1,4 +1,4 @@
-package com.newland.diebaoguan.fragment;
+package com.lin.diebaoguan.fragment;
 
 
 import android.content.Context;
@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TabHost;
 import android.widget.TextView;
 
-import com.newland.diebaoguan.R;
+import com.lin.diebaoguan.R;
 
 /**
  * A simple {@link Fragment} subclass.

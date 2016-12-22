@@ -1,4 +1,4 @@
-package com.newland.diebaoguan;
+package com.lin.diebaoguan;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -8,10 +8,10 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.newland.diebaoguan.fragment.AiMeiFangFragment;
-import com.newland.diebaoguan.fragment.DieBaoGuanFragment;
-import com.newland.diebaoguan.fragment.FengShangBiaoFragment;
-import com.newland.diebaoguan.fragment.GuangYinJiFragment;
+import com.lin.diebaoguan.fragment.AiMeiFangFragment;
+import com.lin.diebaoguan.fragment.DieBaoGuanFragment;
+import com.lin.diebaoguan.fragment.FengShangBiaoFragment;
+import com.lin.diebaoguan.fragment.GuangYinJiFragment;
 
 
 public class MainActivity extends FragmentActivity {

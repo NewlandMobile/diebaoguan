@@ -1,4 +1,4 @@
-package com.newland.diebaoguan.fragment;
+package com.lin.diebaoguan.fragment;
 
 
 import android.os.Bundle;
@@ -8,22 +8,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.newland.diebaoguan.R;
+import com.lin.diebaoguan.R;
+import com.lin.diebaoguan.common.Const;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class GuangYinJiFragment extends BaseFragment {
+public class DieBaoGuanFragment extends EvolveFragment {
 
-
-    public GuangYinJiFragment() {
+    public DieBaoGuanFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initArgument(getActivity(), getResources().getString(R.string.guangyinji), R.layout.fragment_guang_yin_ji);
+        initArgument(getActivity(), getResources().getString(R.string.diebaoguan), Const.DBG_TOPICS, Const.DBG_Fragments);
     }
 
     @Override

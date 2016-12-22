@@ -1,4 +1,4 @@
-package com.newland.diebaoguan;
+package com.lin.diebaoguan;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

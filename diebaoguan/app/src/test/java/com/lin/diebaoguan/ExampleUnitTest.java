@@ -1,4 +1,4 @@
-package com.newland.diebaoguan;
+package com.lin.diebaoguan;
 
 import org.junit.Test;
 
