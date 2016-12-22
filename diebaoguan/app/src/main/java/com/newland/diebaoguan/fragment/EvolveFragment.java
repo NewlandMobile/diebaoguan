@@ -17,7 +17,6 @@ import com.newland.diebaoguan.R;
  * A simple {@link Fragment} subclass.
  */
 public class EvolveFragment extends BaseFragment {
-    private Context context;
     private String[] topicList;//顶部小模块集合
     private Class[] fragmentList;//小模块结合
     private View view;
