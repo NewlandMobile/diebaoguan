@@ -15,6 +15,7 @@ import com.lin.diebaoguan.R;
 
 /**
  * A simple {@link Fragment} subclass.
+ * 带有二级导航的界面基础类
  */
 public class EvolveFragment extends BaseFragment {
     private String[] topicList;//顶部小模块集合
