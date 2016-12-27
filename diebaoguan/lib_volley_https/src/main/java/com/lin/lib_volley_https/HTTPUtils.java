@@ -34,7 +34,6 @@ import java.util.Map;
  * RequestQueue(s) and ImageLoader(s)
  *
  * @author Ognyan Bankov
- *
  */
 public class HTTPUtils {
     private static RequestQueue mRequestQueue;

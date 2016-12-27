@@ -9,9 +9,8 @@ import android.view.ViewGroup;
 
 import com.android.volley.VolleyError;
 import com.lin.diebaoguan.R;
-import com.lin.diebaoguan.common.MD5Utils;
+import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.fragment.PullToRefreshBaseFragment;
-import com.lin.lib_volley_https.HTTPUtils;
 import com.lin.lib_volley_https.VolleyListener;
 
 import java.util.HashMap;
@@ -35,7 +34,7 @@ public class HeadlineFragment extends PullToRefreshBaseFragment {
             view = super.onCreateView(inflater, container, savedInstanceState);
             baseLinearLayout.setVisibility(View.VISIBLE);
             baseLinearLayout.setBackgroundResource(R.drawable.btn_long_bg);
-//            getData();
+            getData();
         }
         return view;
     }
@@ -58,19 +57,18 @@ public class HeadlineFragment extends PullToRefreshBaseFragment {
 
         params.put("apiid", 3 + "");
         params.put("timestamp", "" + timeMillis / 1000);
-        String token1 = MD5Utils.md5("d19cf361181f5a169c107872e1f5b722" + timeMillis / 1000);
+        String token1 = CommonUtils.md5("d19cf361181f5a169c107872e1f5b722" + timeMillis / 1000);
         params.put("token1", token1);
 
-        params.put("module", "api_libraries_sjdbg_indexrecommend");
+        params.put("module", "api_libraries_sjdbg_startuplogo");
         params.put("returnformat", "json");
         params.put("encoding", "utf8");
 //        params.put("isclass", 0 + "");
 //        params.put("cid", 2 + "");
-        params.put("offset", 0 + "");
-        params.put("rows", 15 + "");
+//        params.put("offset", 0 + "");
+//        params.put("rows", 15 + "");
 
-
-        HTTPUtils.post(getActivity(), "http://api.cnmo.com/client", params, new VolleyListener() {
+        CommonUtils.httpGet(getActivity(), params, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 Log.e("VolleyError", "==" + volleyError.getMessage());
@@ -81,5 +79,16 @@ public class HeadlineFragment extends PullToRefreshBaseFragment {
                 Log.e("onResponse", "==" + s);
             }
         });
+//        HTTPUtils.post(getActivity(), "http://api.cnmo.com/client", params, new VolleyListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError volleyError) {
+//                Log.e("VolleyError", "==" + volleyError.getMessage());
+//            }
+//
+//            @Override
+//            public void onResponse(String s) {
+//                Log.e("onResponse", "==" + s);
+//            }
+//        });
     }
 }
