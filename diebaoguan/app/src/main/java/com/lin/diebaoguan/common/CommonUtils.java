@@ -3,6 +3,7 @@ package com.lin.diebaoguan.common;
 import android.content.Context;
 import android.util.Log;
 
+import com.lin.diebaoguan.MyAppication;
 import com.lin.lib_volley_https.HTTPUtils;
 import com.lin.lib_volley_https.VolleyListener;
 
@@ -69,7 +70,7 @@ public class CommonUtils {
      * @param volleyListener
      */
     public static void httpPost(Context context, Map<String, String> params, VolleyListener volleyListener) {
-        HTTPUtils.post(context, URL, params, volleyListener);
+        HTTPUtils.post(MyAppication.getInstance(), URL, params, volleyListener);
     }
 
     /**

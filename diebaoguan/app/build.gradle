@@ -29,4 +29,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.2.1'
     testCompile 'junit:junit:4.12'
     compile project(':lib_volley_https')
+    compile 'com.google.code.gson:gson:2.8.0'
 }

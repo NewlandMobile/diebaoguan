@@ -9,7 +9,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.lin.diebaoguan.BaseActivity;
 import com.lin.diebaoguan.R;
 
