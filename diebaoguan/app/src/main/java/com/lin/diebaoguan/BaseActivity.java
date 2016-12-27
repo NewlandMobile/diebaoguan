@@ -1,32 +1,22 @@
 package com.lin.diebaoguan;
 
 import android.app.Activity;
-import android.os.Bundle;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Toast;
+
+/**
+ * It's Created by NewLand-JianFeng on 2016/12/27.
+ */
 
 public class BaseActivity extends Activity {
 
-    public Button btn_back;//返回
-    public Button btn_comments;//查看跟帖
-    public ImageView imageView_allpic;//查看所有图片
-    public TextView text_title;//设置标题
+    //本类名  方便测试打印
+    protected final String classNameString=this.getClass().getName();
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_base);
-        initView();
+    protected void showToast(String message){
+        Toast.makeText(BaseActivity.this,message,Toast.LENGTH_SHORT).show();
     }
 
-    /**
-     * 初始化view
-     */
-    private void initView() {
-        btn_back = (Button) findViewById(R.id.baseactivity_back);
-        btn_comments = (Button) findViewById(R.id.baseactivity_comments);
-        imageView_allpic = (ImageView) findViewById(R.id.baseactivity_all);
-        text_title = (TextView) findViewById(R.id.baseactivity_titil);
+    protected void showLongTimeToast(String message){
+        Toast.makeText(BaseActivity.this,message,Toast.LENGTH_LONG).show();
     }
 }

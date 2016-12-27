@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".activity.RegisterActivity"
     android:background="@drawable/login_bg">
 
     <ImageView
@@ -122,6 +123,23 @@
             android:background="@color/lucency"
             android:textColor="@color/red"
             android:id="@+id/button2" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_margin="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:text="注册"
+            style="@style/wrap_content.layout_weight.registerBottomButton"
+            android:id="@+id/button3" />
+
+        <Button
+            android:text="取消"
+            style="@style/wrap_content.layout_weight.registerBottomButton"
+            android:id="@+id/button4" />
     </LinearLayout>
 
 </LinearLayout>
