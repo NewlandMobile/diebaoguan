@@ -61,14 +61,35 @@ public class CommonUtils {
         return str;
     }
 
+    /**
+     * post请求
+     *
+     * @param context
+     * @param params
+     * @param volleyListener
+     */
     public static void httpPost(Context context, Map<String, String> params, VolleyListener volleyListener) {
         HTTPUtils.post(context, URL, params, volleyListener);
     }
 
+    /**
+     * get请求不带参数
+     *
+     * @param context
+     * @param url
+     * @param volleyListener
+     */
     public static void httpGet(Context context, String url, VolleyListener volleyListener) {
         HTTPUtils.get(context, url, volleyListener);
     }
 
+    /**
+     * get请求带参数
+     *
+     * @param context
+     * @param params
+     * @param volleyListener
+     */
     public static void httpGet(Context context, Map<String, String> params, VolleyListener volleyListener) {
         StringBuilder encodedParams = new StringBuilder();
         String url = "";
@@ -80,10 +101,10 @@ public class CommonUtils {
             encodedParams.append(uee.getValue());
             encodedParams.append('&');
         }
-        url = URL + "/?" + encodedParams.toString();
-        url.substring(0,url.length() - 2);
-        Log.e("get请求带参数", "==URL：" + url);
-        HTTPUtils.get(context, url, volleyListener);
+        url = URL + "?" + encodedParams.toString();
+        String finalUrl = url.substring(0, url.length() - 1);
+        Log.e("get请求带参数", "==URL：" + finalUrl);
+        HTTPUtils.get(context, finalUrl, volleyListener);
     }
 }
 
