@@ -1,6 +1,5 @@
 package com.lin.diebaoguan.common;
 
-import android.content.Context;
 import android.util.Log;
 
 import com.lin.diebaoguan.MyAppication;
@@ -65,33 +64,30 @@ public class CommonUtils {
     /**
      * post请求
      *
-     * @param context
      * @param params
      * @param volleyListener
      */
-    public static void httpPost(Context context, Map<String, String> params, VolleyListener volleyListener) {
+    public static void httpPost(Map<String, String> params, VolleyListener volleyListener) {
         HTTPUtils.post(MyAppication.getInstance(), URL, params, volleyListener);
     }
 
     /**
      * get请求不带参数
      *
-     * @param context
      * @param url
      * @param volleyListener
      */
-    public static void httpGet(Context context, String url, VolleyListener volleyListener) {
-        HTTPUtils.get(context, url, volleyListener);
+    public static void httpGet(String url, VolleyListener volleyListener) {
+        HTTPUtils.get(MyAppication.getInstance(), url, volleyListener);
     }
 
     /**
      * get请求带参数
      *
-     * @param context
      * @param params
      * @param volleyListener
      */
-    public static void httpGet(Context context, Map<String, String> params, VolleyListener volleyListener) {
+    public static void httpGet(Map<String, String> params, VolleyListener volleyListener) {
         StringBuilder encodedParams = new StringBuilder();
         String url = "";
         Iterator var5 = params.entrySet().iterator();
@@ -105,7 +101,7 @@ public class CommonUtils {
         url = URL + "?" + encodedParams.toString();
         String finalUrl = url.substring(0, url.length() - 1);
         Log.e("get请求带参数", "==URL：" + finalUrl);
-        HTTPUtils.get(context, finalUrl, volleyListener);
+        HTTPUtils.get(MyAppication.getInstance(), finalUrl, volleyListener);
     }
 }
 

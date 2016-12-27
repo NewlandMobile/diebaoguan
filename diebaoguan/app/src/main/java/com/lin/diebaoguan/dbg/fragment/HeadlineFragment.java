@@ -68,7 +68,7 @@ public class HeadlineFragment extends PullToRefreshBaseFragment {
 //        params.put("offset", 0 + "");
 //        params.put("rows", 15 + "");
 
-        CommonUtils.httpGet(getActivity(), params, new VolleyListener() {
+        CommonUtils.httpGet(params, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 Log.e("VolleyError", "==" + volleyError.getMessage());
@@ -77,6 +77,10 @@ public class HeadlineFragment extends PullToRefreshBaseFragment {
             @Override
             public void onResponse(String s) {
                 Log.e("onResponse", "==" + s);
+
+
+
+
             }
         });
 //        HTTPUtils.post(getActivity(), "http://api.cnmo.com/client", params, new VolleyListener() {
