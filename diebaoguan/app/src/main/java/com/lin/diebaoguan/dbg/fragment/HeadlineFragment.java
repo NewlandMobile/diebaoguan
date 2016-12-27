@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 
 import com.android.volley.VolleyError;
 import com.lin.diebaoguan.R;
-import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.MD5Utils;
 import com.lin.diebaoguan.fragment.PullToRefreshBaseFragment;
 import com.lin.lib_volley_https.HTTPUtils;
@@ -36,7 +35,7 @@ public class HeadlineFragment extends PullToRefreshBaseFragment {
             view = super.onCreateView(inflater, container, savedInstanceState);
             baseLinearLayout.setVisibility(View.VISIBLE);
             baseLinearLayout.setBackgroundResource(R.drawable.btn_long_bg);
-            getData();
+//            getData();
         }
         return view;
     }
@@ -44,7 +43,7 @@ public class HeadlineFragment extends PullToRefreshBaseFragment {
 
     public void getData() {
         long timeMillis = System.currentTimeMillis();
-        Log.e("timeMillis","=="+timeMillis);
+        Log.e("timeMillis", "==" + timeMillis);
         Map<String, String> params = new HashMap<>();
 //        map.put("apiid", "3");
 //        map.put("timestamp", "" + timeMillis);
@@ -58,15 +57,15 @@ public class HeadlineFragment extends PullToRefreshBaseFragment {
 //        map.put("rows", "10");
 
         params.put("apiid", 3 + "");
-        params.put("timestamp", t);
-        String token1 = MD5Utils.md5("d19cf361181f5a169c107872e1f5b722" + t);
+        params.put("timestamp", "" + timeMillis / 1000);
+        String token1 = MD5Utils.md5("d19cf361181f5a169c107872e1f5b722" + timeMillis / 1000);
         params.put("token1", token1);
 
-        params.put("module", "api_libraries_sjdbg_articlelist");
+        params.put("module", "api_libraries_sjdbg_indexrecommend");
         params.put("returnformat", "json");
         params.put("encoding", "utf8");
-        params.put("isclass", 0 + "");
-        params.put("cid",2+"");
+//        params.put("isclass", 0 + "");
+//        params.put("cid", 2 + "");
         params.put("offset", 0 + "");
         params.put("rows", 15 + "");
 

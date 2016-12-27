@@ -48,7 +48,7 @@ public class HTTPUtils {
     }
 
     public static void post(Context context, String url, final Map<String, String> params, final VolleyListener listener) {
-        StringRequest myReq = new UTFStringRequest(Method.GET, url, new Listener<String>() {
+        StringRequest myReq = new UTFStringRequest(Method.POST, url, new Listener<String>() {
             public void onResponse(String response) {
                 listener.onResponse(response);
             }
