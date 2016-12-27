@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,69 +8,55 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/logon_top"
+        android:src="@drawable/logon_top"
         android:id="@+id/imageView"
-        tools:layout_marginTop="60dp" />
+        android:layout_marginTop="60dp" />
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/corner_list_bg"
-        android:layout_margin="40dp">
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        >
 
         <LinearLayout
-            android:layout_margin="5dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            style="@style/registerLinearLayoutHorizontal">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/registerTextView"
                 android:id="@+id/textView"
-                android:layout_weight="1"
-                android:text="I D" />
+                android:text="  I  D" />
 
             <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/registerEditText"
                 android:inputType="textPersonName"
-                android:text="Name"
-                android:textColor="@color/black"
+                tools:text="Name"
                 android:hint="中文、英文或数字"
-                android:ems="10"
-                android:id="@+id/editText"
-                android:layout_weight="1" />
+                android:ems="20"
+                android:id="@+id/editText" />
 
         </LinearLayout>
 
         <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray"
-            android:id="@+id/view" />
+           style="@style/registerDividerView" />
 
         <FrameLayout
-            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                style="@style/registerLinearLayoutHorizontal">
 
                 <TextView
                     android:text="密码"
-                    android:layout_width="30dp"
-                    android:layout_height="wrap_content"
+                    style="@style/registerTextView"
                     android:id="@+id/textView2" />
 
                 <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    style="@style/registerEditText"
                     android:inputType="textPassword"
                     android:hint="4-20位"
                     android:ems="20"
@@ -80,46 +65,63 @@
             </LinearLayout>
 
             <Button
-                android:layout_width="55dp"
-                android:layout_height="30dp"
+                android:layout_width="40dp"
+                android:layout_height="20dp"
                 android:id="@+id/button"
                 android:background="@drawable/btn_bg"
                 android:text="显示"
-                android:layout_weight="1"
-                android:layout_marginLeft="200dp" />
+                android:textSize="12dp"
+                android:textColor="@color/white"
+                android:layout_marginTop="18dp"
+                android:layout_marginLeft="240dp" />
         </FrameLayout>
 
         <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray"
-            android:id="@+id/view2" />
+            style="@style/registerDividerView" />
 
         <LinearLayout
-            android:layout_margin="5dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            style="@style/registerLinearLayoutHorizontal">
 
             <TextView
                 android:text="邮箱"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView3"
-                android:layout_weight="1" />
+                style="@style/registerTextView"
+                android:id="@+id/textView3" />
 
             <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/registerEditText"
                 android:inputType="textEmailAddress"
-                android:ems="10"
-                android:id="@+id/editText3"
-                android:layout_weight="1" />
+                android:ems="20"
+                android:hint="email地址"
+                android:id="@+id/editText3" />
 
 
 
         </LinearLayout>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:text="我已阅读并同意"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            tools:checked="true"
+            android:textSize="12sp"
+            android:id="@+id/checkBox" />
+
+        <Button
+            android:text="@string/register_protocol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:background="@color/lucency"
+            android:textColor="@color/red"
+            android:id="@+id/button2" />
     </LinearLayout>
 
 </LinearLayout>

@@ -10,4 +10,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_base">BaseActivity</string>
     <string name="comments">跟帖</string>
+    <string name="register_protocol"><u>注册协议</u></string>
 </resources>
