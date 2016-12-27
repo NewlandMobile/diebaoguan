@@ -9,7 +9,7 @@ package com.lin.diebaoguan.common;
 public class HttpUtils {
 
     private int i;
-
+    private int i1;
     public static void post() {
 
 
