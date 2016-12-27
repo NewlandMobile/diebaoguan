@@ -41,12 +41,3 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
-*.java
-*.json
-*.xml
-*.png
-*.store
-*.properties
-*.aar
-diebaoguan/lib_pulltorefresh/build/intermediates/res/resources-debug-androidTest.ap_
-*.txt
