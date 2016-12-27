@@ -8,9 +8,9 @@ package com.lin.diebaoguan.common;
 
 public class HttpUtils {
 
+    private int i;
 
-    public static void post(){
-
+    public static void post() {
 
 
     }
