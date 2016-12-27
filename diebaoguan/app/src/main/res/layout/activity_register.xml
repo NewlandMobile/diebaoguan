@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/logon_top"
-        android:id="@+id/imageView"
         android:layout_marginTop="60dp" />
 
     <LinearLayout
@@ -28,7 +27,6 @@
 
             <TextView
                 style="@style/registerTextView"
-                android:id="@+id/textView"
                 android:text="  I  D" />
 
             <EditText
@@ -37,7 +35,7 @@
                 tools:text="Name"
                 android:hint="中文、英文或数字"
                 android:ems="20"
-                android:id="@+id/editText" />
+                android:id="@+id/et_name" />
 
         </LinearLayout>
 
@@ -53,22 +51,21 @@
 
                 <TextView
                     android:text="密码"
-                    style="@style/registerTextView"
-                    android:id="@+id/textView2" />
+                    style="@style/registerTextView" />
 
                 <EditText
                     style="@style/registerEditText"
                     android:inputType="textPassword"
                     android:hint="4-20位"
                     android:ems="20"
-                    android:id="@+id/editText2" />
+                    android:id="@+id/et_password" />
 
             </LinearLayout>
 
             <Button
                 android:layout_width="40dp"
                 android:layout_height="20dp"
-                android:id="@+id/button"
+                android:id="@+id/btn_show_password_plain"
                 android:background="@drawable/btn_bg"
                 android:text="显示"
                 android:textSize="12dp"
@@ -85,15 +82,14 @@
 
             <TextView
                 android:text="邮箱"
-                style="@style/registerTextView"
-                android:id="@+id/textView3" />
+                style="@style/registerTextView" />
 
             <EditText
                 style="@style/registerEditText"
                 android:inputType="textEmailAddress"
                 android:ems="20"
                 android:hint="email地址"
-                android:id="@+id/editText3" />
+                android:id="@+id/et_email" />
 
 
 
@@ -113,7 +109,7 @@
             android:layout_marginLeft="30dp"
             tools:checked="true"
             android:textSize="12sp"
-            android:id="@+id/checkBox" />
+            android:id="@+id/checkBox_read" />
 
         <Button
             android:text="@string/register_protocol"
@@ -122,7 +118,7 @@
             android:textSize="12sp"
             android:background="@color/lucency"
             android:textColor="@color/red"
-            android:id="@+id/button2" />
+            android:id="@+id/btn_goto_register_protocol" />
     </LinearLayout>
 
     <LinearLayout
@@ -134,12 +130,12 @@
         <Button
             android:text="注册"
             style="@style/wrap_content.layout_weight.registerBottomButton"
-            android:id="@+id/button3" />
+            android:id="@+id/btn_register" />
 
         <Button
             android:text="取消"
             style="@style/wrap_content.layout_weight.registerBottomButton"
-            android:id="@+id/button4" />
+            android:id="@+id/button_cancel" />
     </LinearLayout>
 
 </LinearLayout>
