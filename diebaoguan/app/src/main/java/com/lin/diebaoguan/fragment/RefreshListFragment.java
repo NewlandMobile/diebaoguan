@@ -1,4 +1,4 @@
-package com.lin.diebaoguan.dbg.fragment;
+package com.lin.diebaoguan.fragment;
 
 
 import android.os.Bundle;
@@ -8,30 +8,25 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lin.diebaoguan.R;
-import com.lin.diebaoguan.fragment.PullToRefreshBaseFragment;
 
 /**
- * 价格界面
+ * 作为下来刷新list形式的fragment的基类
  */
-public class ApplyFragment extends PullToRefreshBaseFragment {
+public class RefreshListFragment extends PullToRefreshBaseFragment {
 
 
-    private View view;
-
-    public ApplyFragment() {
+    public RefreshListFragment() {
         // Required empty public constructor
     }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initArgument(getActivity(), R.layout.fragment_apply);
+        initArgument(getActivity(), R.layout.fragment_refresh_list);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (view == null) {
-            view = super.onCreateView(inflater, container, savedInstanceState);
-        }
-        return view;
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 }

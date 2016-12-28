@@ -2,6 +2,7 @@ package com.lin.diebaoguan.dbg.fragment;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,12 @@ public class HeadlineFragment extends PullToRefreshBaseFragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initArgument(getActivity(), R.layout.fragment_headline);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view == null) {
             view = super.onCreateView(inflater, container, savedInstanceState);
@@ -44,16 +51,6 @@ public class HeadlineFragment extends PullToRefreshBaseFragment {
         long timeMillis = System.currentTimeMillis();
         Log.e("timeMillis", "==" + timeMillis);
         Map<String, String> params = new HashMap<>();
-//        map.put("apiid", "3");
-//        map.put("timestamp", "" + timeMillis);
-//        map.put("token1", CommonUtils.getToken(timeMillis));
-//        map.put("module(", "api_libraries_sjdbg_articlelist");
-//        map.put("returnformat", "json");
-//        map.put("encoding", "utf8");
-//        map.put("isclass", "0");
-//        map.put("cid", "1");
-//        map.put("offset", "0");
-//        map.put("rows", "10");
 
         params.put("apiid", 3 + "");
         params.put("timestamp", "" + timeMillis / 1000);
@@ -79,20 +76,7 @@ public class HeadlineFragment extends PullToRefreshBaseFragment {
                 Log.e("onResponse", "==" + s);
 
 
-
-
             }
         });
-//        HTTPUtils.post(getActivity(), "http://api.cnmo.com/client", params, new VolleyListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError volleyError) {
-//                Log.e("VolleyError", "==" + volleyError.getMessage());
-//            }
-//
-//            @Override
-//            public void onResponse(String s) {
-//                Log.e("onResponse", "==" + s);
-//            }
-//        });
     }
 }

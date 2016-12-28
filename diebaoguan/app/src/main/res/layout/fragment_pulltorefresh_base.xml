@@ -27,12 +27,14 @@
 
             </LinearLayout>
 
-            <ListView
-                android:id="@+id/basepull_listview"
+            <LinearLayout
+                android:id="@+id/basepull_content"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="180dp"
+                android:orientation="vertical"
+                android:visibility="gone">
 
-            </ListView>
+            </LinearLayout>
 
 
         </LinearLayout>

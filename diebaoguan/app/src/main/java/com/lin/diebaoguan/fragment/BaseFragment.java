@@ -48,7 +48,7 @@ public class BaseFragment extends Fragment {
         return inflate;
     }
 
-    /**
+       /**
      * 初始化界面
      */
     protected void initView() {

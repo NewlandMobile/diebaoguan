@@ -8,14 +8,18 @@ import android.app.Application;
 
 public class MyAppication extends Application {
 
-    private static final MyAppication myAppication=new MyAppication();
+    private static MyAppication myAppication;
 
     @Override
     public void onCreate() {
         super.onCreate();
-
+        myAppication = this;
     }
-    public static MyAppication getInstance(){
+
+    public static MyAppication getInstance() {
+        if (myAppication == null) {
+            myAppication = new MyAppication();
+        }
         return myAppication;
     }
 }
