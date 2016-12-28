@@ -1,10 +1,17 @@
 package com.lin.diebaoguan.network.send;
 
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * It's Created by NewLand-JianFeng on 2016/12/28.
  */
 
 public class BaseSendTemplate {
+    static Gson gson= new Gson();
+
     String apiid="3";
     String timestamp;
     String token1;
@@ -52,5 +59,21 @@ public class BaseSendTemplate {
 
     String returnformat;
 
+    public String parseParams(){
+        String jsonString = toString();
+        try {
+            // TODO 回头考虑一下 这两行代码的 必要性
+            JSONObject jsonObject = new JSONObject(jsonString);
+            jsonString = jsonObject.toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonString;
+    }
+
+    @Override
+    public String toString() {
+        return gson.toJson(this);
+    }
 
 }

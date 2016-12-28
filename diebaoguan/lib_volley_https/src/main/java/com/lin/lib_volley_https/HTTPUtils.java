@@ -21,14 +21,17 @@ import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.net.URL;
 import java.util.Map;
 
 /**
@@ -48,6 +51,20 @@ public class HTTPUtils {
         mRequestQueue = Volley.newRequestQueue(context);
 
     }
+
+//    public static void JsonPost(String url, String requestBody, Listener<T> listener ){
+//        JsonRequest jsonRequest=new JsonRequest(Method.POST,url, ) {
+//            @Override
+//            protected Response parseNetworkResponse(NetworkResponse networkResponse) {
+//                return null;
+//            }
+//
+//            @Override
+//            public int compareTo(Object o) {
+//                return 0;
+//            }
+//        }
+//    }
 
     public static void post(Context context, String url, final Map<String, String> params, final VolleyListener listener) {
         Log.d(tag,"onResponse:\n"+params);
