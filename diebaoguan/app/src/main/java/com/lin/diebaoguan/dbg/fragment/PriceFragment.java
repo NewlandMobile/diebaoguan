@@ -39,6 +39,7 @@ public class PriceFragment extends RefreshListFragment {
         getData();
         return view;
     }
+
     public void getData() {
         long timeMillis = System.currentTimeMillis();
         Log.e("timeMillis", "==" + timeMillis);
@@ -60,7 +61,7 @@ public class PriceFragment extends RefreshListFragment {
         CommonUtils.httpGet(params, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Log.e("VolleyError", "==" + volleyError.getMessage());
+                Log.e("VolleyError", "==" + volleyError);
             }
 
             @Override

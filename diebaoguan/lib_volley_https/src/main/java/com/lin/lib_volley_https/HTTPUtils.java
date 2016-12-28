@@ -20,6 +20,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -90,6 +91,7 @@ public class HTTPUtils {
         if (mRequestQueue == null) {
             init(context);
         }
+        myReq.setRetryPolicy(new DefaultRetryPolicy(10*1000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         mRequestQueue.add(myReq);
     }
 
