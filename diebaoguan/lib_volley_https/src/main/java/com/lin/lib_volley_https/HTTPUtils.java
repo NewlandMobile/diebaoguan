@@ -47,24 +47,18 @@ public class HTTPUtils {
     private HTTPUtils() {
     }
 
-    private static void init(Context context) {
+    public static RequestQueue getmRequestQueue() {
+        return mRequestQueue;
+    }
+
+    public static void setmRequestQueue(RequestQueue mRequestQueue) {
+        HTTPUtils.mRequestQueue = mRequestQueue;
+    }
+
+    public static void init(Context context) {
         mRequestQueue = Volley.newRequestQueue(context);
 
     }
-
-//    public static void JsonPost(String url, String requestBody, Listener<T> listener ){
-//        JsonRequest jsonRequest=new JsonRequest(Method.POST,url, ) {
-//            @Override
-//            protected Response parseNetworkResponse(NetworkResponse networkResponse) {
-//                return null;
-//            }
-//
-//            @Override
-//            public int compareTo(Object o) {
-//                return 0;
-//            }
-//        }
-//    }
 
     public static void post(Context context, String url, final Map<String, String> params, final VolleyListener listener) {
         Log.d(tag,"onResponse:\n"+params);
@@ -83,6 +77,7 @@ public class HTTPUtils {
 
                 return params;
             }
+
         };
         if (mRequestQueue == null) {
             init(context);

@@ -24,4 +24,10 @@ public class BaseResponseTemplate {
     public static <T extends BaseResponseTemplate> T parseObject(String jsonString, Class<T> clazz){
         return gson.fromJson(jsonString,clazz);
     }
+
+    @Override
+    public String toString() {
+//        return super.toString();
+        return new Gson().toJson(this);
+    }
 }

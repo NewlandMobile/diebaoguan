@@ -3,16 +3,21 @@ package com.lin.diebaoguan.activity;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.VolleyError;
 import com.lin.diebaoguan.BaseActivity;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.common.CommonUtils;
+import com.lin.diebaoguan.network.response.RegisterResponse;
 import com.lin.diebaoguan.network.send.RegisterDS;
+import com.lin.lib_volley_https.VolleyListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -134,6 +139,17 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         registerDS.setToken1(CommonUtils.getToken(currentTime));
 //        TODO
 //        CommonUtils.httpPost();
+        CommonUtils.getInstance().JsonPost(RegisterResponse.class, registerDS, new VolleyListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Log.d(classNameString,"onErrorResponse:"+volleyError);
+            }
+
+            @Override
+            public void onResponse(Object o) {
+                Log.d(classNameString,"onResponse:"+o.toString());
+            }
+        });
     }
 
     private boolean isContentEmpty() {

@@ -2,7 +2,12 @@ package com.lin.diebaoguan.common;
 
 import android.util.Log;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.lin.diebaoguan.MyAppication;
+import com.lin.diebaoguan.network.VolleyRequest;
+import com.lin.diebaoguan.network.response.BaseResponseTemplate;
+import com.lin.diebaoguan.network.send.BaseSendTemplate;
 import com.lin.lib_volley_https.HTTPUtils;
 import com.lin.lib_volley_https.VolleyListener;
 
@@ -17,11 +22,16 @@ import java.util.Map;
  * describe:工具类
  */
 
-public class CommonUtils {
+public class CommonUtils <T extends BaseResponseTemplate>{
     /* token 使用固定值 */
     private static String tokenA = "d19cf361181f5a169c107872e1f5b722";
     private static String URL = "http://api.cnmo.com/client";
 
+    private static CommonUtils commonUtils=new CommonUtils();
+
+    public static CommonUtils getInstance(){
+        return commonUtils;
+    }
 
     /**
      * 获取token
@@ -90,9 +100,9 @@ public class CommonUtils {
     public static void httpGet(Map<String, String> params, VolleyListener volleyListener) {
         StringBuilder encodedParams = new StringBuilder();
         String url = "";
-        Iterator var5 = params.entrySet().iterator();
+        Iterator<Map.Entry<String, String>> var5 = params.entrySet().iterator();
         while (var5.hasNext()) {
-            java.util.Map.Entry uee = (java.util.Map.Entry) var5.next();
+            Map.Entry<String, String> uee = var5.next();
             encodedParams.append(uee.getKey());
             encodedParams.append('=');
             encodedParams.append(uee.getValue());
@@ -102,6 +112,20 @@ public class CommonUtils {
         String finalUrl = url.substring(0, url.length() - 1);
         Log.e("get请求带参数", "==URL：" + finalUrl);
         HTTPUtils.get(MyAppication.getInstance(), finalUrl, volleyListener);
+    }
+
+    public void  JsonPost(Class<T> responseClass, BaseSendTemplate params, VolleyListener volleyListener){
+        VolleyRequest<T> volleyRequest=new VolleyRequest<>(Request.Method.POST,URL,responseClass,volleyListener);
+        volleyRequest.setParamsString(params.parseParams());
+        RequestQueue requestQueue = HTTPUtils.getmRequestQueue();
+        if (requestQueue==null){
+            HTTPUtils.init(MyAppication.getInstance());
+            requestQueue=HTTPUtils.getmRequestQueue();
+        }
+        volleyRequest.setShouldCache(true);
+        requestQueue.add(volleyRequest);
+
+
     }
 }
 
