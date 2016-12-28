@@ -65,7 +65,7 @@ public class HeadlineFragment extends PullToRefreshBaseFragment {
 //        params.put("offset", 0 + "");
 //        params.put("rows", 15 + "");
 
-        CommonUtils.httpGet(params, new VolleyListener() {
+        CommonUtils.httpGet(params, new VolleyListener<String>() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 Log.e("VolleyError", "==" + volleyError.getMessage());
