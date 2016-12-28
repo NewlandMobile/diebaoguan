@@ -17,6 +17,7 @@ package com.lin.lib_volley_https;
  */
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request.Method;
@@ -37,6 +38,7 @@ import java.util.Map;
  */
 public class HTTPUtils {
     private static RequestQueue mRequestQueue;
+    private final static String tag=HTTPUtils.class.getName();
 
     private HTTPUtils() {
     }
@@ -47,8 +49,10 @@ public class HTTPUtils {
     }
 
     public static void post(Context context, String url, final Map<String, String> params, final VolleyListener listener) {
+        Log.d(tag,"onResponse:\n"+params);
         StringRequest myReq = new UTFStringRequest(Method.POST, url, new Listener<String>() {
             public void onResponse(String response) {
+                Log.d(tag,"onResponse:\n"+response);
                 listener.onResponse(response);
             }
         }, new Response.ErrorListener() {
