@@ -15,6 +15,7 @@ import com.android.volley.VolleyError;
 import com.lin.diebaoguan.BaseActivity;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.common.CommonUtils;
+import com.lin.diebaoguan.common.LogUtils;
 import com.lin.diebaoguan.network.response.RegisterResponse;
 import com.lin.diebaoguan.network.send.RegisterDS;
 import com.lin.lib_volley_https.VolleyListener;
@@ -143,11 +144,13 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 Log.d(classNameString,"onErrorResponse:"+volleyError);
+                LogUtils.d(volleyError.toString());
             }
 
             @Override
             public void onResponse(Object o) {
                 Log.d(classNameString,"onResponse:"+o.toString());
+                LogUtils.d(o.toString());
             }
         });
     }
