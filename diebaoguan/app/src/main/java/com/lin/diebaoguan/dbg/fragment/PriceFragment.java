@@ -69,7 +69,7 @@ public class PriceFragment extends PullToRefreshBaseFragment {
         params.put("offset", 0 + "");
         params.put("rows", 15 + "");
 
-        CommonUtils.httpGet(params, new VolleyListener<String>() {
+        CommonUtils.httpGet(params, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 Log.e("VolleyError", "==" + volleyError);
@@ -78,7 +78,6 @@ public class PriceFragment extends PullToRefreshBaseFragment {
             @Override
             public void onResponse(String s) {
                 Log.e("onResponse", "==" + s);
-
 
             }
         });

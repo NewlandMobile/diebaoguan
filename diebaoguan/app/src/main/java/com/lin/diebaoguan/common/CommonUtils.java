@@ -2,12 +2,8 @@ package com.lin.diebaoguan.common;
 
 import android.util.Log;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.lin.diebaoguan.MyAppication;
-import com.lin.diebaoguan.network.VolleyRequest;
 import com.lin.diebaoguan.network.response.BaseResponseTemplate;
-import com.lin.diebaoguan.network.send.BaseSendTemplate;
 import com.lin.lib_volley_https.HTTPUtils;
 import com.lin.lib_volley_https.VolleyListener;
 
@@ -114,18 +110,5 @@ public class CommonUtils <T extends BaseResponseTemplate>{
         HTTPUtils.get(MyAppication.getInstance(), finalUrl, volleyListener);
     }
 
-//    public void  JsonPost(Class<T> responseClass, BaseSendTemplate params, VolleyListener volleyListener){
-//        VolleyRequest<T> volleyRequest=new VolleyRequest<>(Request.Method.POST,URL,responseClass,volleyListener);
-//        volleyRequest.setParamsString(params.parseParams());
-//        RequestQueue requestQueue = HTTPUtils.getmRequestQueue();
-//        if (requestQueue==null){
-//            HTTPUtils.init(MyAppication.getInstance());
-//            requestQueue=HTTPUtils.getmRequestQueue();
-//        }
-//        volleyRequest.setShouldCache(true);
-//        requestQueue.add(volleyRequest);
-//
-//
-//    }
 }
 

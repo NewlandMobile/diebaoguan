@@ -19,10 +19,12 @@ import java.util.Map;
 public class BaseSendTemplate {
     static Gson gson= new Gson();
 
+    String encoding="utf8";
     String apiid="3";
     String timestamp;
     String token1;
     String module;
+    String returnformat="json";
 
     public String getApiid() {
         return apiid;
@@ -64,7 +66,19 @@ public class BaseSendTemplate {
         this.returnformat = returnformat;
     }
 
-    String returnformat;
+    public String getEncoding() {
+        return encoding;
+    }
+
+    public void setEncoding(String encoding) {
+        this.encoding = encoding;
+    }
+
+    public void initTimePart(){
+        long currentTime = System.currentTimeMillis() / 1000;
+        setTimestamp(String.valueOf(currentTime));
+        setToken1(CommonUtils.getToken(currentTime));
+    }
 
     public Map<String, String> parseParams(){
         Map<String, String> params = new HashMap<>();
@@ -88,41 +102,7 @@ public class BaseSendTemplate {
                 params.put(name,value);
             }
         }
-
-//        Field[] fields= this.getClass().getDeclaredFields();
-//        Class stringClass=String.class;
-//        for (Field field : fields){
-////            field.setAccessible(true);
-//            String name=field.getName();
-//            String value=null;
-//            if (!stringClass.equals(field.getType())){
-//                continue;
-//            }
-//            try {
-//                value= (String) field.get(this);
-//            } catch (IllegalAccessException e) {
-//                e.printStackTrace();
-//            }
-//            params.put(name,value);
-//        }
-
-//        params.put("apiid", 3 + "");
-//        params.put("token1", token1);
-//
-//        params.put("module", "api_libraries_sjdbg_startuplogo");
-//        params.put("returnformat", "json");
-//        params.put("encoding", "utf8");
-//        String jsonString = toString();
-
         return params;
-
-        //        try {
-//            // TODO 回头考虑一下 这两行代码的 必要性
-//            JSONObject jsonObject = new JSONObject(jsonString);
-//            jsonString = jsonObject.toString();
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
     }
 
     @Override

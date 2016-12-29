@@ -142,14 +142,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         registerDS.setEmail(email);
         registerDS.setUsername(name);
         registerDS.setPassword(password);
-        registerDS.setReturnformat("json");
-
         registerDS.setModule("api_libraries_common_register");
-        long currentTime = System.currentTimeMillis() / 1000;
-        registerDS.setTimestamp(String.valueOf(currentTime));
-        registerDS.setToken1(CommonUtils.getToken(currentTime));
-//        TODO
-//        CommonUtils.httpPost();
+        registerDS.initTimePart();
         CommonUtils.httpPost(registerDS.parseParams(),
                 new VolleyListener() {
                     @Override
@@ -158,8 +152,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     }
 
                     @Override
-                    public void onResponse(Object o) {
-                        RegisterResponse registerResponse=RegisterResponse.parseObject(o.toString(),RegisterResponse.class);
+                    public void onResponse(String response) {
+                        RegisterResponse registerResponse=RegisterResponse.parseObject(response,RegisterResponse.class);
                         LogUtils.d(registerResponse.toString());
                     }
                 });
