@@ -20,6 +20,7 @@ import com.lin.diebaoguan.network.response.RegisterResponse;
 import com.lin.diebaoguan.network.send.RegisterDS;
 import com.lin.lib_volley_https.VolleyListener;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,8 +38,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private Button btn_register;
     private Button button_cancel;
 
-    static final int STATUS_SUCCESS=1;
-    static final int STATUS_ERROR=2;
+    static final int STATUS_SUCCESS = 1;
+    static final int STATUS_ERROR = 2;
 
 //    static final int SUCCESS_CODE=60000017;
 //    static final int ERROR_CODE_SENSITIVE=60000003;
@@ -66,15 +67,16 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
  code	60000007	抱歉，Email包含不可使用的邮箱域名！
  code	60000008	该 Email地址已被注册！
  code	60000009	未定义的操作！*/
-    static Map<String,String > erroCodeMap=new HashMap<>();
+    static Map<String, String> erroCodeMap = new HashMap<>();
+
     static {
-        erroCodeMap.put("60000003","用户名包含敏感字符！");
-        erroCodeMap.put("60000004","用户名包含被系统屏蔽的字符!");
-        erroCodeMap.put("60000005","该用户名已被注册！");
-        erroCodeMap.put("60000006","Email地址无效！");
-        erroCodeMap.put("60000007","抱歉，Email包含不可使用的邮箱域名！");
-        erroCodeMap.put("60000008","该 Email地址已被注册！");
-        erroCodeMap.put("60000009","未定义的操作！");
+        erroCodeMap.put("60000003", "用户名包含敏感字符！");
+        erroCodeMap.put("60000004", "用户名包含被系统屏蔽的字符!");
+        erroCodeMap.put("60000005", "该用户名已被注册！");
+        erroCodeMap.put("60000006", "Email地址无效！");
+        erroCodeMap.put("60000007", "抱歉，Email包含不可使用的邮箱域名！");
+        erroCodeMap.put("60000008", "该 Email地址已被注册！");
+        erroCodeMap.put("60000009", "未定义的操作！");
     }
 
     private String name;
@@ -87,6 +89,13 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         initView();
+        postTestPrepare();
+    }
+
+    private void postTestPrepare() {
+        et_name.setText(R.string.testUserName);
+        et_email.setText(R.string.testEmail);
+        et_password.setText(R.string.testPassword);
     }
 
     private void initView() {
@@ -108,8 +117,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        String content=((TextView)v).getText().toString();
-        showToast("按下了 "+ content+" 键");
+        String content = ((TextView) v).getText().toString();
+        showToast("按下了 " + content + " 键");
         switch (v.getId()) {
             case R.id.btn_show_password_plain:
 
@@ -118,7 +127,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
                 break;
             case R.id.btn_register:
-                if (!isContentEmpty()){
+                if (!isContentEmpty()) {
                     post();
                 }
                 break;
@@ -129,30 +138,33 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void post() {
-        RegisterDS registerDS=new RegisterDS();
+        RegisterDS registerDS = new RegisterDS();
         registerDS.setEmail(email);
         registerDS.setUsername(name);
         registerDS.setPassword(password);
+        registerDS.setReturnformat("json");
 
         registerDS.setModule("api_libraries_common_register");
-        long currentTime=System.currentTimeMillis()/1000;
+        long currentTime = System.currentTimeMillis() / 1000;
         registerDS.setTimestamp(String.valueOf(currentTime));
         registerDS.setToken1(CommonUtils.getToken(currentTime));
 //        TODO
 //        CommonUtils.httpPost();
-        CommonUtils.getInstance().JsonPost(RegisterResponse.class, registerDS, new VolleyListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                Log.d(classNameString,"onErrorResponse:"+volleyError);
-                LogUtils.d(volleyError.toString());
-            }
+        CommonUtils.httpPost(registerDS.parseParams(),
+                new VolleyListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Log.d(classNameString, "onErrorResponse:" + volleyError);
+                        LogUtils.d(volleyError.toString());
+                    }
 
-            @Override
-            public void onResponse(Object o) {
-                Log.d(classNameString,"onResponse:"+o.toString());
-                LogUtils.d(o.toString());
-            }
-        });
+                    @Override
+                    public void onResponse(Object o) {
+                        Log.d(classNameString, "onResponse:" + o.toString());
+                        RegisterResponse registerResponse=RegisterResponse.parseObject(o.toString(),RegisterResponse.class);
+                        LogUtils.d(registerResponse.toString());
+                    }
+                });
     }
 
     private boolean isContentEmpty() {

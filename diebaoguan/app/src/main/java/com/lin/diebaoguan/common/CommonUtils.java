@@ -114,18 +114,18 @@ public class CommonUtils <T extends BaseResponseTemplate>{
         HTTPUtils.get(MyAppication.getInstance(), finalUrl, volleyListener);
     }
 
-    public void  JsonPost(Class<T> responseClass, BaseSendTemplate params, VolleyListener volleyListener){
-        VolleyRequest<T> volleyRequest=new VolleyRequest<>(Request.Method.POST,URL,responseClass,volleyListener);
-        volleyRequest.setParamsString(params.parseParams());
-        RequestQueue requestQueue = HTTPUtils.getmRequestQueue();
-        if (requestQueue==null){
-            HTTPUtils.init(MyAppication.getInstance());
-            requestQueue=HTTPUtils.getmRequestQueue();
-        }
-        volleyRequest.setShouldCache(true);
-        requestQueue.add(volleyRequest);
-
-
-    }
+//    public void  JsonPost(Class<T> responseClass, BaseSendTemplate params, VolleyListener volleyListener){
+//        VolleyRequest<T> volleyRequest=new VolleyRequest<>(Request.Method.POST,URL,responseClass,volleyListener);
+//        volleyRequest.setParamsString(params.parseParams());
+//        RequestQueue requestQueue = HTTPUtils.getmRequestQueue();
+//        if (requestQueue==null){
+//            HTTPUtils.init(MyAppication.getInstance());
+//            requestQueue=HTTPUtils.getmRequestQueue();
+//        }
+//        volleyRequest.setShouldCache(true);
+//        requestQueue.add(volleyRequest);
+//
+//
+//    }
 }
 

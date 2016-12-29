@@ -12,4 +12,7 @@
     <string name="comments">跟帖</string>
     <string name="register_protocol"><u>注册协议</u></string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="testEmail">qtdh3@163.com</string>
+    <string name="testUserName">qtdh3</string>
+    <string name="testPassword">123456</string>
 </resources>

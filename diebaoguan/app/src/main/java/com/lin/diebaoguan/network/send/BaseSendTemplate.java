@@ -1,9 +1,16 @@
 package com.lin.diebaoguan.network.send;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.lin.diebaoguan.common.CommonUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * It's Created by NewLand-JianFeng on 2016/12/28.
@@ -59,16 +66,63 @@ public class BaseSendTemplate {
 
     String returnformat;
 
-    public String parseParams(){
-        String jsonString = toString();
+    public Map<String, String> parseParams(){
+        Map<String, String> params = new HashMap<>();
+        JSONObject jsonObject=null;
         try {
-            // TODO 回头考虑一下 这两行代码的 必要性
-            JSONObject jsonObject = new JSONObject(jsonString);
-            jsonString = jsonObject.toString();
+            jsonObject = new JSONObject(toString());
         } catch (JSONException e) {
             e.printStackTrace();
+            return null;
         }
-        return jsonString;
+        Iterator<String> keys = jsonObject.keys();
+        while (keys.hasNext()){
+            String name=keys.next();
+            String value=null;
+            try {
+                value=jsonObject.getString(name);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if (value!=null){
+                params.put(name,value);
+            }
+        }
+
+//        Field[] fields= this.getClass().getDeclaredFields();
+//        Class stringClass=String.class;
+//        for (Field field : fields){
+////            field.setAccessible(true);
+//            String name=field.getName();
+//            String value=null;
+//            if (!stringClass.equals(field.getType())){
+//                continue;
+//            }
+//            try {
+//                value= (String) field.get(this);
+//            } catch (IllegalAccessException e) {
+//                e.printStackTrace();
+//            }
+//            params.put(name,value);
+//        }
+
+//        params.put("apiid", 3 + "");
+//        params.put("token1", token1);
+//
+//        params.put("module", "api_libraries_sjdbg_startuplogo");
+//        params.put("returnformat", "json");
+//        params.put("encoding", "utf8");
+//        String jsonString = toString();
+
+        return params;
+
+        //        try {
+//            // TODO 回头考虑一下 这两行代码的 必要性
+//            JSONObject jsonObject = new JSONObject(jsonString);
+//            jsonString = jsonObject.toString();
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override
