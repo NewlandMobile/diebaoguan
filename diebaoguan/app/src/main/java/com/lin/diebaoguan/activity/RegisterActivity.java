@@ -93,8 +93,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void postTestPrepare() {
-        et_name.setText(R.string.testUserName);
-        et_email.setText(R.string.testEmail);
+        et_name.setText(R.string.testUserName3);
+        et_email.setText(R.string.testEmail3);
         et_password.setText(R.string.testPassword);
     }
 
@@ -154,13 +154,11 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 new VolleyListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-                        Log.d(classNameString, "onErrorResponse:" + volleyError);
                         LogUtils.d(volleyError.toString());
                     }
 
                     @Override
                     public void onResponse(Object o) {
-                        Log.d(classNameString, "onResponse:" + o.toString());
                         RegisterResponse registerResponse=RegisterResponse.parseObject(o.toString(),RegisterResponse.class);
                         LogUtils.d(registerResponse.toString());
                     }

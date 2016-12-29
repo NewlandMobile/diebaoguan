@@ -15,4 +15,8 @@
     <string name="testEmail">qtdh3@163.com</string>
     <string name="testUserName">qtdh3</string>
     <string name="testPassword">123456</string>
+    <string name="testUserName2">qq2208594696</string>
+    <string name="testUserName3">qq220859</string>
+    <string name="testEmail2">2208594696@qq.com</string>
+    <string name="testEmail3">220859@qq.com</string>
 </resources>

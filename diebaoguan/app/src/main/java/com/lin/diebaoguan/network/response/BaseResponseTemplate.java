@@ -9,17 +9,17 @@ import com.google.gson.Gson;
 public class BaseResponseTemplate {
     static Gson gson=new Gson();
     //
-    String status;
+    int status;
     //
     String code;
     //
     String message;
-    //
-    String data;
-    //
-    String uid;
-    // 授权key
-    String key;
+//    //
+//    String data;
+//    //
+//    String uid;
+//    // 授权key
+//    String key;
 
     public static Gson getGson() {
         return gson;
@@ -29,13 +29,13 @@ public class BaseResponseTemplate {
         BaseResponseTemplate.gson = gson;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
+//    public String getStatus() {
+//        return status;
+//    }
+//
+//    public void setStatus(String status) {
+//        this.status = status;
+//    }
 
     public String getCode() {
         return code;
@@ -52,30 +52,30 @@ public class BaseResponseTemplate {
     public void setMessage(String message) {
         this.message = message;
     }
-
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
+//
+//    public String getData() {
+//        return data;
+//    }
+//
+//    public void setData(String data) {
+//        this.data = data;
+//    }
+//
+//    public String getUid() {
+//        return uid;
+//    }
+//
+//    public void setUid(String uid) {
+//        this.uid = uid;
+//    }
+//
+//    public String getKey() {
+//        return key;
+//    }
+//
+//    public void setKey(String key) {
+//        this.key = key;
+//    }
 
     public static <T extends BaseResponseTemplate> T parseObject(String jsonString, Class<T> clazz){
         return gson.fromJson(jsonString,clazz);

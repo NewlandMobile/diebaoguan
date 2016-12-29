@@ -61,7 +61,7 @@ public class HTTPUtils {
     }
 
     public static void post(Context context, String url, final Map<String, String> params, final VolleyListener listener) {
-        Log.d(tag,"onResponse:\n"+params);
+        Log.d(tag,"postParams:\n"+params);
         StringRequest myReq = new UTFStringRequest(Method.POST, url, new Listener<String>() {
             public void onResponse(String response) {
                 Log.d(tag,"onResponse:\n"+response);
