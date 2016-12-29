@@ -9,11 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lin.diebaoguan.R;
+import com.lin.diebaoguan.common.Const;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class GuangYinJiFragment extends BaseFragment {
+public class GuangYinJiFragment extends EvolveFragment {
 
 
     public GuangYinJiFragment() {
@@ -23,7 +24,7 @@ public class GuangYinJiFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initArgument(getActivity(), getResources().getString(R.string.guangyinji), R.layout.fragment_guang_yin_ji);
+        initArgument(getActivity(), getResources().getString(R.string.guangyinji), Const.GYJ_TOPICS, Const.GYJ_Fragments);
     }
 
     @Override

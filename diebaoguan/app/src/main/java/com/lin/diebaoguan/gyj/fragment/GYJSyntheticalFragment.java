@@ -1,4 +1,4 @@
-package com.lin.diebaoguan.fsb.fragment;
+package com.lin.diebaoguan.gyj.fragment;
 
 
 import android.os.Bundle;
@@ -16,16 +16,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 综合
  * A simple {@link Fragment} subclass.
  */
-public class FSBSyntheticalFragment extends PullToRefreshBaseFragment {
-    public FSBSyntheticalFragment() {
-        // Required empty public constructor
-    }
+public class GYJSyntheticalFragment extends PullToRefreshBaseFragment {
+
 
     private List<String> list = new ArrayList<>();
     private ListView refreshableView;
     private View view;
+
+    public GYJSyntheticalFragment() {
+        // Required empty public constructor
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

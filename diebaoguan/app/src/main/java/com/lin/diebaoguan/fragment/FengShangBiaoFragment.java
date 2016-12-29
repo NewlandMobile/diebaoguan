@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lin.diebaoguan.R;
+import com.lin.diebaoguan.common.Const;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,7 +24,7 @@ public class FengShangBiaoFragment extends EvolveFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initArgument(getActivity(), getResources().getString(R.string.fengshanbiao), R.layout.fragment_feng_shang_biao);
+        initArgument(getActivity(), getResources().getString(R.string.fengshanbiao), Const.FSB_TOPICS, Const.FSB_Fragments);
     }
 
     @Override

@@ -18,14 +18,14 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FSBSyntheticalFragment extends PullToRefreshBaseFragment {
-    public FSBSyntheticalFragment() {
-        // Required empty public constructor
-    }
-
+public class FSBAiMeiFangFragment extends PullToRefreshBaseFragment {
     private List<String> list = new ArrayList<>();
     private ListView refreshableView;
     private View view;
+
+    public FSBAiMeiFangFragment() {
+        // Required empty public constructor
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,5 +42,4 @@ public class FSBSyntheticalFragment extends PullToRefreshBaseFragment {
         }
         return view;
     }
-
 }
