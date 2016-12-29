@@ -30,9 +30,8 @@
             <LinearLayout
                 android:id="@+id/basepull_content"
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
             </LinearLayout>
 
@@ -41,5 +40,22 @@
 
 
     </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
+
+    <!--     The PullToRefreshListView replaces a standard ListView widget. -->
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/pull_refresh_list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:cacheColorHint="#00000000"
+        android:divider="#19000000"
+        android:dividerHeight="1dp"
+        android:fadingEdge="none"
+        android:fastScrollEnabled="false"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
+        android:smoothScrollbar="true">
+
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+
 
 </LinearLayout>

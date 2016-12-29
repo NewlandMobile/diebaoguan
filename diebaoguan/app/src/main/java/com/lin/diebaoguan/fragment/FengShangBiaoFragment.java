@@ -13,7 +13,7 @@ import com.lin.diebaoguan.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FengShangBiaoFragment extends BaseFragment {
+public class FengShangBiaoFragment extends EvolveFragment {
 
 
     public FengShangBiaoFragment() {

@@ -2,6 +2,7 @@ package com.lin.diebaoguan.dbg.fragment;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,33 +11,43 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.android.volley.VolleyError;
-import com.lin.diebaoguan.R;
+import com.lin.diebaoguan.adapter.RefreshListAdapter;
 import com.lin.diebaoguan.common.CommonUtils;
-import com.lin.diebaoguan.fragment.RefreshListFragment;
+import com.lin.diebaoguan.fragment.PullToRefreshBaseFragment;
 import com.lin.lib_volley_https.VolleyListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PriceFragment extends RefreshListFragment {
+public class PriceFragment extends PullToRefreshBaseFragment {
 
 
     private View view;
-    private ListView listView;
+    private List<String> list = new ArrayList<>();
+    private ListView refreshableView;
 
     public PriceFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initArgument(getActivity(), 0, false, true);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = super.onCreateView(inflater, container, savedInstanceState);
-        listView = (ListView) view.findViewById(R.id.refresh_listview);
-        getData();
+        if (view == null) {
+            view = super.onCreateView(inflater, container, savedInstanceState);
+            refreshableView = basePullToRefreshListView.getRefreshableView();
+            refreshableView.setAdapter(new RefreshListAdapter(getActivity(), list));
+        }
         return view;
     }
 

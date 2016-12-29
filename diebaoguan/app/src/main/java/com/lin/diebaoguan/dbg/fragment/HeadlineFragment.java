@@ -32,16 +32,16 @@ public class HeadlineFragment extends PullToRefreshBaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initArgument(getActivity(), R.layout.fragment_headline);
+        initArgument(getActivity(), R.layout.fragment_headline,true,false);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view == null) {
             view = super.onCreateView(inflater, container, savedInstanceState);
-            baseLinearLayout.setVisibility(View.VISIBLE);
-            baseLinearLayout.setBackgroundResource(R.drawable.btn_long_bg);
-            getData();
+//            baseLinearLayout.setVisibility(View.VISIBLE);
+//            baseLinearLayout.setBackgroundResource(R.drawable.btn_long_bg);
+//            getData();
         }
         return view;
     }
