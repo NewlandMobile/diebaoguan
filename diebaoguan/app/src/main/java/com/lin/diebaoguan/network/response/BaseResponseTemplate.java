@@ -29,11 +29,11 @@ public class BaseResponseTemplate {
         BaseResponseTemplate.gson = gson;
     }
 
-//    public String getStatus() {
+//    public int getStatus() {
 //        return status;
 //    }
 //
-//    public void setStatus(String status) {
+//    public void setStatus(int status) {
 //        this.status = status;
 //    }
 
