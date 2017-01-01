@@ -14,6 +14,7 @@ import com.lin.diebaoguan.adapter.RefreshListAdapter;
 import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.LogUtils;
 import com.lin.diebaoguan.fragment.PullToRefreshBaseFragment;
+import com.lin.diebaoguan.network.bean.Result;
 import com.lin.diebaoguan.network.send.DieBaoGuanAndFengShangBiaoDS;
 import com.lin.diebaoguan.network.response.DieBaoGuanAndFengShangBiaoResponse;
 import com.lin.lib_volley_https.VolleyListener;
@@ -30,7 +31,7 @@ public class FSBSyntheticalFragment extends PullToRefreshBaseFragment {
         // Required empty public constructor
     }
 
-    private List<String> list = new ArrayList<>();
+    private List<Result> list = new ArrayList<>();
     private ListView refreshableView;
     private View view;
     private DieBaoGuanAndFengShangBiaoDS sendParams=new DieBaoGuanAndFengShangBiaoDS();
@@ -73,6 +74,11 @@ public class FSBSyntheticalFragment extends PullToRefreshBaseFragment {
                 DieBaoGuanAndFengShangBiaoResponse response=DieBaoGuanAndFengShangBiaoResponse.
                         parseObject(s,DieBaoGuanAndFengShangBiaoResponse.class);
                 LogUtils.d(response.toString());
+                Result[] results=response.getData().getResult();
+                for (Result result:results){
+                    list.add(result);
+                }
+                refreshableView.setAdapter(new RefreshListAdapter(getActivity(), list,true));
             }
         });
 
@@ -83,7 +89,7 @@ public class FSBSyntheticalFragment extends PullToRefreshBaseFragment {
         if (view == null) {
             view = super.onCreateView(inflater, container, savedInstanceState);
             refreshableView = basePullToRefreshListView.getRefreshableView();
-            refreshableView.setAdapter(new RefreshListAdapter(getActivity(), list));
+//            refreshableView.setAdapter(new RefreshListAdapter(getActivity(), list,true));
         }
         return view;
     }
