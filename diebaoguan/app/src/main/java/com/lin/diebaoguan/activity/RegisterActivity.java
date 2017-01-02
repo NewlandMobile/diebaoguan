@@ -2,7 +2,10 @@ package com.lin.diebaoguan.activity;
 
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -121,20 +124,53 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         showToast("按下了 " + content + " 键");
         switch (v.getId()) {
             case R.id.btn_show_password_plain:
-
+                changePasswordShowState();
                 break;
             case R.id.btn_goto_register_protocol:
-
+                //TODO 注册页
+                showToast("注册协议尚未完成");
                 break;
             case R.id.btn_register:
-                if (!isContentEmpty()) {
-                    post();
-                }
+                valifyInputAndPost();
                 break;
             case R.id.button_cancel:
 
                 break;
         }
+    }
+
+    private void changePasswordShowState() {
+        String text=btn_show_password_plain.getText().toString();
+        if (text.contains("显示")){
+//            方式二选一  第二种似乎对字体有影响
+            et_password.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+//            et_password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            btn_show_password_plain.setText("隐藏");
+        }else {
+            et_password.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD);
+//            et_password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            btn_show_password_plain.setText("显示");
+        }
+//        if (et_password)
+
+
+    }
+
+    private void valifyInputAndPost() {
+        if (!checkBox_read.isChecked()){
+            showToast("请先阅读 注册协议");
+            return;
+        }
+        if (isContentEmpty()) {
+            return;
+        }
+        int passwordLength=password.length();
+        if (passwordLength<4||passwordLength>20)
+        {
+            showToast("密码长度应该在4-20之间");
+            return;
+        }
+        post();
     }
 
     private void post() {
@@ -155,6 +191,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     public void onResponse(String response) {
                         RegisterResponse registerResponse=RegisterResponse.parseObject(response,RegisterResponse.class);
                         LogUtils.d(registerResponse.toString());
+                        //TODO 对UID 跟key 两个量要保存，估计后面会用到
                     }
                 });
     }
@@ -163,19 +200,20 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         // validate
         name = et_name.getText().toString().trim();
         if (TextUtils.isEmpty(name)) {
-            Toast.makeText(this, "中文、英文或数字", Toast.LENGTH_SHORT).show();
+            showToast("请填写用户名");
+//            Toast.makeText(this, "中文、英文或数字", Toast.LENGTH_SHORT).show();
             return true;
         }
 
         password = et_password.getText().toString().trim();
         if (TextUtils.isEmpty(password)) {
-            Toast.makeText(this, "4-20位", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "请输入密码", Toast.LENGTH_SHORT).show();
             return true;
         }
 
         email = et_email.getText().toString().trim();
         if (TextUtils.isEmpty(email)) {
-            Toast.makeText(this, "email地址", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "请输入email", Toast.LENGTH_SHORT).show();
             return true;
         }
         return false;
