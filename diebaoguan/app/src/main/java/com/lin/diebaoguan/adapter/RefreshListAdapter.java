@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lin.diebaoguan.R;
+import com.lin.diebaoguan.common.IMAGEUtils;
 import com.lin.diebaoguan.network.bean.Result;
 
 import java.io.IOException;
@@ -80,19 +81,20 @@ public RefreshListAdapter(Context context, List<Result> dataList,boolean test) {
         }
         Result result=datalist.get(position);
 
-        URL picUrl = null;
-        try {
-            picUrl = new URL(result.getPicUrl());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        Bitmap pngBM = null;
-        try {
-            pngBM = BitmapFactory.decodeStream(picUrl.openStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        viewHolder.imageView.setImageBitmap(pngBM);
+//        URL picUrl = null;
+//        try {
+//            picUrl = new URL(result.getPicUrl());
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//        }
+//        Bitmap pngBM = null;
+//        try {
+//            pngBM = BitmapFactory.decodeStream(picUrl.openStream());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        viewHolder.imageView.setImageBitmap(pngBM);
+        IMAGEUtils.displayImage(result.getPicUrl(),viewHolder.imageView);
 //        viewHolder.imageView.setImageURI(Uri.parse(result.getPicUrl()));
         viewHolder.content.setText(result.getContent());
         viewHolder.title.setText(result.getTitle());

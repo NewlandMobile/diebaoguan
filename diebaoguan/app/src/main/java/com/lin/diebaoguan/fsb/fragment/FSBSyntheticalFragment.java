@@ -58,7 +58,7 @@ public class FSBSyntheticalFragment extends PullToRefreshBaseFragment {
         sendParams.setCid(detailPageNum);
         //TODO 这几个参数后期要改活的
         sendParams.setOffset(0);
-        sendParams.setRows(2);
+        sendParams.setRows(12);
 //        sendParams.setOnetime();
         sendParams.initTimePart();
 
