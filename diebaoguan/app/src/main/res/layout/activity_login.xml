@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              tools:context=".activity.LoginActivity"
+              android:background="@drawable/login_bg">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logon_top"
+        android:layout_marginTop="60dp" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/corner_list_bg"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        >
+
+        <LinearLayout
+            style="@style/registerLinearLayoutHorizontal">
+
+            <TextView
+                style="@style/registerTextView"
+                android:text="用户名" />
+
+            <EditText
+                style="@style/registerEditText"
+                android:inputType="textPersonName"
+                tools:text="Name"
+                android:hint="请输入用户名"
+                android:ems="20"
+                android:id="@+id/et_name" />
+
+        </LinearLayout>
+
+        <View
+            style="@style/registerDividerView" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                style="@style/registerLinearLayoutHorizontal">
+
+                <TextView
+                    android:text="密   码"
+                    style="@style/registerTextView" />
+
+                <EditText
+                    style="@style/registerEditText"
+                    android:inputType="textPassword"
+                    android:hint="请输入4-20位密码"
+                    android:ems="20"
+                    android:id="@+id/et_password" />
+
+            </LinearLayout>
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:text="登录"
+        android:background="@drawable/register_gray_button_background"
+        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_margin="40dp"
+        android:id="@+id/btn_login"/>
+
+</LinearLayout>
