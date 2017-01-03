@@ -51,7 +51,7 @@
                 style="@style/registerLinearLayoutHorizontal">
 
                 <TextView
-                    android:text="密   码"
+                    android:text=" 密   码"
                     style="@style/registerTextView" />
 
                 <EditText

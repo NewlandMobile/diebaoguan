@@ -15,6 +15,8 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 public class MyAppication extends Application {
 
     private static MyAppication myAppication;
+    private static String uid=null;
+    private static String key=null;
 
     @Override
     public void onCreate() {
@@ -28,6 +30,22 @@ public class MyAppication extends Application {
             myAppication = new MyAppication();
         }
         return myAppication;
+    }
+
+    public static String getUid() {
+        return uid;
+    }
+
+    public static void setUid(String uid) {
+        MyAppication.uid = uid;
+    }
+
+    public static String getKey() {
+        return key;
+    }
+
+    public static void setKey(String key) {
+        MyAppication.key = key;
     }
 
     /**

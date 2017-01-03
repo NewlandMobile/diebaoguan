@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.lin.diebaoguan.BaseActivity;
+import com.lin.diebaoguan.MyAppication;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.LogUtils;
@@ -191,7 +192,12 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     public void onResponse(String response) {
                         RegisterResponse registerResponse=RegisterResponse.parseObject(response,RegisterResponse.class);
                         LogUtils.d(registerResponse.toString());
-                        //TODO 对UID 跟key 两个量要保存，估计后面会用到
+                        if (1!=registerResponse.getStatus()){
+                            showToast(registerResponse.getMessage());
+                            return;
+                        }
+                        MyAppication.setKey(registerResponse.getData().getKey());
+                        MyAppication.setUid(registerResponse.getData().getUid());
                     }
                 });
     }
