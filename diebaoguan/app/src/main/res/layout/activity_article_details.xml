@@ -33,6 +33,7 @@
         android:background="@color/gray" />
 
     <WebView
+        android:id="@+id/detail_webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"

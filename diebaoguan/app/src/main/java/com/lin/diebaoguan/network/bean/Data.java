@@ -2,7 +2,7 @@ package com.lin.diebaoguan.network.bean;
 
 /**
  * It's Created by NewLand-JianFeng on 2016/12/29.
- *
+ * <p>
  * 注册里的返回信息会用到
  * 解析类（解析模版）在写的时候注意3点：
  * 1.该使用整型的可以用整型，（不是只能用String）
@@ -15,6 +15,9 @@ public class Data {
     String key;
     Result[] result;
     Paging paging;
+    //17-01-03 文章详情
+    private Info info;
+
 
     public String getUid() {
         return uid;
@@ -42,5 +45,13 @@ public class Data {
 
     public Paging getPaging() {
         return paging;
+    }
+
+    public Info getInfo() {
+        return info;
+    }
+
+    public void setInfo(Info info) {
+        this.info = info;
     }
 }
