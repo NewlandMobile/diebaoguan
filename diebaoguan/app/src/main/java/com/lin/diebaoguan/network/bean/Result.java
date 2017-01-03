@@ -18,9 +18,9 @@ public class Result {
     String content;
     String type;
 
-//    public int getDocid() {
-//        return docid;
-//    }
+    public int getDocid() {
+        return docid;
+    }
 //
 //    public void setDocid(int docid) {
 //        this.docid = docid;
@@ -58,9 +58,9 @@ public class Result {
 //        this.content = content;
 //    }
 //
-//    public String getType() {
-//        return type;
-//    }
+    public String getType() {
+        return type;
+    }
 //
 //    public void setType(String type) {
 //        this.type = type;
