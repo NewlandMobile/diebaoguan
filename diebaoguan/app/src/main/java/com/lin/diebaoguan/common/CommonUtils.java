@@ -2,6 +2,7 @@ package com.lin.diebaoguan.common;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.lin.diebaoguan.MyAppication;
@@ -162,6 +163,32 @@ public class CommonUtils<T extends BaseResponseTemplate> {
         sendParams.initTimePart();
 
         CommonUtils.httpGet(sendParams.parseParams(), volleyListener);
+    }
+
+    /**
+     * 通过sp保存信息
+     *
+     * @param key    键
+     * @param values 值
+     */
+    public static void saveBySp(Context context, String key, String values) {
+        SharedPreferences sp = context.getSharedPreferences("DieBaoGuan", Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = sp.edit();
+        edit.putString(key, values);
+        edit.commit();
+    }
+
+    /**
+     * 获取sp保存的 数据
+     *
+     * @param context
+     * @param key
+     * @return
+     */
+    public static String getSp(Context context, String key) {
+        SharedPreferences sp = context.getSharedPreferences("DieBaoGuan", Context.MODE_PRIVATE);
+        String result = sp.getString(key, "");
+        return result;
     }
 }
 
