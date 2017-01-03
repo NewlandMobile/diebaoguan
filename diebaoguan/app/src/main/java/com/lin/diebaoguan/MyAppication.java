@@ -2,7 +2,9 @@ package com.lin.diebaoguan;
 
 import android.app.Application;
 import android.content.Context;
+import android.text.TextUtils;
 
+import com.lin.diebaoguan.common.CommonUtils;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -17,12 +19,36 @@ public class MyAppication extends Application {
     private static MyAppication myAppication;
     private static String uid=null;
     private static String key=null;
+    private static String uidSPKey="uid",keySPKey="key",firstRunSPKey="isFirstRun";
+    //是否是第一次运行
+    private static boolean isFirstRun=false;
+    //是否已登录
+    private static boolean isLogined;
 
     @Override
     public void onCreate() {
         super.onCreate();
         myAppication = this;
+        initGlobalValiable();
         initImageLoader(getApplicationContext());
+    }
+
+    /**
+     * 从 SharePreference 做一个全局变量的初始化
+     */
+    private void initGlobalValiable() {
+
+        uid= (String) CommonUtils.getSp(this,uidSPKey,"");
+        key= (String) CommonUtils.getSp(this,keySPKey,"");
+        isFirstRun= (boolean) CommonUtils.getSp(this,firstRunSPKey,false);
+    }
+
+    public boolean hasLogined(){
+        if (TextUtils.isEmpty(uid)||TextUtils.isEmpty(key)){
+            return false;
+        }else {
+            return true;
+        }
     }
 
     public static MyAppication getInstance() {
@@ -38,6 +64,7 @@ public class MyAppication extends Application {
 
     public static void setUid(String uid) {
         MyAppication.uid = uid;
+        CommonUtils.saveBySp(MyAppication.getInstance(),uidSPKey,uid);
     }
 
     public static String getKey() {
@@ -46,6 +73,7 @@ public class MyAppication extends Application {
 
     public static void setKey(String key) {
         MyAppication.key = key;
+        CommonUtils.saveBySp(MyAppication.getInstance(),keySPKey,key);
     }
 
     /**

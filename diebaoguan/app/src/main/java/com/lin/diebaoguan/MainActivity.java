@@ -1,5 +1,6 @@
 package com.lin.diebaoguan;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
@@ -8,6 +9,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lin.diebaoguan.activity.LoginActivity;
 import com.lin.diebaoguan.fragment.AiMeiFangFragment;
 import com.lin.diebaoguan.fragment.DieBaoGuanFragment;
 import com.lin.diebaoguan.fragment.FengShangBiaoFragment;
@@ -20,6 +22,7 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        judgeFirstPage();
         setContentView(R.layout.activity_main);
         mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
@@ -27,6 +30,17 @@ public class MainActivity extends FragmentActivity {
         setAddTab(R.string.fengshanbiao, FengShangBiaoFragment.class, R.drawable.inducator_selector);
         setAddTab(R.string.guangyinji, GuangYinJiFragment.class, R.drawable.inducator_selector);
         setAddTab(R.string.aimeifang, AiMeiFangFragment.class, R.drawable.inducator_selector);
+    }
+
+    private void judgeFirstPage() {
+//        if (MyAppication.getInstance().isFirstRun){
+//            //TODO 跳转到  引导页
+//        }
+        if (!MyAppication.getInstance().hasLogined()){
+            Intent loginIntent=new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(loginIntent);
+        }
+
     }
 
     /**

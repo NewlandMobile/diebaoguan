@@ -3,6 +3,7 @@ package com.lin.diebaoguan.common;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.v4.content.SharedPreferencesCompat;
 import android.util.Log;
 
 import com.lin.diebaoguan.MyAppication;
@@ -171,11 +172,21 @@ public class CommonUtils<T extends BaseResponseTemplate> {
      * @param key    键
      * @param values 值
      */
-    public static void saveBySp(Context context, String key, String values) {
+    public static void saveBySp(Context context, String key, Object values) {
         SharedPreferences sp = context.getSharedPreferences("DieBaoGuan", Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = sp.edit();
-        edit.putString(key, values);
-        edit.commit();
+        if (values instanceof String){
+            edit.putString(key, (String) values);
+        }else if (values instanceof Boolean){
+            edit.putBoolean(key, (Boolean) values);
+        }else if (values instanceof Integer){
+            edit.putInt(key, (Integer) values);
+        }else if (values instanceof Float){
+            edit.putFloat(key, (Float) values);
+        }
+
+        SharedPreferencesCompat.EditorCompat.getInstance().apply(edit);
+//        edit.commit();
     }
 
     /**
@@ -186,9 +197,21 @@ public class CommonUtils<T extends BaseResponseTemplate> {
      *
      * @return
      */
-    public static String getSp(Context context, String key) {
+    public static Object getSp(Context context, String key,Object defValue) {
         SharedPreferences sp = context.getSharedPreferences("DieBaoGuan", Context.MODE_PRIVATE);
-        String result = sp.getString(key, "");
+        Object result=null;
+        if (!sp.contains(key)){
+            return defValue;
+        }
+        if (defValue instanceof String){
+            result = sp.getString(key, (String) defValue);
+        }else if (defValue instanceof Boolean){
+            result = sp.getBoolean(key, (Boolean) defValue);
+        }else if (defValue instanceof Integer){
+            result = sp.getInt(key, (Integer) defValue);
+        }else if (defValue instanceof Float){
+            result = sp.getFloat(key, (Float) defValue);
+        }
         return result;
     }
 }

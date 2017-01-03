@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.lin.diebaoguan.BaseActivity;
 import com.lin.diebaoguan.MyAppication;
@@ -95,6 +96,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         LogUtils.d(volleyError.toString());
+                        if (volleyError instanceof TimeoutError){
+                            showToast("网络连接超时");
+                        }else {
+                            showToast("网络连接错误");
+                        }
                     }
 
                     @Override
