@@ -14,7 +14,7 @@ public class DieBaoGuanAndFengShangBiaoDS extends BaseSendTemplate {
 //            爱美志用另外一个接口
 
     int cid;
-//    分页用，数据记录的起始行数。0为第一条记录。
+    //    分页用，数据记录的起始行数。0为第一条记录。
     int offset;
     //分页用，数据记录每次取得的行数。不传此参数则默认获取10条记录。
     int rows;

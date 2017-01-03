@@ -19,4 +19,6 @@
     <string name="testUserName3">qq220859</string>
     <string name="testEmail2">2208594696@qq.com</string>
     <string name="testEmail3">220859@qq.com</string>
+    <string name="title_activity_article_details">ArticleDetailsActivity</string>
+    <string name="articdetail">文章详情</string>
 </resources>
