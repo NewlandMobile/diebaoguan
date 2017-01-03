@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.lin.diebaoguan.adapter.RefreshListAdapter;
 import com.lin.diebaoguan.fragment.PullToRefreshBaseFragment;
 
 import java.util.ArrayList;
@@ -40,7 +39,7 @@ public class PhoneFragment extends PullToRefreshBaseFragment {
         if (view == null) {
             view = super.onCreateView(inflater, container, savedInstanceState);
             refreshableView = basePullToRefreshListView.getRefreshableView();
-            refreshableView.setAdapter(new RefreshListAdapter(getActivity(), list));
+//            refreshableView.setAdapter(new RefreshListAdapter(getActivity(), list));
         }
         return view;
     }
