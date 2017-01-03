@@ -1,6 +1,9 @@
 package com.lin.diebaoguan.activity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -26,6 +29,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private EditText et_name;
     private EditText et_password;
     private Button btn_login;
+    private Button btn_register;
     private String name=null;
     private String password=null;
 
@@ -33,8 +37,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        final ProgressDialog progressDialog = CommonUtils.showProgressDialog(this);
-        progressDialog.show();
+//        final ProgressDialog progressDialog = CommonUtils.showProgressDialog(this);
+//        progressDialog.show();
         initView();
         setDefaultUser();
     }
@@ -49,6 +53,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         et_password = (EditText) findViewById(R.id.et_password);
         btn_login = (Button) findViewById(R.id.btn_login);
         btn_login.setOnClickListener(this);
+        btn_register= (Button) findViewById(R.id.btn_register);
+        btn_register.setOnClickListener(this);
+        btn_register.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
     }
 
     @Override
@@ -57,7 +64,16 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             case R.id.btn_login:
                 checkInputAndPost();
                 break;
+            case R.id.btn_register:
+                gotoRegister();
+                break;
         }
+    }
+
+    private void gotoRegister() {
+        Intent registerIntent=new Intent(LoginActivity.this,RegisterActivity.class);
+        startActivity(registerIntent);
+        finish();
     }
 
     private void checkInputAndPost() {
@@ -92,8 +108,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         LogUtils.d("用户ID："+loginResponse.getData().getUid());
                         MyAppication.setKey(loginResponse.getData().getKey());
                         MyAppication.setUid(loginResponse.getData().getUid());
+                        gotoMainActivity();
                     }
+
                 });
+    }
+
+    private void gotoMainActivity() {
+        finish();
+//        Intent mainActivityTntent=new Intent(LoginActivity)
     }
 
     private boolean isInputEmpty() {

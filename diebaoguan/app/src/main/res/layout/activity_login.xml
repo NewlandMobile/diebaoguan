@@ -74,4 +74,15 @@
         android:layout_margin="40dp"
         android:id="@+id/btn_login"/>
 
+    <Button
+        android:text="如未注册，请先注册"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/lucency"
+        android:gravity="center"
+        android:textColor="@color/gray"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/btn_register" />
+
 </LinearLayout>
