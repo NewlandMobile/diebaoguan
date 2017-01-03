@@ -60,6 +60,8 @@ public class FSBAiMeiFangFragment extends PullToRefreshBaseFragment {
                     LogUtils.d(s);
                     DieBaoGuanAndFengShangBiaoResponse response = DieBaoGuanAndFengShangBiaoResponse.
                             parseObject(s, DieBaoGuanAndFengShangBiaoResponse.class);
+                    //TODO  页数信息 范例
+                    response.getData().getPaging().getPages();
                     LogUtils.d(response.toString());
                     Result[] results = response.getData().getResult();
                     for (Result result : results) {

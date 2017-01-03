@@ -15,25 +15,25 @@ public class Paging {
     int pages;
     int currentPage;
 
-//    public int getTotal() {
-//        return total;
-//    }
+    public int getTotal() {
+        return total;
+    }
 //
 //    public void setTotal(int total) {
 //        this.total = total;
 //    }
 //
-//    public int getPages() {
-//        return pages;
-//    }
+    public int getPages() {
+        return pages;
+    }
 //
 //    public void setPages(int pages) {
 //        this.pages = pages;
 //    }
 //
-//    public int getCurrentPage() {
-//        return currentPage;
-//    }
+    public int getCurrentPage() {
+        return currentPage;
+    }
 //
 //    public void setCurrentPage(int currentPage) {
 //        this.currentPage = currentPage;
