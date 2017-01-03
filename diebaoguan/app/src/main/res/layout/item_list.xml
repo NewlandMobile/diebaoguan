@@ -24,7 +24,7 @@
         android:layout_alignTop="@+id/item_iamge"
         android:layout_marginRight="10dp"
         android:layout_toEndOf="@+id/item_iamge"
-        android:maxLength="12"
+        android:maxLength="15"
         android:text="内容标题内容标题内容标题内容标题"
         android:textSize="15sp" />
 
@@ -44,6 +44,6 @@
         android:layout_height="70dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_margin="15dp"
+        android:layout_margin="12dp"
         android:background="@drawable/default_article_list" />
 </RelativeLayout>

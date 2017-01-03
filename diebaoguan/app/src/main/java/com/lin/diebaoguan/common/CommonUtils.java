@@ -1,9 +1,12 @@
 package com.lin.diebaoguan.common;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.util.Log;
 
 import com.lin.diebaoguan.MyAppication;
 import com.lin.diebaoguan.network.response.BaseResponseTemplate;
+import com.lin.diebaoguan.network.send.DieBaoGuanAndFengShangBiaoDS;
 import com.lin.lib_volley_https.HTTPUtils;
 import com.lin.lib_volley_https.VolleyListener;
 
@@ -18,14 +21,16 @@ import java.util.Map;
  * describe:工具类
  */
 
-public class CommonUtils <T extends BaseResponseTemplate>{
+public class CommonUtils<T extends BaseResponseTemplate> {
     /* token 使用固定值 */
     private static String tokenA = "d19cf361181f5a169c107872e1f5b722";
     private static String URL = "http://api.cnmo.com/client";
+    //  这个固定值用的页面也会比较多，可以考虑放到底层基类去。
+    private static final String moduleString = "api_libraries_sjdbg_articlelist";
 
-    private static CommonUtils commonUtils=new CommonUtils();
+    private static CommonUtils commonUtils = new CommonUtils();
 
-    public static CommonUtils getInstance(){
+    public static CommonUtils getInstance() {
         return commonUtils;
     }
 
@@ -110,5 +115,53 @@ public class CommonUtils <T extends BaseResponseTemplate>{
         HTTPUtils.get(MyAppication.getInstance(), finalUrl, volleyListener);
     }
 
+    /**
+     * 显示加载进度框
+     *
+     * @param contenx
+     */
+    public static ProgressDialog showProgressDialog(Context contenx) {
+        ProgressDialog progressDialog;
+        progressDialog = new ProgressDialog(contenx);
+        progressDialog.setTitle("");
+        progressDialog.setMessage("正在拼命加载。。。");
+        return progressDialog;
+    }
+
+    /**
+     * 显示加载进度框
+     *
+     * @param contenx
+     */
+    public static ProgressDialog showProgressDialog(Context contenx, String title, String message) {
+        ProgressDialog progressDialog;
+        progressDialog = new ProgressDialog(contenx);
+        progressDialog.setTitle(title);
+        progressDialog.setMessage(message);
+        return progressDialog;
+    }
+
+
+    /**
+     * 根据 具体板块内容，获取后台信息
+     * 用于谍报馆与风尚标模块
+     *
+     * @param isFengShangBiao 是否属于风尚标板块
+     * @param detailPageNum   具体板块的数值 （当isclass=0时，传值1,2,3,4分别对应谍报馆：新品，价格，体验，应用.
+     *                        当isclass=1时，传值1,2,3,4分别对应风尚标：综合，爱美妆，爱美访，雯琰文
+     *                        ）
+     */
+    public static void fetchDataFromNetWork(boolean isFengShangBiao, int detailPageNum, VolleyListener volleyListener) {
+        DieBaoGuanAndFengShangBiaoDS sendParams = new DieBaoGuanAndFengShangBiaoDS();
+        sendParams.setModule(moduleString);
+        sendParams.setIsclass(isFengShangBiao ? 1 : 0);
+        sendParams.setCid(detailPageNum);
+        //TODO 这几个参数后期要改活的
+        sendParams.setOffset(0);
+        sendParams.setRows(12);
+        sendParams.initTimePart();
+
+        CommonUtils.httpGet(sendParams.parseParams(), volleyListener);
+    }
 }
 

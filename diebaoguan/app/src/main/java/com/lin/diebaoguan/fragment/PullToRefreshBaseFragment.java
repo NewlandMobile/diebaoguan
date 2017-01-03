@@ -61,6 +61,7 @@ public class PullToRefreshBaseFragment extends Fragment {
             basePullToRefreshScrollView.setVisibility(View.GONE);
             basePullToRefreshListView.setVisibility(View.VISIBLE);
         }
+
         return inflate;
     }
 
