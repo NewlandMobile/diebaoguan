@@ -68,7 +68,8 @@ public class OriginalFragment extends PullToRefreshBaseFragment {
                         DieBaoGuanAndFengShangBiaoResponse.
                                 parseObject(s,
                                         DieBaoGuanAndFengShangBiaoResponse.class);
-                showToast(response.toString());
+//                showToast(response.toString());
+                LogUtils.d(response.toString());
                 Result[] results=response.getData().getResult();
                 List<Result> resultList=new ArrayList<Result>(results.length);
                 for (Result result:results){
@@ -134,7 +135,7 @@ public class OriginalFragment extends PullToRefreshBaseFragment {
             }
             Result result=dataList.get(position);
             IMAGEUtils.displayImage(result.getPicUrl(),viewHolder.imageView);
-            viewHolder.textView.setText(result.getContent());
+            viewHolder.textView.setText(result.getTitle());
             
             return convertView;
         }
