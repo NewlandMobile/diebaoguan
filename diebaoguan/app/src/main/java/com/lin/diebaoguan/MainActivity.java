@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -70,5 +72,45 @@ public class MainActivity extends FragmentActivity {
                 }
             });
         }
+    }
+
+    private static final int ITEM_ID=33;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+//        return super.onCreateOptionsMenu(menu);
+        menu.add(Menu.NONE,ITEM_ID,1,"我的收藏").setIcon(R.drawable.menu_favorites);
+        menu.add(Menu.NONE,ITEM_ID+1,2,"应用推荐").setIcon(R.drawable.menu_apps_recommended);
+        menu.add(Menu.NONE,ITEM_ID+2,3,"版本更新").setIcon(R.drawable.menu_update);
+        menu.add(Menu.NONE,ITEM_ID+3,4,"设置").setIcon(R.drawable.menu_settings);
+        menu.add(Menu.NONE,ITEM_ID+4,5,"关于").setIcon(R.drawable.about);
+        menu.add(Menu.NONE,ITEM_ID+5,6,"退出").setIcon(R.drawable.menu_exit);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+//        return super.onOptionsItemSelected(item);
+        int itemId= item.getItemId();
+        int index=itemId-ITEM_ID+1;
+        Toast.makeText(MainActivity.this,"按下了第"+index+"个菜单键",Toast.LENGTH_SHORT).show();
+        switch (index){
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                System.exit(0);
+                break;
+
+        }
+        return false;
     }
 }
