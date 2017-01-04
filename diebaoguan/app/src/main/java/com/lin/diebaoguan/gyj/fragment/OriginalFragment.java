@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.IMAGEUtils;
@@ -33,8 +34,10 @@ public class OriginalFragment extends PullToRefreshBaseFragment {
 
 //    private List<Result>  dataList=null;
 
+    private View view;
     private GridView gridView;
     private MyAdapter myAdapter=null;
+    private PullToRefreshBase.OnRefreshListener2 refreshListener2;
 //    private final ProgressDialog progressDialog = CommonUtils.showProgressDialog(getActivity());
 
     public OriginalFragment() {
@@ -45,12 +48,34 @@ public class OriginalFragment extends PullToRefreshBaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View baseView = inflater.inflate(R.layout.fragment_original, container, false);
-        initView(baseView);
+        if (view==null){
+            view=super.onCreateView(inflater,container,savedInstanceState);
+            View baseView = inflater.inflate(R.layout.fragment_original, container, false);
+            initView(baseView);
+            baseContent.addView(baseView);
+        }
+        initRefreshListener();
         showProgress();
         fetchInitData();
-        return baseView;
+        return view;
     }
+
+    private void initRefreshListener() {
+        refreshListener2=new PullToRefreshBase.OnRefreshListener2() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase refreshView) {
+                showToast("onPullDownToRefresh");
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase refreshView) {
+                showToast("onPullUpToFefresh");
+
+            }
+        };
+        basePullToRefreshScrollView.setOnRefreshListener(refreshListener2);
+    }
+
 
     private void fetchInitData() {
         CommonUtils.fetchDataAtGyjPage(new VolleyListener() {

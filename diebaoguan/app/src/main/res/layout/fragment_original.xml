@@ -12,7 +12,7 @@
         android:id="@+id/gridView"
         android:layout_width="match_parent"
         android:numColumns="2"
-
+        android:listSelector="@color/lucency"
         android:layout_height="match_parent"
         tools:listitem="@layout/item_gridview_gyj"/>
 
