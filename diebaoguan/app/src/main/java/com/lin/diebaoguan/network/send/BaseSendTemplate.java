@@ -1,13 +1,11 @@
 package com.lin.diebaoguan.network.send;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.lin.diebaoguan.common.CommonUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -19,12 +17,12 @@ import java.util.Map;
 public class BaseSendTemplate {
     static Gson gson= new Gson();
 
-    String encoding="utf8";
     String apiid="3";
     String timestamp;
     String token1;
     String module;
     String returnformat="json";
+    String encoding="utf8";
 
     public String getApiid() {
         return apiid;

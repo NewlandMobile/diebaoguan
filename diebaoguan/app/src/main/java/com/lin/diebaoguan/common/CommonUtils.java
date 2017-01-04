@@ -3,6 +3,7 @@ package com.lin.diebaoguan.common;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.SharedPreferencesCompat;
 import android.util.Log;
 
@@ -118,6 +119,30 @@ public class CommonUtils<T extends BaseResponseTemplate> {
     }
 
     /**
+     * get请求带参数,传入fragment
+     *
+     * @param fragment       fragment
+     * @param params
+     * @param volleyListener
+     */
+    public static void httpGet(Fragment fragment, Map<String, String> params, VolleyListener volleyListener) {
+        StringBuilder encodedParams = new StringBuilder();
+        String url = "";
+        Iterator<Map.Entry<String, String>> var5 = params.entrySet().iterator();
+        while (var5.hasNext()) {
+            Map.Entry<String, String> uee = var5.next();
+            encodedParams.append(uee.getKey());
+            encodedParams.append('=');
+            encodedParams.append(uee.getValue());
+            encodedParams.append('&');
+        }
+        url = URL + "?" + encodedParams.toString();
+        String finalUrl = url.substring(0, url.length() - 1);
+        Log.e("get请求带参数", "==URL：" + finalUrl);
+        HttpUtils.get(MyAppication.getInstance(), fragment, finalUrl, volleyListener);
+    }
+
+    /**
      * 显示加载进度框
      *
      * @param contenx
@@ -166,6 +191,29 @@ public class CommonUtils<T extends BaseResponseTemplate> {
         CommonUtils.httpGet(sendParams.parseParams(), volleyListener);
     }
 
+
+    /**
+     * 根据 具体板块内容，获取后台信息
+     * 用于谍报馆与风尚标模块
+     *
+     * @param isFengShangBiao 是否属于风尚标板块
+     * @param detailPageNum   具体板块的数值 （当isclass=0时，传值1,2,3,4分别对应谍报馆：新品，价格，体验，应用.
+     *                        当isclass=1时，传值1,2,3,4分别对应风尚标：综合，爱美妆，爱美访，雯琰文
+     *                        ）
+     */
+    public static void fetchDataFromNetWork(Fragment fragment, boolean isFengShangBiao, int detailPageNum, VolleyListener volleyListener) {
+        DieBaoGuanAndFengShangBiaoDS sendParams = new DieBaoGuanAndFengShangBiaoDS();
+        sendParams.setModule(moduleString);
+        sendParams.setIsclass(isFengShangBiao ? 1 : 0);
+        sendParams.setCid(detailPageNum);
+        //TODO 这几个参数后期要改活的
+        sendParams.setOffset(0);
+        sendParams.setRows(12);
+        sendParams.initTimePart();
+
+        CommonUtils.httpGet(fragment, sendParams.parseParams(), volleyListener);
+    }
+
     /**
      * 通过sp保存信息
      *
@@ -175,13 +223,13 @@ public class CommonUtils<T extends BaseResponseTemplate> {
     public static void saveBySp(Context context, String key, Object values) {
         SharedPreferences sp = context.getSharedPreferences("DieBaoGuan", Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = sp.edit();
-        if (values instanceof String){
+        if (values instanceof String) {
             edit.putString(key, (String) values);
-        }else if (values instanceof Boolean){
+        } else if (values instanceof Boolean) {
             edit.putBoolean(key, (Boolean) values);
-        }else if (values instanceof Integer){
+        } else if (values instanceof Integer) {
             edit.putInt(key, (Integer) values);
-        }else if (values instanceof Float){
+        } else if (values instanceof Float) {
             edit.putFloat(key, (Float) values);
         }
 
@@ -194,22 +242,21 @@ public class CommonUtils<T extends BaseResponseTemplate> {
      *
      * @param context
      * @param key
-     *
      * @return
      */
-    public static Object getSp(Context context, String key,Object defValue) {
+    public static Object getSp(Context context, String key, Object defValue) {
         SharedPreferences sp = context.getSharedPreferences("DieBaoGuan", Context.MODE_PRIVATE);
-        Object result=null;
-        if (!sp.contains(key)){
+        Object result = null;
+        if (!sp.contains(key)) {
             return defValue;
         }
-        if (defValue instanceof String){
+        if (defValue instanceof String) {
             result = sp.getString(key, (String) defValue);
-        }else if (defValue instanceof Boolean){
+        } else if (defValue instanceof Boolean) {
             result = sp.getBoolean(key, (Boolean) defValue);
-        }else if (defValue instanceof Integer){
+        } else if (defValue instanceof Integer) {
             result = sp.getInt(key, (Integer) defValue);
-        }else if (defValue instanceof Float){
+        } else if (defValue instanceof Float) {
             result = sp.getFloat(key, (Float) defValue);
         }
         return result;

@@ -1,7 +1,6 @@
 package com.lin.diebaoguan.fsb.fragment;
 
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -33,7 +32,6 @@ import java.util.List;
  */
 public class FSBSyntheticalFragment extends PullToRefreshBaseFragment implements AdapterView.OnItemClickListener {
 
-    private ProgressDialog progressDialog;
     private RefreshListAdapter adapter;
     private List<Result> dataList = new ArrayList<>();
 
@@ -81,9 +79,7 @@ public class FSBSyntheticalFragment extends PullToRefreshBaseFragment implements
      * 获取数据
      */
     private void getData(final boolean isRefresh) {
-        progressDialog = CommonUtils.showProgressDialog(getActivity());
-        progressDialog.show();
-        CommonUtils.fetchDataFromNetWork(true, 1, new VolleyListener() {
+        CommonUtils.fetchDataFromNetWork(FSBSyntheticalFragment.this, true, 1, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 LogUtils.d(volleyError.toString());
@@ -102,7 +98,7 @@ public class FSBSyntheticalFragment extends PullToRefreshBaseFragment implements
                 adapter = new RefreshListAdapter(getActivity(), dataList);
                 refreshableView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
-                progressDialog.dismiss();
+                //TODO 刷新判断
 //                if(isRefresh){
 //                    basePullToRefreshListView.dele
 //                }

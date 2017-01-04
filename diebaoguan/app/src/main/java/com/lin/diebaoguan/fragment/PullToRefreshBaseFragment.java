@@ -1,5 +1,6 @@
 package com.lin.diebaoguan.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.lin.diebaoguan.R;
+import com.lin.diebaoguan.common.CommonUtils;
 
 /**
  * 该类为带下拉刷新fragment的基类
@@ -31,6 +33,7 @@ public class PullToRefreshBaseFragment extends Fragment {
     private Context context;//上下文
     private boolean scrollviewVisiable;
     private boolean listViewVisiable;
+    private ProgressDialog progressDialog;
 
     public PullToRefreshBaseFragment() {
         // Required empty public constructor
@@ -82,5 +85,14 @@ public class PullToRefreshBaseFragment extends Fragment {
         this.context = context;
         this.scrollviewVisiable = scrollviewVisiable;
         this.listViewVisiable = listViewVisiable;
+    }
+
+    public void showProgress() {
+        progressDialog = CommonUtils.showProgressDialog(getActivity());
+        progressDialog.show();
+    }
+
+    public void dissProgress() {
+        progressDialog.dismiss();
     }
 }

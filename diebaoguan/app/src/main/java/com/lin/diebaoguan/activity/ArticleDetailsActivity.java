@@ -11,15 +11,19 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.lin.diebaoguan.BaseRedTitleBarActivity;
+import com.lin.diebaoguan.MyAppication;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.LogUtils;
 import com.lin.diebaoguan.network.bean.Info;
 import com.lin.diebaoguan.network.response.ArticleDetailresponse;
+import com.lin.diebaoguan.network.response.BaseResponseTemplate;
 import com.lin.diebaoguan.network.send.ArticleDetailDS;
+import com.lin.diebaoguan.network.send.CommentDS;
 import com.lin.lib_volley_https.VolleyListener;
 
 /**
@@ -30,6 +34,8 @@ public class ArticleDetailsActivity extends BaseRedTitleBarActivity implements V
     private WebView webView;
     private RelativeLayout rl1;
     private RelativeLayout rl2;
+    private EditText edit_txt;
+    private String docid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +46,7 @@ public class ArticleDetailsActivity extends BaseRedTitleBarActivity implements V
 
     private void initView() {
         Intent intent = getIntent();
-        String docid = intent.getStringExtra("id");
+        docid = intent.getStringExtra("id");
         LogUtils.e("docid: " + docid);
         webView = (WebView) findViewById(R.id.detail_webview);
         TextView textView = (TextView) findViewById(R.id.detail_textview);
@@ -49,7 +55,9 @@ public class ArticleDetailsActivity extends BaseRedTitleBarActivity implements V
         rl1 = (RelativeLayout) findViewById(R.id.rl1);
         rl2 = (RelativeLayout) findViewById(R.id.rl2);
         Button btn_send = (Button) findViewById(R.id.detail_send);
-        EditText edit_txt = (EditText) findViewById(R.id.detail_edit);
+        edit_txt = (EditText) findViewById(R.id.detail_edit);
+        btn_comments.setOnClickListener(this);
+        btn_back.setOnClickListener(this);
 
         btn_send.setOnClickListener(this);
         edit_txt.setOnClickListener(this);
@@ -115,6 +123,68 @@ public class ArticleDetailsActivity extends BaseRedTitleBarActivity implements V
                 break;
             case R.id.detail_share:
                 break;
+            case R.id.detail_send:
+                String trim = edit_txt.getText().toString().trim();
+                if (trim.equals("") || trim == null) {
+                    rl1.setVisibility(View.VISIBLE);
+                    rl2.setVisibility(View.GONE);
+                } else {
+                    MyAppication application = MyAppication.getInstance();
+                    boolean isLogined = application.hasLogined();
+                    if (isLogined) {
+                        sendComment();
+                        rl1.setVisibility(View.VISIBLE);
+                        rl2.setVisibility(View.GONE);
+                    } else {
+                        startActivity(new Intent(this, LoginActivity.class));
+                    }
+                }
+                break;
+            case R.id.baseactivity_comments:
+
+                break;
+            case R.id.baseactivity_back:
+                finish();
+                break;
         }
+    }
+
+    /**
+     * 发表评论
+     */
+    private void sendComment() {
+        CommentDS commentDS = new CommentDS();
+        commentDS.setAuthkey(MyAppication.getKey());
+        commentDS.setModule("api_libraries_sjdbg_comment");
+        commentDS.setDocid(docid);
+        commentDS.setUsername(MyAppication.getUserName());
+        commentDS.setUid(MyAppication.getUid());
+        commentDS.initTimePart();
+
+        CommonUtils.httpPost(commentDS.parseParams(), new VolleyListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        LogUtils.e(volleyError.toString());
+                    }
+
+                    @Override
+                    public void onResponse(String s) {
+                        LogUtils.e(s);
+                        BaseResponseTemplate responseTemplate = BaseResponseTemplate.parseObject(s, BaseResponseTemplate.class);
+                        String code = responseTemplate.getCode();
+                        final String message = responseTemplate.getMessage();
+                        if (code.equals("60000011")) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(ArticleDetailsActivity.this, message, Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }
+                }
+        );
+
+
     }
 }
