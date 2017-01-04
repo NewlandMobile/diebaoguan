@@ -41,11 +41,11 @@ import java.util.Map;
  *
  * @author Ognyan Bankov
  */
-public class HTTPUtils {
+public class HttpUtils {
     private static RequestQueue mRequestQueue;
-    private final static String tag = HTTPUtils.class.getName();
+    private final static String tag = HttpUtils.class.getName();
 
-    private HTTPUtils() {
+    private HttpUtils() {
     }
 
     public static RequestQueue getmRequestQueue() {
@@ -53,7 +53,7 @@ public class HTTPUtils {
     }
 
     public static void setmRequestQueue(RequestQueue mRequestQueue) {
-        HTTPUtils.mRequestQueue = mRequestQueue;
+        HttpUtils.mRequestQueue = mRequestQueue;
     }
 
     public static void init(Context context) {
