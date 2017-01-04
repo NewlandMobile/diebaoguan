@@ -185,7 +185,7 @@ public class CommonUtils<T extends BaseResponseTemplate> {
 
         params.setCid(2);
         params.setOffset(0);
-        params.setRows(10);
+        params.setRows(20);
 //        params.setOnetime();
         CommonUtils.httpGet(params.parseParams(), volleyListener);
     }

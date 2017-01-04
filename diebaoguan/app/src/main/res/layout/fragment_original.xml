@@ -1,21 +1,15 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<com.handmark.pulltorefresh.library.PullToRefreshGridView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.lin.diebaoguan.gyj.fragment.OriginalFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-
-    <GridView
-        android:background="@drawable/gyj_bj"
-        android:id="@+id/gridView"
-        android:layout_width="match_parent"
-        android:numColumns="2"
-        android:listSelector="@color/lucency"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/item_gridview_gyj"/>
+    tools:context="com.lin.diebaoguan.gyj.fragment.OriginalFragment"
+    android:background="@drawable/gyj_bj"
+    android:id="@+id/gridView_original"
+    android:numColumns="2"
+    android:listSelector="@color/lucency"
+    tools:listitem="@layout/item_gridview_gyj"/>
 
 
 
-</FrameLayout>
+

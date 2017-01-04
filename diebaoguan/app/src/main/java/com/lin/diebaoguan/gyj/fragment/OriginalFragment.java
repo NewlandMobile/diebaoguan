@@ -3,10 +3,13 @@ package com.lin.diebaoguan.gyj.fragment;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -14,6 +17,7 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.IMAGEUtils;
@@ -35,25 +39,41 @@ public class OriginalFragment extends PullToRefreshBaseFragment {
 //    private List<Result>  dataList=null;
 
     private View view;
-    private GridView gridView;
+//    private GridView gridView;
     private MyAdapter myAdapter=null;
     private PullToRefreshBase.OnRefreshListener2 refreshListener2;
+    private PullToRefreshGridView refreshGridView;
 //    private final ProgressDialog progressDialog = CommonUtils.showProgressDialog(getActivity());
 
     public OriginalFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initArgument(getActivity(),0, false, false);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (view==null){
             view=super.onCreateView(inflater,container,savedInstanceState);
-            View baseView = inflater.inflate(R.layout.fragment_original, container, false);
-            initView(baseView);
-            baseContent.addView(baseView);
+            ViewGroup parentView= (ViewGroup) basePullToRefreshScrollView.getParent();
+            parentView.removeView(basePullToRefreshScrollView);
+            parentView.removeView(basePullToRefreshListView);
+            refreshGridView= (PullToRefreshGridView) inflater.inflate(R.layout.fragment_original,null);
+//            refreshGridView= (PullToRefreshGridView) baseView.findViewById(R.id.gridView_original);
+            refreshGridView.setMode(PullToRefreshBase.Mode.BOTH);
+            parentView.addView(refreshGridView);
+//             refreshGridView= (PullToRefreshGridView) view.findViewById(R.id.gridView);
+//            View baseView = inflater.inflate(R.layout.fragment_original, container, false);
+//            initView(baseView);
+//            baseContent.addView(baseView);
         }
+        myAdapter=new MyAdapter();
+        refreshGridView.setAdapter(myAdapter);
         initRefreshListener();
         showProgress();
         fetchInitData();
@@ -65,15 +85,17 @@ public class OriginalFragment extends PullToRefreshBaseFragment {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase refreshView) {
                 showToast("onPullDownToRefresh");
+                refreshGridView.onRefreshComplete();
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase refreshView) {
                 showToast("onPullUpToFefresh");
 
+                refreshGridView.onRefreshComplete();
             }
         };
-        basePullToRefreshScrollView.setOnRefreshListener(refreshListener2);
+        refreshGridView.setOnRefreshListener(refreshListener2);
     }
 
 
@@ -106,12 +128,6 @@ public class OriginalFragment extends PullToRefreshBaseFragment {
             }
         });
 //        progressDialog.dismiss();
-    }
-
-    private void initView(View baseView) {
-        gridView = (GridView) baseView.findViewById(R.id.gridView);
-        myAdapter=new MyAdapter();
-        gridView.setAdapter(myAdapter);
     }
 
     class MyAdapter extends BaseAdapter{
