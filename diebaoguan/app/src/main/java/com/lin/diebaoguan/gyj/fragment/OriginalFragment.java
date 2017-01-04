@@ -1,6 +1,7 @@
 package com.lin.diebaoguan.gyj.fragment;
 
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,12 +10,17 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
 import com.lin.diebaoguan.R;
+import com.lin.diebaoguan.common.CommonUtils;
+import com.lin.diebaoguan.common.IMAGEUtils;
+import com.lin.diebaoguan.common.LogUtils;
 import com.lin.diebaoguan.fragment.PullToRefreshBaseFragment;
 import com.lin.diebaoguan.network.bean.Result;
+import com.lin.diebaoguan.network.response.DieBaoGuanAndFengShangBiaoResponse;
+import com.lin.lib_volley_https.VolleyListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +34,8 @@ public class OriginalFragment extends PullToRefreshBaseFragment {
 //    private List<Result>  dataList=null;
 
     private GridView gridView;
-    private BaseAdapter myAdapter=null;
+    private MyAdapter myAdapter=null;
+//    private final ProgressDialog progressDialog = CommonUtils.showProgressDialog(getActivity());
 
     public OriginalFragment() {
         // Required empty public constructor
@@ -39,9 +46,40 @@ public class OriginalFragment extends PullToRefreshBaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View baseView = inflater.inflate(R.layout.fragment_original, container, false);
-
         initView(baseView);
+        showProgress();
+        fetchInitData();
         return baseView;
+    }
+
+    private void fetchInitData() {
+        CommonUtils.fetchDataAtGyjPage(new VolleyListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                LogUtils.d("网络请求出错："+volleyError);
+                showToast(volleyError.getMessage());
+                dissProgress();
+            }
+
+            @Override
+            public void onResponse(String s) {
+                dissProgress();
+                DieBaoGuanAndFengShangBiaoResponse response=
+                        DieBaoGuanAndFengShangBiaoResponse.
+                                parseObject(s,
+                                        DieBaoGuanAndFengShangBiaoResponse.class);
+                showToast(response.toString());
+                Result[] results=response.getData().getResult();
+                List<Result> resultList=new ArrayList<Result>(results.length);
+                for (Result result:results){
+                    resultList.add(result);
+                }
+                myAdapter.setDataList(resultList);
+                myAdapter.notifyDataSetChanged();
+
+            }
+        });
+//        progressDialog.dismiss();
     }
 
     private void initView(View baseView) {
@@ -58,6 +96,14 @@ public class OriginalFragment extends PullToRefreshBaseFragment {
         }
         private List<Result>  dataList=new ArrayList<>();
         private LayoutInflater layoutInflater=LayoutInflater.from(getActivity());
+
+        public List<Result> getDataList() {
+            return dataList;
+        }
+
+        public void setDataList(List<Result> dataList) {
+            this.dataList = dataList;
+        }
 
         @Override
         public int getCount() {
@@ -86,7 +132,9 @@ public class OriginalFragment extends PullToRefreshBaseFragment {
             }else {
                 viewHolder= (ViewHolder) convertView.getTag();
             }
-//            viewHolder.imageView.se
+            Result result=dataList.get(position);
+            IMAGEUtils.displayImage(result.getPicUrl(),viewHolder.imageView);
+            viewHolder.textView.setText(result.getContent());
             
             return convertView;
         }

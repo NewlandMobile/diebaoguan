@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -88,11 +89,25 @@ public class PullToRefreshBaseFragment extends Fragment {
     }
 
     public void showProgress() {
-        progressDialog = CommonUtils.showProgressDialog(getActivity());
+        if (progressDialog==null){  progressDialog = CommonUtils.showProgressDialog(getActivity());
+        }
         progressDialog.show();
     }
 
     public void dissProgress() {
         progressDialog.dismiss();
     }
+
+    //本类名  方便测试打印
+//    protected final String classNameString=this.getClass().getName();
+
+    protected void showToast(String message){
+        Toast.makeText(getActivity(),message,Toast.LENGTH_SHORT).show();
+    }
+
+    protected void showLongTimeToast(String message){
+        Toast.makeText(getActivity(),message,Toast.LENGTH_LONG).show();
+    }
+
+
 }

@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.SharedPreferencesCompat;
 import android.util.Log;
 
+import com.android.volley.VolleyError;
 import com.lin.diebaoguan.MyAppication;
 import com.lin.diebaoguan.network.response.BaseResponseTemplate;
 import com.lin.diebaoguan.network.send.DieBaoGuanAndFengShangBiaoDS;
@@ -145,11 +146,11 @@ public class CommonUtils<T extends BaseResponseTemplate> {
     /**
      * 显示加载进度框
      *
-     * @param contenx
+     * @param contenxt
      */
-    public static ProgressDialog showProgressDialog(Context contenx) {
+    public static ProgressDialog showProgressDialog(Context contenxt) {
         ProgressDialog progressDialog;
-        progressDialog = new ProgressDialog(contenx);
+        progressDialog = new ProgressDialog(contenxt);
         progressDialog.setTitle("");
         progressDialog.setMessage("正在拼命加载。。。");
         return progressDialog;
@@ -166,6 +167,18 @@ public class CommonUtils<T extends BaseResponseTemplate> {
         progressDialog.setTitle(title);
         progressDialog.setMessage(message);
         return progressDialog;
+    }
+
+    public static void fetchDataAtGyjPage(VolleyListener volleyListener){
+        DieBaoGuanAndFengShangBiaoDS params=new DieBaoGuanAndFengShangBiaoDS();
+        params.setModule("api_libraries_sjdbg_tulist");
+        params.initTimePart();
+
+        params.setCid(2);
+        params.setOffset(0);
+        params.setRows(10);
+//        params.setOnetime();
+        CommonUtils.httpGet(params.parseParams(), volleyListener);
     }
 
 
