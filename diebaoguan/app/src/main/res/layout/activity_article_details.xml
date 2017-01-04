@@ -1,42 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_article_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.lin.diebaoguan.activity.ArticleDetailsActivity">
 
-    <TextView
-        android:id="@+id/detail_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:text="文章标题文章标题文章标题文章标题" />
 
-    <TextView
-        android:id="@+id/detail_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/detail_title"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:text="1-3 14:27" />
-
-    <TextView
-        android:id="@+id/textView4"
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_below="@+id/detail_time"
-        android:layout_marginTop="20dp"
-        android:background="@color/gray" />
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/bouttom_bj">
+
+        <RelativeLayout
+            android:id="@+id/rl1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true">
+
+            <TextView
+                android:id="@+id/detail_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/et_bj"
+                android:gravity="center_vertical"
+                android:text="@string/pleasescanfword"
+                android:textColor="@color/gray" />
+
+            <ImageView
+                android:id="@+id/detail_collect"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/detail_textview"
+                android:background="@drawable/uncollection" />
+
+            <Button
+                android:id="@+id/detail_share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/detail_collect"
+                android:background="@drawable/share_select" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:visibility="gone">
+
+
+            <Button
+                android:id="@+id/detail_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/btnsend_selecot"
+                android:text="@string/send" />
+
+            <EditText
+                android:id="@+id/detail_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginStart="11dp"
+                android:layout_marginTop="8dp"
+                android:layout_toStartOf="@+id/detail_send"
+                android:background="@drawable/et_bj"
+                android:hint="@string/pleasescanfword"
+                android:inputType="textPersonName" />
+        </RelativeLayout>
+    </RelativeLayout>
 
     <WebView
         android:id="@+id/detail_webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/relativeLayout"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView4" />
+        android:layout_alignParentTop="true" />
+
 
 </RelativeLayout>

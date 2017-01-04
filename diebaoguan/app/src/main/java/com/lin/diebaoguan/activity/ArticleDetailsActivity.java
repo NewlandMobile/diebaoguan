@@ -2,9 +2,14 @@ package com.lin.diebaoguan.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -20,11 +25,11 @@ import com.lin.lib_volley_https.VolleyListener;
 /**
  * 文章详情界面
  */
-public class ArticleDetailsActivity extends BaseRedTitleBarActivity {
+public class ArticleDetailsActivity extends BaseRedTitleBarActivity implements View.OnClickListener {
 
-    private TextView text_title;
-    private TextView text_time;
     private WebView webView;
+    private RelativeLayout rl1;
+    private RelativeLayout rl2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +42,30 @@ public class ArticleDetailsActivity extends BaseRedTitleBarActivity {
         Intent intent = getIntent();
         String docid = intent.getStringExtra("id");
         LogUtils.e("docid: " + docid);
-        text_title = (TextView) findViewById(R.id.detail_title);
-        text_time = (TextView) findViewById(R.id.detail_time);
         webView = (WebView) findViewById(R.id.detail_webview);
+        TextView textView = (TextView) findViewById(R.id.detail_textview);
+        Button btn_share = (Button) findViewById(R.id.detail_share);
+        ImageView image_collect = (ImageView) findViewById(R.id.detail_collect);
+        rl1 = (RelativeLayout) findViewById(R.id.rl1);
+        rl2 = (RelativeLayout) findViewById(R.id.rl2);
+        Button btn_send = (Button) findViewById(R.id.detail_send);
+        EditText edit_txt = (EditText) findViewById(R.id.detail_edit);
 
+        btn_send.setOnClickListener(this);
+        edit_txt.setOnClickListener(this);
+        textView.setOnClickListener(this);
+        btn_share.setOnClickListener(this);
+        image_collect.setOnClickListener(this);
+        getData(docid);
 
+    }
+
+    /**
+     * 获取数据
+     *
+     * @param docid
+     */
+    private void getData(String docid) {
         ArticleDetailDS sendParam = new ArticleDetailDS();
         sendParam.setModule("api_libraries_sjdbg_detail");
         sendParam.initTimePart();
@@ -59,9 +83,7 @@ public class ArticleDetailsActivity extends BaseRedTitleBarActivity {
                 LogUtils.e(s);
                 ArticleDetailresponse response = ArticleDetailresponse.parseObject(s, ArticleDetailresponse.class);
                 Info info = response.getData().getInfo();
-                text_title.setText(info.getTitle());
                 String date = info.getDate();
-                text_time.setText(date);
                 String docUrl = info.getDocUrl();
                 LogUtils.e(docUrl);
                 //启用支持javascript
@@ -80,7 +102,19 @@ public class ArticleDetailsActivity extends BaseRedTitleBarActivity {
                 });
             }
         });
-
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.detail_textview:
+                rl1.setVisibility(View.GONE);
+                rl2.setVisibility(View.VISIBLE);
+                break;
+            case R.id.detail_collect:
+                break;
+            case R.id.detail_share:
+                break;
+        }
+    }
 }

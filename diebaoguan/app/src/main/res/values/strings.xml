@@ -21,4 +21,6 @@
     <string name="testEmail3">220859@qq.com</string>
     <string name="title_activity_article_details">ArticleDetailsActivity</string>
     <string name="articdetail">文章详情</string>
+    <string name="pleasescanfword">请输入文字</string>
+    <string name="send">发送</string>
 </resources>
