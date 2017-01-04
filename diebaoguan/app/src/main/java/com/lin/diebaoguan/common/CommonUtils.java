@@ -7,11 +7,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.SharedPreferencesCompat;
 import android.util.Log;
 
-import com.android.volley.VolleyError;
 import com.lin.diebaoguan.MyAppication;
 import com.lin.diebaoguan.network.response.BaseResponseTemplate;
 import com.lin.diebaoguan.network.send.DieBaoGuanAndFengShangBiaoDS;
-import com.lin.lib_volley_https.HTTPUtils;
 import com.lin.lib_volley_https.VolleyListener;
 
 import java.security.MessageDigest;
@@ -83,7 +81,7 @@ public class CommonUtils<T extends BaseResponseTemplate> {
      * @param volleyListener
      */
     public static void httpPost(Map<String, String> params, VolleyListener volleyListener) {
-        HTTPUtils.post(MyAppication.getInstance(), URL, params, volleyListener);
+        com.lin.lib_volley_https.HTTPUtils.post(MyAppication.getInstance(), URL, params, volleyListener);
     }
 
     /**
@@ -93,7 +91,7 @@ public class CommonUtils<T extends BaseResponseTemplate> {
      * @param volleyListener
      */
     public static void httpGet(String url, VolleyListener volleyListener) {
-        HTTPUtils.get(MyAppication.getInstance(), url, volleyListener);
+        com.lin.lib_volley_https.HTTPUtils.get(MyAppication.getInstance(), url, volleyListener);
     }
 
     /**
@@ -116,7 +114,7 @@ public class CommonUtils<T extends BaseResponseTemplate> {
         url = URL + "?" + encodedParams.toString();
         String finalUrl = url.substring(0, url.length() - 1);
         Log.e("get请求带参数", "==URL：" + finalUrl);
-        HTTPUtils.get(MyAppication.getInstance(), finalUrl, volleyListener);
+        com.lin.lib_volley_https.HTTPUtils.get(MyAppication.getInstance(), finalUrl, volleyListener);
     }
 
     /**
@@ -140,7 +138,7 @@ public class CommonUtils<T extends BaseResponseTemplate> {
         url = URL + "?" + encodedParams.toString();
         String finalUrl = url.substring(0, url.length() - 1);
         Log.e("get请求带参数", "==URL：" + finalUrl);
-        HttpUtils.get(MyAppication.getInstance(), fragment, finalUrl, volleyListener);
+        HTTPUtils.get(MyAppication.getInstance(), fragment, finalUrl, volleyListener);
     }
 
     /**

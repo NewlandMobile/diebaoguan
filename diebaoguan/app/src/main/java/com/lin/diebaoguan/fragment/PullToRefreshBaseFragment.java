@@ -91,11 +91,17 @@ public class PullToRefreshBaseFragment extends Fragment {
     public void showProgress() {
         if (progressDialog==null){  progressDialog = CommonUtils.showProgressDialog(getActivity());
         }
+        if (progressDialog.isShowing()){
+            return;
+        }
         progressDialog.show();
     }
 
     public void dissProgress() {
-        progressDialog.dismiss();
+        if (progressDialog.isShowing()){
+            progressDialog.dismiss();
+        }
+
     }
 
     //本类名  方便测试打印
