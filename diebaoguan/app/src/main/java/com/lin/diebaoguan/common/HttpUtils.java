@@ -57,6 +57,7 @@ public class HttpUtils {
     }
 
     public static void init(Context context) {
+
         mRequestQueue = Volley.newRequestQueue(context);
 
     }
