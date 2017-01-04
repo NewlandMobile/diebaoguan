@@ -19,7 +19,8 @@ public class MyAppication extends Application {
     private static MyAppication myAppication;
     private static String uid=null;
     private static String key=null;
-    private static String uidSPKey="uid",keySPKey="key",firstRunSPKey="isFirstRun";
+    private static String userName=null;
+    private static String uidSPKey="uid",keySPKey="key",firstRunSPKey="isFirstRun",userNameSPKey="userName";
     //是否是第一次运行
     private static boolean isFirstRun=false;
     //是否已登录
@@ -41,6 +42,7 @@ public class MyAppication extends Application {
         uid= (String) CommonUtils.getSp(this,uidSPKey,"");
         key= (String) CommonUtils.getSp(this,keySPKey,"");
         isFirstRun= (boolean) CommonUtils.getSp(this,firstRunSPKey,false);
+        userName= (String) CommonUtils.getSp(this,userNameSPKey,"");
     }
 
     public boolean hasLogined(){
@@ -74,6 +76,15 @@ public class MyAppication extends Application {
     public static void setKey(String key) {
         MyAppication.key = key;
         CommonUtils.saveBySp(MyAppication.getInstance(),keySPKey,key);
+    }
+
+    public static String getUserName() {
+        return userName;
+    }
+
+    public static void setUserName(String userName) {
+        MyAppication.userName = userName;
+        CommonUtils.saveBySp(MyAppication.getInstance(),userNameSPKey,userName);
     }
 
     /**

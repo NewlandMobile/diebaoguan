@@ -112,6 +112,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         LogUtils.d("用户ID："+loginResponse.getData().getUid());
                         MyAppication.setKey(loginResponse.getData().getKey());
                         MyAppication.setUid(loginResponse.getData().getUid());
+                        MyAppication.setUserName(name);
                         gotoMainActivity();
                     }
 

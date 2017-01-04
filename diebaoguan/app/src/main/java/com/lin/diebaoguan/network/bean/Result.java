@@ -17,6 +17,7 @@ public class Result {
     String picUrl;
     String content;
     String type;
+    int picid;
 
     public int getDocid() {
         return docid;
@@ -65,4 +66,9 @@ public class Result {
 //    public void setType(String type) {
 //        this.type = type;
 //    }
+
+
+    public int getPicid() {
+        return picid;
+    }
 }
