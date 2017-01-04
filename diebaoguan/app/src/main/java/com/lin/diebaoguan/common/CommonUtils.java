@@ -85,6 +85,17 @@ public class CommonUtils<T extends BaseResponseTemplate> {
     }
 
     /**
+     * post请求
+     *
+     * @param fragment       fragment
+     * @param params
+     * @param volleyListener
+     */
+    public static void httpPost(Fragment fragment, Map<String, String> params, VolleyListener volleyListener) {
+        HttpUtils.post(MyAppication.getInstance(), fragment, URL, params, volleyListener);
+    }
+
+    /**
      * get请求不带参数
      *
      * @param url
@@ -138,7 +149,7 @@ public class CommonUtils<T extends BaseResponseTemplate> {
         url = URL + "?" + encodedParams.toString();
         String finalUrl = url.substring(0, url.length() - 1);
         Log.e("get请求带参数", "==URL：" + finalUrl);
-        HTTPUtils.get(MyAppication.getInstance(), fragment, finalUrl, volleyListener);
+        HttpUtils.get(MyAppication.getInstance(), fragment, finalUrl, volleyListener);
     }
 
     /**
@@ -167,8 +178,8 @@ public class CommonUtils<T extends BaseResponseTemplate> {
         return progressDialog;
     }
 
-    public static void fetchDataAtGyjPage(VolleyListener volleyListener){
-        DieBaoGuanAndFengShangBiaoDS params=new DieBaoGuanAndFengShangBiaoDS();
+    public static void fetchDataAtGyjPage(VolleyListener volleyListener) {
+        DieBaoGuanAndFengShangBiaoDS params = new DieBaoGuanAndFengShangBiaoDS();
         params.setModule("api_libraries_sjdbg_tulist");
         params.initTimePart();
 
