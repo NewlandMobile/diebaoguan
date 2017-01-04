@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:src="@drawable/image"
+        android:background="@drawable/gyj_td"
+        android:padding="10dp"
+        android:id="@+id/imageView3" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_alignBottom="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="光影集：移动电源也时尚"
+        android:textColor="@color/gray"
+        android:paddingTop="3dp"
+        android:background="@drawable/shape_dark_gradient_bg"
+        android:id="@+id/textView2" />
+</RelativeLayout>

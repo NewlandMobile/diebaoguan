@@ -6,6 +6,8 @@
 
     <color name="gray">#cdcdcd</color>
     <color name="white">#ffffff</color>
+    <color name="black_lucency">#88000000</color>
+    <color name="black_lucency_center">#ee000000</color>
     <color name="black">#000000</color>
     <color name="lucency">#00000000</color>
     <color name="red">#ffD51924</color>
