@@ -141,7 +141,7 @@ public class ArticleDetailsActivity extends BaseRedTitleBarActivity implements V
                 }
                 break;
             case R.id.baseactivity_comments:
-
+                startActivity(new Intent(this, CommentActivity.class));
                 break;
             case R.id.baseactivity_back:
                 finish();

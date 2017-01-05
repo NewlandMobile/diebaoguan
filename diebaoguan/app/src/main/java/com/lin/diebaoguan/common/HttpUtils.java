@@ -48,6 +48,7 @@ public class HttpUtils {
     private HttpUtils() {
     }
 
+
     public static RequestQueue getmRequestQueue() {
         return mRequestQueue;
     }
