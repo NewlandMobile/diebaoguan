@@ -71,12 +71,12 @@ public class HttpUtils {
             public void onResponse(String response) {
                 Log.d(tag, "onResponse:\n" + response);
                 listener.onResponse(response);
-                pullToRefreshBaseFragment.dissProgress();
+                pullToRefreshBaseFragment.dismissProgress();
             }
         }, new Response.ErrorListener() {
             public void onErrorResponse(VolleyError error) {
                 listener.onErrorResponse(error);
-                pullToRefreshBaseFragment.dissProgress();
+                pullToRefreshBaseFragment.dismissProgress();
             }
         }) {
             @Override
@@ -103,12 +103,12 @@ public class HttpUtils {
         StringRequest myReq = new UTFStringRequest(Method.GET, url, new Listener<String>() {
             public void onResponse(String response) {
                 listener.onResponse(response);
-                pullToRefreshBaseFragment.dissProgress();
+                pullToRefreshBaseFragment.dismissProgress();
             }
         }, new Response.ErrorListener() {
             public void onErrorResponse(VolleyError error) {
                 listener.onErrorResponse(error);
-                pullToRefreshBaseFragment.dissProgress();
+                pullToRefreshBaseFragment.dismissProgress();
             }
         });
         if (mRequestQueue == null) {

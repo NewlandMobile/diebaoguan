@@ -76,7 +76,7 @@ public class OriginalFragment extends PullToRefreshBaseFragment {
         refreshGridView.setOnItemClickListener(itemClickListener);
         refreshGridView.setAdapter(myAdapter);
         initRefreshListener();
-        showProgress();
+//        showProgress();
         fetchData(currentOffset);
         return view;
     }
@@ -133,12 +133,12 @@ public class OriginalFragment extends PullToRefreshBaseFragment {
     private void fetchData(int offset) {
 //        params.setCid(2);
 //        params.setOffset(0);
-        CommonUtils.fetchDataAtGyjPage(2,offset,ROWS,new VolleyListener() {
+        CommonUtils.fetchDataAtGyjPage(OriginalFragment.this, 2,offset,ROWS,new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 LogUtils.d("网络请求出错："+volleyError);
                 showToast(volleyError.getMessage());
-                dissProgress();
+//                dismissProgress();
                 if (refreshGridView.isRefreshing()){
                     refreshGridView.onRefreshComplete();
                 }
@@ -146,7 +146,7 @@ public class OriginalFragment extends PullToRefreshBaseFragment {
 
             @Override
             public void onResponse(String s) {
-                dissProgress();
+//                dismissProgress();
                 NormalResponse response=
                         NormalResponse.
                                 parseObject(s,

@@ -97,7 +97,7 @@ public class PullToRefreshBaseFragment extends Fragment {
         progressDialog.show();
     }
 
-    public void dissProgress() {
+    public void dismissProgress() {
         if (progressDialog.isShowing()){
             progressDialog.dismiss();
         }

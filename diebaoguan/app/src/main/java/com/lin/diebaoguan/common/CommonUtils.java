@@ -8,7 +8,9 @@ import android.support.v4.content.SharedPreferencesCompat;
 import android.util.Log;
 
 import com.lin.diebaoguan.MyAppication;
+import com.lin.diebaoguan.fragment.PullToRefreshBaseFragment;
 import com.lin.diebaoguan.network.response.BaseResponseTemplate;
+import com.lin.diebaoguan.network.send.BaseSendTemplate;
 import com.lin.diebaoguan.network.send.CommentDS;
 import com.lin.diebaoguan.network.send.NormalDS;
 import com.lin.lib_volley_https.VolleyListener;
@@ -181,21 +183,25 @@ public class CommonUtils<T extends BaseResponseTemplate> {
 
     /**
      *
-     * @param volleyListener 响应监听
+     * @param fragment
      * @param cid  传值1,2,3,4,5分别对应光影集：综合，精品原创，数码漫谈，手机美图，平板美图.
      * @param offset  初始坐标
      * @param rows   每次获取数据条数
+     * @param volleyListener 响应监听
      */
-    public static void fetchDataAtGyjPage(int cid,int offset,int rows,VolleyListener volleyListener) {
+    public static void fetchDataAtGyjPage(PullToRefreshBaseFragment fragment, int cid, int offset, int rows, VolleyListener volleyListener) {
         NormalDS params = new NormalDS();
         params.setModule("api_libraries_sjdbg_tulist");
-        params.initTimePart();
 
         params.setCid(cid);
         params.setOffset(offset);
         params.setRows(rows);
-//        params.setOnetime();
-        CommonUtils.httpGet(params.parseParams(), volleyListener);
+        normalGetWayFetch(params,fragment,volleyListener);
+    }
+
+    public static void normalGetWayFetch(BaseSendTemplate sendParams, PullToRefreshBaseFragment fragment, VolleyListener volleyListener){
+        sendParams.initTimePart();
+        CommonUtils.httpGet(fragment, sendParams.parseParams(), volleyListener);
     }
 
 
@@ -222,27 +228,6 @@ public class CommonUtils<T extends BaseResponseTemplate> {
     }
 
     /**
-     * 发表评论
-     *
-     * @param content        内容
-     * @param docid          文章id
-     * @param volleyListener 监听
-     */
-    public static void sendComment(String content, String docid, VolleyListener volleyListener) {
-        CommentDS commentDS = new CommentDS();
-        commentDS.setAuthkey(MyAppication.getKey());
-        commentDS.setModule("api_libraries_sjdbg_comment");
-        commentDS.setDocid(docid);
-        commentDS.setUsername(MyAppication.getUserName());
-        commentDS.setUid(MyAppication.getUid());
-        commentDS.setContent(content);
-        commentDS.initTimePart();
-
-        CommonUtils.httpPost(commentDS.parseParams(), volleyListener);
-
-    }
-
-    /**
      * 根据 具体板块内容，获取后台信息
      * 用于谍报馆与风尚标模块
      *
@@ -262,6 +247,27 @@ public class CommonUtils<T extends BaseResponseTemplate> {
         sendParams.initTimePart();
 
         CommonUtils.httpGet(fragment, sendParams.parseParams(), volleyListener);
+    }
+
+    /**
+     * 发表评论
+     *
+     * @param content        内容
+     * @param docid          文章id
+     * @param volleyListener 监听
+     */
+    public static void sendComment(String content, String docid, VolleyListener volleyListener) {
+        CommentDS commentDS = new CommentDS();
+        commentDS.setAuthkey(MyAppication.getKey());
+        commentDS.setModule("api_libraries_sjdbg_comment");
+        commentDS.setDocid(docid);
+        commentDS.setUsername(MyAppication.getUserName());
+        commentDS.setUid(MyAppication.getUid());
+        commentDS.setContent(content);
+        commentDS.initTimePart();
+
+        CommonUtils.httpPost(commentDS.parseParams(), volleyListener);
+
     }
 
     /**
