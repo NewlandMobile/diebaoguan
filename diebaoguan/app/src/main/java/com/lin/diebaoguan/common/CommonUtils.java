@@ -10,7 +10,7 @@ import android.util.Log;
 import com.lin.diebaoguan.MyAppication;
 import com.lin.diebaoguan.network.response.BaseResponseTemplate;
 import com.lin.diebaoguan.network.send.CommentDS;
-import com.lin.diebaoguan.network.send.DieBaoGuanAndFengShangBiaoDS;
+import com.lin.diebaoguan.network.send.NormalDS;
 import com.lin.lib_volley_https.VolleyListener;
 
 import java.security.MessageDigest;
@@ -187,7 +187,7 @@ public class CommonUtils<T extends BaseResponseTemplate> {
      * @param rows   每次获取数据条数
      */
     public static void fetchDataAtGyjPage(int cid,int offset,int rows,VolleyListener volleyListener) {
-        DieBaoGuanAndFengShangBiaoDS params = new DieBaoGuanAndFengShangBiaoDS();
+        NormalDS params = new NormalDS();
         params.setModule("api_libraries_sjdbg_tulist");
         params.initTimePart();
 
@@ -208,8 +208,8 @@ public class CommonUtils<T extends BaseResponseTemplate> {
      *                        当isclass=1时，传值1,2,3,4分别对应风尚标：综合，爱美妆，爱美访，雯琰文
      *                        ）
      */
-    public static void fetchDataFromNetWork(boolean isFengShangBiao, int detailPageNum, VolleyListener volleyListener) {
-        DieBaoGuanAndFengShangBiaoDS sendParams = new DieBaoGuanAndFengShangBiaoDS();
+    public static void fetchDataAtFsbOrDbg(boolean isFengShangBiao, int detailPageNum, VolleyListener volleyListener) {
+        NormalDS sendParams = new NormalDS();
         sendParams.setModule(moduleString);
         sendParams.setIsclass(isFengShangBiao ? 1 : 0);
         sendParams.setCid(detailPageNum);
@@ -251,8 +251,8 @@ public class CommonUtils<T extends BaseResponseTemplate> {
      *                        当isclass=1时，传值1,2,3,4分别对应风尚标：综合，爱美妆，爱美访，雯琰文
      *                        ）
      */
-    public static void fetchDataFromNetWork(Fragment fragment, boolean isFengShangBiao, int detailPageNum, VolleyListener volleyListener) {
-        DieBaoGuanAndFengShangBiaoDS sendParams = new DieBaoGuanAndFengShangBiaoDS();
+    public static void fetchDataAtFsbOrDbg(Fragment fragment, boolean isFengShangBiao, int detailPageNum, VolleyListener volleyListener) {
+        NormalDS sendParams = new NormalDS();
         sendParams.setModule(moduleString);
         sendParams.setIsclass(isFengShangBiao ? 1 : 0);
         sendParams.setCid(detailPageNum);

@@ -49,7 +49,7 @@ public class WenYanWenFragment extends PullToRefreshBaseFragment {
             view = super.onCreateView(inflater, container, savedInstanceState);
             refreshableView = basePullToRefreshListView.getRefreshableView();
             final List<Result> list = new ArrayList<>();
-            CommonUtils.fetchDataFromNetWork(true, 4, new VolleyListener() {
+            CommonUtils.fetchDataAtFsbOrDbg(true, 4, new VolleyListener() {
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
                     LogUtils.d(volleyError.toString());

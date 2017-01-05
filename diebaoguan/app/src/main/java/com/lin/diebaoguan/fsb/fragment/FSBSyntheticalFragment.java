@@ -20,7 +20,7 @@ import com.lin.diebaoguan.common.LogUtils;
 import com.lin.diebaoguan.fragment.PullToRefreshBaseFragment;
 import com.lin.diebaoguan.network.bean.Result;
 import com.lin.diebaoguan.network.response.NormalResponse;
-import com.lin.diebaoguan.network.send.DieBaoGuanAndFengShangBiaoDS;
+import com.lin.diebaoguan.network.send.NormalDS;
 import com.lin.lib_volley_https.VolleyListener;
 
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class FSBSyntheticalFragment extends PullToRefreshBaseFragment implements
 
     private ListView refreshableView;
     private View view;
-    private DieBaoGuanAndFengShangBiaoDS sendParams = new DieBaoGuanAndFengShangBiaoDS();
+    private NormalDS sendParams = new NormalDS();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,7 +79,7 @@ public class FSBSyntheticalFragment extends PullToRefreshBaseFragment implements
      * 获取数据
      */
     private void getData(final boolean isRefresh) {
-        CommonUtils.fetchDataFromNetWork(FSBSyntheticalFragment.this, true, 1, new VolleyListener() {
+        CommonUtils.fetchDataAtFsbOrDbg(FSBSyntheticalFragment.this, true, 1, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 LogUtils.d(volleyError.toString());

@@ -52,7 +52,7 @@ public class AiMeiZhuangFragment extends PullToRefreshBaseFragment {
             refreshableView = basePullToRefreshListView.getRefreshableView();
             //获取数据
             final List<Result> list = new ArrayList<>();
-            CommonUtils.fetchDataFromNetWork(true, 2, new VolleyListener() {
+            CommonUtils.fetchDataAtFsbOrDbg(true, 2, new VolleyListener() {
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
                     LogUtils.d(volleyError.toString());

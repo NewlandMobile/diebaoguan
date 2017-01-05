@@ -50,7 +50,7 @@ public class ApplyFragment extends PullToRefreshBaseFragment {
             refreshableView = basePullToRefreshListView.getRefreshableView();
             //获取数据
             final List<Result> list = new ArrayList<>();
-            CommonUtils.fetchDataFromNetWork(false, 4, new VolleyListener() {
+            CommonUtils.fetchDataAtFsbOrDbg(false, 4, new VolleyListener() {
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
                     LogUtils.d(volleyError.toString());

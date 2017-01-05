@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -42,6 +43,7 @@ public class OriginalFragment extends PullToRefreshBaseFragment {
     private PullToRefreshGridView refreshGridView;
     private int ROWS=20;
     private int currentOffset =0;
+    private AdapterView.OnItemClickListener itemClickListener=null;
     // 获取完网络数据后 会更新这一变量，用于下次获取前的校验
     private Paging paging=null;
 //    private final ProgressDialog progressDialog = CommonUtils.showProgressDialog(getActivity());
@@ -70,11 +72,25 @@ public class OriginalFragment extends PullToRefreshBaseFragment {
             parentView.addView(refreshGridView);
         }
         myAdapter=new MyAdapter();
+        itemClickListener=new MyItemClickListener();
+        refreshGridView.setOnItemClickListener(itemClickListener);
         refreshGridView.setAdapter(myAdapter);
         initRefreshListener();
         showProgress();
         fetchData(currentOffset);
         return view;
+    }
+
+    class MyItemClickListener implements AdapterView.OnItemClickListener{
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            fetchDetailWithPicId(myAdapter.getItem(position).getPicid());
+        }
+    }
+
+    private void fetchDetailWithPicId(int picid) {
+
     }
 
     private void initRefreshListener() {
@@ -182,8 +198,8 @@ public class OriginalFragment extends PullToRefreshBaseFragment {
         }
 
         @Override
-        public Object getItem(int position) {
-            return null;
+        public Result getItem(int position) {
+            return dataList.get(position);
         }
 
         @Override

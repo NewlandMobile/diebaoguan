@@ -5,7 +5,7 @@ package com.lin.diebaoguan.network.send;
  * 谍报馆和风尚标接口
  */
 
-public class DieBaoGuanAndFengShangBiaoDS extends BaseSendTemplate {
+public class NormalDS extends BaseSendTemplate {
     //0或者1 0表示是谍报馆相关内容，1表示风尚标相关内容，爱美志特殊处理
     int isclass;
 
