@@ -178,14 +178,21 @@ public class CommonUtils<T extends BaseResponseTemplate> {
         return progressDialog;
     }
 
-    public static void fetchDataAtGyjPage(VolleyListener volleyListener) {
+    /**
+     *
+     * @param volleyListener 响应监听
+     * @param cid  传值1,2,3,4,5分别对应光影集：综合，精品原创，数码漫谈，手机美图，平板美图.
+     * @param offset  初始坐标
+     * @param rows   每次获取数据条数
+     */
+    public static void fetchDataAtGyjPage(VolleyListener volleyListener,int cid,int offset,int rows) {
         DieBaoGuanAndFengShangBiaoDS params = new DieBaoGuanAndFengShangBiaoDS();
         params.setModule("api_libraries_sjdbg_tulist");
         params.initTimePart();
 
-        params.setCid(2);
-        params.setOffset(0);
-        params.setRows(20);
+        params.setCid(cid);
+        params.setOffset(offset);
+        params.setRows(rows);
 //        params.setOnetime();
         CommonUtils.httpGet(params.parseParams(), volleyListener);
     }

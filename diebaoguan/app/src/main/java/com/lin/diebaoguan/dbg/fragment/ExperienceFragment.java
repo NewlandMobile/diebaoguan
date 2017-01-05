@@ -15,7 +15,7 @@ import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.LogUtils;
 import com.lin.diebaoguan.fragment.PullToRefreshBaseFragment;
 import com.lin.diebaoguan.network.bean.Result;
-import com.lin.diebaoguan.network.response.DieBaoGuanAndFengShangBiaoResponse;
+import com.lin.diebaoguan.network.response.NormalResponse;
 import com.lin.lib_volley_https.VolleyListener;
 
 import java.util.ArrayList;
@@ -60,8 +60,8 @@ public class ExperienceFragment extends PullToRefreshBaseFragment {
                 @Override
                 public void onResponse(String s) {
                     LogUtils.d(s);
-                    DieBaoGuanAndFengShangBiaoResponse response = DieBaoGuanAndFengShangBiaoResponse.
-                            parseObject(s, DieBaoGuanAndFengShangBiaoResponse.class);
+                    NormalResponse response = NormalResponse.
+                            parseObject(s, NormalResponse.class);
                     LogUtils.d(response.toString());
                     Result[] results = response.getData().getResult();
                     for (Result result : results) {

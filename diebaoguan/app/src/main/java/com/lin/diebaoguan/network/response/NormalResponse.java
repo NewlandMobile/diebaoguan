@@ -9,7 +9,7 @@ import com.lin.diebaoguan.network.response.BaseResponseTemplate;
  * Created by Alan on 2017/1/1 0001.
  */
 
-public class DieBaoGuanAndFengShangBiaoResponse extends BaseResponseTemplate {
+public class NormalResponse extends BaseResponseTemplate {
 //    文章信息返回值
 //    Result result;
     Data data;

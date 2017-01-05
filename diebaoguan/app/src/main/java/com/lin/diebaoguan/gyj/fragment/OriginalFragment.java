@@ -1,17 +1,13 @@
 package com.lin.diebaoguan.gyj.fragment;
 
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,8 +19,9 @@ import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.IMAGEUtils;
 import com.lin.diebaoguan.common.LogUtils;
 import com.lin.diebaoguan.fragment.PullToRefreshBaseFragment;
+import com.lin.diebaoguan.network.bean.Paging;
 import com.lin.diebaoguan.network.bean.Result;
-import com.lin.diebaoguan.network.response.DieBaoGuanAndFengShangBiaoResponse;
+import com.lin.diebaoguan.network.response.NormalResponse;
 import com.lin.lib_volley_https.VolleyListener;
 
 import java.util.ArrayList;
@@ -43,6 +40,10 @@ public class OriginalFragment extends PullToRefreshBaseFragment {
     private MyAdapter myAdapter=null;
     private PullToRefreshBase.OnRefreshListener2 refreshListener2;
     private PullToRefreshGridView refreshGridView;
+    private int ROWS=20;
+    private int currentOffset =0;
+    // 获取完网络数据后 会更新这一变量，用于下次获取前的校验
+    private Paging paging=null;
 //    private final ProgressDialog progressDialog = CommonUtils.showProgressDialog(getActivity());
 
     public OriginalFragment() {
@@ -67,16 +68,12 @@ public class OriginalFragment extends PullToRefreshBaseFragment {
 //            refreshGridView= (PullToRefreshGridView) baseView.findViewById(R.id.gridView_original);
             refreshGridView.setMode(PullToRefreshBase.Mode.BOTH);
             parentView.addView(refreshGridView);
-//             refreshGridView= (PullToRefreshGridView) view.findViewById(R.id.gridView);
-//            View baseView = inflater.inflate(R.layout.fragment_original, container, false);
-//            initView(baseView);
-//            baseContent.addView(baseView);
         }
         myAdapter=new MyAdapter();
         refreshGridView.setAdapter(myAdapter);
         initRefreshListener();
         showProgress();
-        fetchInitData();
+        fetchData(currentOffset);
         return view;
     }
 
@@ -91,15 +88,28 @@ public class OriginalFragment extends PullToRefreshBaseFragment {
             @Override
             public void onPullUpToRefresh(PullToRefreshBase refreshView) {
                 showToast("onPullUpToFefresh");
-
+                checkAndLoagMoreData();
                 refreshGridView.onRefreshComplete();
             }
         };
         refreshGridView.setOnRefreshListener(refreshListener2);
     }
 
+    private void checkAndLoagMoreData() {
+        if (paging==null)
+            return;
+        if (paging.getCurrentPage()>=paging.getTotal()){
+            showToast("已到末尾");
+            return;
+        }
+        currentOffset+=ROWS;
+        fetchData(currentOffset);
+    }
 
-    private void fetchInitData() {
+
+    private void fetchData(int offset) {
+//        params.setCid(2);
+//        params.setOffset(0);
         CommonUtils.fetchDataAtGyjPage(new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
@@ -111,14 +121,14 @@ public class OriginalFragment extends PullToRefreshBaseFragment {
             @Override
             public void onResponse(String s) {
                 dissProgress();
-                DieBaoGuanAndFengShangBiaoResponse response=
-                        DieBaoGuanAndFengShangBiaoResponse.
+                NormalResponse response=
+                        NormalResponse.
                                 parseObject(s,
-                                        DieBaoGuanAndFengShangBiaoResponse.class);
-//                showToast(response.toString());
+                                        NormalResponse.class);
                 LogUtils.d(response.toString());
                 Result[] results=response.getData().getResult();
-                List<Result> resultList=new ArrayList<Result>(results.length);
+
+                List<Result> resultList=new ArrayList<>(results.length);
                 for (Result result:results){
                     resultList.add(result);
                 }
@@ -126,8 +136,7 @@ public class OriginalFragment extends PullToRefreshBaseFragment {
                 myAdapter.notifyDataSetChanged();
 
             }
-        });
-//        progressDialog.dismiss();
+        },2,offset,ROWS);
     }
 
     class MyAdapter extends BaseAdapter{
