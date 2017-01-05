@@ -17,6 +17,18 @@ public class Data {
     Paging paging;
     //17-01-03 文章详情
     private Info info;
+    /*id	整型	图集id
+    isCollected	字符串	表示是否收藏，1为收藏，0为未收藏
+    title	字符串	图集标题
+    date	字符串	时间
+    author	字符串	作者
+    picUrl	字符串	图集图片地址*/
+    String id;
+    int isCollected;
+    String title;
+    String date;
+    String author;
+    String[] picUrl;
 
 
     public String getUid() {
@@ -53,5 +65,29 @@ public class Data {
 
     public void setInfo(Info info) {
         this.info = info;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public int getIsCollected() {
+        return isCollected;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String[] getPicUrl() {
+        return picUrl;
     }
 }

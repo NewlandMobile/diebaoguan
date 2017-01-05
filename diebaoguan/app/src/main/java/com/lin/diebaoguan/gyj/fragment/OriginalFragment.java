@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
+import com.lin.diebaoguan.MyAppication;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.IMAGEUtils;
@@ -23,6 +24,7 @@ import com.lin.diebaoguan.fragment.PullToRefreshBaseFragment;
 import com.lin.diebaoguan.network.bean.Paging;
 import com.lin.diebaoguan.network.bean.Result;
 import com.lin.diebaoguan.network.response.NormalResponse;
+import com.lin.diebaoguan.network.send.NormalDS;
 import com.lin.lib_volley_https.VolleyListener;
 
 import java.util.ArrayList;
@@ -77,7 +79,7 @@ public class OriginalFragment extends PullToRefreshBaseFragment {
         refreshGridView.setAdapter(myAdapter);
         initRefreshListener();
 //        showProgress();
-        fetchData(currentOffset);
+        fetchListData(currentOffset);
         return view;
     }
 
@@ -90,7 +92,24 @@ public class OriginalFragment extends PullToRefreshBaseFragment {
     }
 
     private void fetchDetailWithPicId(int picid) {
+        NormalDS params=new NormalDS();
+        params.setPicid(picid);
+        params.setModule("api_libraries_sjdbg_tudetail");
+        params.setUid(MyAppication.getUid());
+        params.setSize(500);
+        CommonUtils.normalGetWayFetch(params, this, new VolleyListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                LogUtils.d(volleyError.toString());
+            }
 
+            @Override
+            public void onResponse(String s) {
+                LogUtils.d(s);
+                NormalResponse response=NormalResponse.parseObject(s,NormalResponse.class);
+                LogUtils.d(response.toString());
+            }
+        });
     }
 
     private void initRefreshListener() {
@@ -100,7 +119,7 @@ public class OriginalFragment extends PullToRefreshBaseFragment {
 //                showToast("onPullDownToRefresh");
 //                refreshGridView.onRefreshComplete();
                 currentOffset=0;
-                fetchData(0);
+                fetchListData(0);
             }
 
             @Override
@@ -126,11 +145,11 @@ public class OriginalFragment extends PullToRefreshBaseFragment {
             return;
         }
         currentOffset+=ROWS;
-        fetchData(currentOffset);
+        fetchListData(currentOffset);
     }
 
 
-    private void fetchData(int offset) {
+    private void fetchListData(int offset) {
 //        params.setCid(2);
 //        params.setOffset(0);
         CommonUtils.fetchDataAtGyjPage(OriginalFragment.this, 2,offset,ROWS,new VolleyListener() {

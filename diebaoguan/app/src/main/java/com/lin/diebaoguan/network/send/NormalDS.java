@@ -20,6 +20,12 @@ public class NormalDS extends BaseSendTemplate {
     int rows;
     //分页用，传第一条新闻的时间戳，第一页下不用传值。
     String onetime;
+    // 图片集ID
+    int picid;
+
+    String uid;
+
+    int size;
 
     public int getIsclass() {
         return isclass;
@@ -59,5 +65,29 @@ public class NormalDS extends BaseSendTemplate {
 
     public void setOnetime(String onetime) {
         this.onetime = onetime;
+    }
+
+    public int getPicid() {
+        return picid;
+    }
+
+    public void setPicid(int picid) {
+        this.picid = picid;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 }
