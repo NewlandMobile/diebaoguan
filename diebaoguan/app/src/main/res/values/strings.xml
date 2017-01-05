@@ -23,7 +23,7 @@
     <string name="articdetail">文章详情</string>
     <string name="pleasescanfword">请输入文字</string>
     <string name="send">发送</string>
-    <string name="getdatafail">获取设备失败：</string>
+    <string name="getdatafail">获取数据失败：</string>
     <string name="commentsuccess">发表评论成功</string>
     <string name="commentfail">评论失败！</string>
     <string name="JingPinOrigin">精品原创</string>

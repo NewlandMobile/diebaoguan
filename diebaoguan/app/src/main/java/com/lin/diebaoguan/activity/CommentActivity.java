@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -32,6 +34,9 @@ public class CommentActivity extends BaseRedTitleBarActivity implements View.OnC
     private String docid;
     private CommentAdapter adapter;
     private EditText edit_txt;
+    private Button btn_send;
+    private RelativeLayout rl2;
+    private RelativeLayout rl1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +54,14 @@ public class CommentActivity extends BaseRedTitleBarActivity implements View.OnC
         adapter = new CommentAdapter(this, list);
         listView.setAdapter(adapter);
 
-        Button btn_send = (Button) findViewById(R.id.commentlist_send);
+        btn_send = (Button) findViewById(R.id.commentlist_send);
         edit_txt = (EditText) findViewById(R.id.commentlist_edit);
         Button btn_back = (Button) findViewById(R.id.baseactivity_back);
+        TextView textView = (TextView) findViewById(R.id.commentlist_text);
+        rl1 = (RelativeLayout) findViewById(R.id.commentlist_rl1);
+        rl2 = (RelativeLayout) findViewById(R.id.commentlist_rl2);
         btn_back.setOnClickListener(this);
+        textView.setOnClickListener(this);
         btn_send.setOnClickListener(this);
     }
 
@@ -103,6 +112,12 @@ public class CommentActivity extends BaseRedTitleBarActivity implements View.OnC
                     showToast(getString(R.string.pleasescanfword));
                 }
                 edit_txt.setText("");
+                rl1.setVisibility(View.GONE);
+                rl2.setVisibility(View.VISIBLE);
+                break;
+            case R.id.commentlist_text:
+                rl1.setVisibility(View.VISIBLE);
+                rl2.setVisibility(View.GONE);
                 break;
         }
     }

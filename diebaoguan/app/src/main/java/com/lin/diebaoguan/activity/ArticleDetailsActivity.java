@@ -135,6 +135,7 @@ public class ArticleDetailsActivity extends BaseRedTitleBarActivity implements V
                         CommonUtils.sendComment(trim, docid, volleyListener);
                         rl1.setVisibility(View.VISIBLE);
                         rl2.setVisibility(View.GONE);
+                        edit_txt.setText("");
                     } else {
                         startActivity(new Intent(this, LoginActivity.class));
                     }
