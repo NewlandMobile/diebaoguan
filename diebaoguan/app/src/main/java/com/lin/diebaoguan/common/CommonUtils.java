@@ -182,11 +182,10 @@ public class CommonUtils<T extends BaseResponseTemplate> {
     }
 
     /**
-     *
      * @param fragment
-     * @param cid  传值1,2,3,4,5分别对应光影集：综合，精品原创，数码漫谈，手机美图，平板美图.
-     * @param offset  初始坐标
-     * @param rows   每次获取数据条数
+     * @param cid            传值1,2,3,4,5分别对应光影集：综合，精品原创，数码漫谈，手机美图，平板美图.
+     * @param offset         初始坐标
+     * @param rows           每次获取数据条数
      * @param volleyListener 响应监听
      */
     public static void fetchDataAtGyjPage(PullToRefreshBaseFragment fragment, int cid, int offset, int rows, VolleyListener volleyListener) {
@@ -196,10 +195,10 @@ public class CommonUtils<T extends BaseResponseTemplate> {
         params.setCid(cid);
         params.setOffset(offset);
         params.setRows(rows);
-        normalGetWayFetch(params,fragment,volleyListener);
+        normalGetWayFetch(params, fragment, volleyListener);
     }
 
-    public static void normalGetWayFetch(BaseSendTemplate sendParams, PullToRefreshBaseFragment fragment, VolleyListener volleyListener){
+    public static void normalGetWayFetch(BaseSendTemplate sendParams, PullToRefreshBaseFragment fragment, VolleyListener volleyListener) {
         sendParams.initTimePart();
         CommonUtils.httpGet(fragment, sendParams.parseParams(), volleyListener);
     }
@@ -231,19 +230,20 @@ public class CommonUtils<T extends BaseResponseTemplate> {
      * 根据 具体板块内容，获取后台信息
      * 用于谍报馆与风尚标模块
      *
+     * @param offset          分页使用记录行数
      * @param isFengShangBiao 是否属于风尚标板块
      * @param detailPageNum   具体板块的数值 （当isclass=0时，传值1,2,3,4分别对应谍报馆：新品，价格，体验，应用.
      *                        当isclass=1时，传值1,2,3,4分别对应风尚标：综合，爱美妆，爱美访，雯琰文
      *                        ）
      */
-    public static void fetchDataAtFsbOrDbg(Fragment fragment, boolean isFengShangBiao, int detailPageNum, VolleyListener volleyListener) {
+    public static void fetchDataAtFsbOrDbg(int offset, Fragment fragment, boolean isFengShangBiao, int detailPageNum, VolleyListener volleyListener) {
         NormalDS sendParams = new NormalDS();
         sendParams.setModule(moduleString);
         sendParams.setIsclass(isFengShangBiao ? 1 : 0);
         sendParams.setCid(detailPageNum);
         //TODO 这几个参数后期要改活的
         sendParams.setOffset(0);
-        sendParams.setRows(12);
+        sendParams.setRows(Const.ROWS);
         sendParams.initTimePart();
 
         CommonUtils.httpGet(fragment, sendParams.parseParams(), volleyListener);

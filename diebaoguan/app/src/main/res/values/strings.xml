@@ -27,4 +27,5 @@
     <string name="commentsuccess">发表评论成功</string>
     <string name="commentfail">评论失败！</string>
     <string name="JingPinOrigin">精品原创</string>
+    <string name="alreadyatthebottom">已经到底了</string>
 </resources>

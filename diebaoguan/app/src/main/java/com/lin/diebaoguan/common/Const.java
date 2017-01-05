@@ -33,4 +33,5 @@ public class Const {
     public static Class[] GYJ_Fragments = new Class[]{GYJSyntheticalFragment.class, OriginalFragment.class, DigitalFragment.class, PhoneFragment.class, TabletFragment.class};
 
     public static String COMMENTSUCCESS = "60000011";//评论成功返回码
+    public static int ROWS = 20;//分页用
 }
