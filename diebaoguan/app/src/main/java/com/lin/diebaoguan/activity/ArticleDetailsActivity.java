@@ -11,19 +11,18 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.lin.diebaoguan.BaseRedTitleBarActivity;
 import com.lin.diebaoguan.MyAppication;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.common.CommonUtils;
+import com.lin.diebaoguan.common.Const;
 import com.lin.diebaoguan.common.LogUtils;
 import com.lin.diebaoguan.network.bean.Info;
 import com.lin.diebaoguan.network.response.ArticleDetailresponse;
 import com.lin.diebaoguan.network.response.BaseResponseTemplate;
 import com.lin.diebaoguan.network.send.ArticleDetailDS;
-import com.lin.diebaoguan.network.send.CommentDS;
 import com.lin.lib_volley_https.VolleyListener;
 
 /**
@@ -84,6 +83,7 @@ public class ArticleDetailsActivity extends BaseRedTitleBarActivity implements V
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 LogUtils.e(volleyError.toString());
+                showToast(getString(R.string.getdatafail) + volleyError.toString());
             }
 
             @Override
@@ -132,7 +132,7 @@ public class ArticleDetailsActivity extends BaseRedTitleBarActivity implements V
                     MyAppication application = MyAppication.getInstance();
                     boolean isLogined = application.hasLogined();
                     if (isLogined) {
-                        sendComment();
+                        CommonUtils.sendComment(trim, docid, volleyListener);
                         rl1.setVisibility(View.VISIBLE);
                         rl2.setVisibility(View.GONE);
                     } else {
@@ -141,7 +141,15 @@ public class ArticleDetailsActivity extends BaseRedTitleBarActivity implements V
                 }
                 break;
             case R.id.baseactivity_comments:
-                startActivity(new Intent(this, CommentActivity.class));
+                MyAppication application = MyAppication.getInstance();
+                boolean isLogined = application.hasLogined();
+                if (isLogined) {
+                    Intent intent = new Intent(this, CommentActivity.class);
+                    intent.putExtra("docid", docid);
+                    startActivity(intent);
+                } else {
+                    startActivity(new Intent(this, LoginActivity.class));
+                }
                 break;
             case R.id.baseactivity_back:
                 finish();
@@ -150,41 +158,25 @@ public class ArticleDetailsActivity extends BaseRedTitleBarActivity implements V
     }
 
     /**
-     * 发表评论
+     * 提交评论监听
      */
-    private void sendComment() {
-        CommentDS commentDS = new CommentDS();
-        commentDS.setAuthkey(MyAppication.getKey());
-        commentDS.setModule("api_libraries_sjdbg_comment");
-        commentDS.setDocid(docid);
-        commentDS.setUsername(MyAppication.getUserName());
-        commentDS.setUid(MyAppication.getUid());
-        commentDS.initTimePart();
+    VolleyListener volleyListener = new VolleyListener() {
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+            LogUtils.e(volleyError.toString());
+            showToast(getString(R.string.commentfail) + volleyError.toString());
+        }
 
-        CommonUtils.httpPost(commentDS.parseParams(), new VolleyListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        LogUtils.e(volleyError.toString());
-                    }
+        @Override
+        public void onResponse(String s) {
+            LogUtils.e(s);
+            BaseResponseTemplate responseTemplate = BaseResponseTemplate.parseObject(s, BaseResponseTemplate.class);
+            String code = responseTemplate.getCode();
+            final String message = responseTemplate.getMessage();
+            if (code.equals(Const.COMMENTSUCCESS)) {
+                showToast(getString(R.string.commentsuccess));
+            }
+        }
 
-                    @Override
-                    public void onResponse(String s) {
-                        LogUtils.e(s);
-                        BaseResponseTemplate responseTemplate = BaseResponseTemplate.parseObject(s, BaseResponseTemplate.class);
-                        String code = responseTemplate.getCode();
-                        final String message = responseTemplate.getMessage();
-                        if (code.equals("60000011")) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(ArticleDetailsActivity.this, message, Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }
-                    }
-                }
-        );
-
-
-    }
+    };
 }

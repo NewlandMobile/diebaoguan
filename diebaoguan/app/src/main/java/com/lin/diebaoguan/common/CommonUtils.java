@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.lin.diebaoguan.MyAppication;
 import com.lin.diebaoguan.network.response.BaseResponseTemplate;
+import com.lin.diebaoguan.network.send.CommentDS;
 import com.lin.diebaoguan.network.send.DieBaoGuanAndFengShangBiaoDS;
 import com.lin.lib_volley_https.VolleyListener;
 
@@ -179,13 +180,12 @@ public class CommonUtils<T extends BaseResponseTemplate> {
     }
 
     /**
-     *
      * @param volleyListener 响应监听
-     * @param cid  传值1,2,3,4,5分别对应光影集：综合，精品原创，数码漫谈，手机美图，平板美图.
-     * @param offset  初始坐标
-     * @param rows   每次获取数据条数
+     * @param cid            传值1,2,3,4,5分别对应光影集：综合，精品原创，数码漫谈，手机美图，平板美图.
+     * @param offset         初始坐标
+     * @param rows           每次获取数据条数
      */
-    public static void fetchDataAtGyjPage(VolleyListener volleyListener,int cid,int offset,int rows) {
+    public static void fetchDataAtGyjPage(VolleyListener volleyListener, int cid, int offset, int rows) {
         DieBaoGuanAndFengShangBiaoDS params = new DieBaoGuanAndFengShangBiaoDS();
         params.setModule("api_libraries_sjdbg_tulist");
         params.initTimePart();
@@ -220,6 +220,26 @@ public class CommonUtils<T extends BaseResponseTemplate> {
         CommonUtils.httpGet(sendParams.parseParams(), volleyListener);
     }
 
+    /**
+     * 发表评论
+     *
+     * @param content        内容
+     * @param docid          文章id
+     * @param volleyListener 监听
+     */
+    public static void sendComment(String content, String docid, VolleyListener volleyListener) {
+        CommentDS commentDS = new CommentDS();
+        commentDS.setAuthkey(MyAppication.getKey());
+        commentDS.setModule("api_libraries_sjdbg_comment");
+        commentDS.setDocid(docid);
+        commentDS.setUsername(MyAppication.getUserName());
+        commentDS.setUid(MyAppication.getUid());
+        commentDS.setContent(content);
+        commentDS.initTimePart();
+
+        CommonUtils.httpPost(commentDS.parseParams(), volleyListener);
+
+    }
 
     /**
      * 根据 具体板块内容，获取后台信息

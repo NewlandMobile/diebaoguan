@@ -3,7 +3,7 @@ package com.lin.diebaoguan.network.send;
 /**
  * Created by linx on 2017/1/411:35.
  * mail :1057705307@QQ.com.
- * describe:评论
+ * describe:提交评论
  */
 public class CommentDS extends BaseSendTemplate {
     private String authkey;//login接口返回的授权key
