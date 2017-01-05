@@ -6,11 +6,12 @@ package com.lin.diebaoguan.network.bean;
  */
 
 public class Result {
-//    docid	整型	文章id
-//    title	字符串	文章标题
-//    date	字符串	时间
-//    picUrl	字符串	图片地址
-//    content	字符串	简介
+    /*    docid	整型	文章id
+        title	字符串	文章标题
+        date	字符串	时间
+        picUrl	字符串	图片地址
+        content	字符串	简介
+        */
     int docid;
     String title;
     String date;
@@ -18,11 +19,18 @@ public class Result {
     String content;
     String type;
     int picid;
+    /*
+    评论
+     */
+    private String uid;
+    private String username;
+    private String avatar;
 
     public int getDocid() {
         return docid;
     }
-//
+
+    //
 //    public void setDocid(int docid) {
 //        this.docid = docid;
 //    }
@@ -30,7 +38,8 @@ public class Result {
     public String getTitle() {
         return title;
     }
-//
+
+    //
 //    public void setTitle(String title) {
 //        this.title = title;
 //    }
@@ -38,7 +47,8 @@ public class Result {
     public String getDate() {
         return date;
     }
-//
+
+    //
 //    public void setDate(String date) {
 //        this.date = date;
 //    }
@@ -46,7 +56,8 @@ public class Result {
     public String getPicUrl() {
         return picUrl;
     }
-//
+
+    //
 //    public void setPicUrl(String picUrl) {
 //        this.picUrl = picUrl;
 //    }
@@ -54,7 +65,8 @@ public class Result {
     public String getContent() {
         return content;
     }
-//
+
+    //
 //    public void setContent(String content) {
 //        this.content = content;
 //    }
@@ -70,5 +82,29 @@ public class Result {
 
     public int getPicid() {
         return picid;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

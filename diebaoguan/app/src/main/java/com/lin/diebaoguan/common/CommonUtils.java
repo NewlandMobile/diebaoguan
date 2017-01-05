@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.lin.diebaoguan.MyAppication;
 import com.lin.diebaoguan.network.response.BaseResponseTemplate;
+import com.lin.diebaoguan.network.send.CommentDS;
 import com.lin.diebaoguan.network.send.DieBaoGuanAndFengShangBiaoDS;
 import com.lin.lib_volley_https.VolleyListener;
 
@@ -220,6 +221,26 @@ public class CommonUtils<T extends BaseResponseTemplate> {
         CommonUtils.httpGet(sendParams.parseParams(), volleyListener);
     }
 
+    /**
+     * 发表评论
+     *
+     * @param content        内容
+     * @param docid          文章id
+     * @param volleyListener 监听
+     */
+    public static void sendComment(String content, String docid, VolleyListener volleyListener) {
+        CommentDS commentDS = new CommentDS();
+        commentDS.setAuthkey(MyAppication.getKey());
+        commentDS.setModule("api_libraries_sjdbg_comment");
+        commentDS.setDocid(docid);
+        commentDS.setUsername(MyAppication.getUserName());
+        commentDS.setUid(MyAppication.getUid());
+        commentDS.setContent(content);
+        commentDS.initTimePart();
+
+        CommonUtils.httpPost(commentDS.parseParams(), volleyListener);
+
+    }
 
     /**
      * 根据 具体板块内容，获取后台信息
