@@ -185,7 +185,7 @@ public class CommonUtils<T extends BaseResponseTemplate> {
      * @param offset  初始坐标
      * @param rows   每次获取数据条数
      */
-    public static void fetchDataAtGyjPage(VolleyListener volleyListener,int cid,int offset,int rows) {
+    public static void fetchDataAtGyjPage(int cid,int offset,int rows,VolleyListener volleyListener) {
         DieBaoGuanAndFengShangBiaoDS params = new DieBaoGuanAndFengShangBiaoDS();
         params.setModule("api_libraries_sjdbg_tulist");
         params.initTimePart();

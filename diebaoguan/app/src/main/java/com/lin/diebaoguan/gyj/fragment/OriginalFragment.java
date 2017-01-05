@@ -81,15 +81,17 @@ public class OriginalFragment extends PullToRefreshBaseFragment {
         refreshListener2=new PullToRefreshBase.OnRefreshListener2() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase refreshView) {
-                showToast("onPullDownToRefresh");
-                refreshGridView.onRefreshComplete();
+//                showToast("onPullDownToRefresh");
+//                refreshGridView.onRefreshComplete();
+                currentOffset=0;
+                fetchData(0);
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase refreshView) {
-                showToast("onPullUpToFefresh");
+//                showToast("onPullUpToFefresh");
                 checkAndLoagMoreData();
-                refreshGridView.onRefreshComplete();
+//                refreshGridView.onRefreshComplete();
             }
         };
         refreshGridView.setOnRefreshListener(refreshListener2);
@@ -97,9 +99,14 @@ public class OriginalFragment extends PullToRefreshBaseFragment {
 
     private void checkAndLoagMoreData() {
         if (paging==null)
+        {
+            refreshGridView.onRefreshComplete();
             return;
+        }
+
         if (paging.getCurrentPage()>=paging.getTotal()){
-            showToast("已到末尾");
+            showToast("没有更多信息了");
+            refreshGridView.onRefreshComplete();
             return;
         }
         currentOffset+=ROWS;
@@ -110,12 +117,15 @@ public class OriginalFragment extends PullToRefreshBaseFragment {
     private void fetchData(int offset) {
 //        params.setCid(2);
 //        params.setOffset(0);
-        CommonUtils.fetchDataAtGyjPage(new VolleyListener() {
+        CommonUtils.fetchDataAtGyjPage(2,offset,ROWS,new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 LogUtils.d("网络请求出错："+volleyError);
                 showToast(volleyError.getMessage());
                 dissProgress();
+                if (refreshGridView.isRefreshing()){
+                    refreshGridView.onRefreshComplete();
+                }
             }
 
             @Override
@@ -126,17 +136,27 @@ public class OriginalFragment extends PullToRefreshBaseFragment {
                                 parseObject(s,
                                         NormalResponse.class);
                 LogUtils.d(response.toString());
-                Result[] results=response.getData().getResult();
-
-                List<Result> resultList=new ArrayList<>(results.length);
-                for (Result result:results){
-                    resultList.add(result);
+                updateDataToGridView(response);
+                if (refreshGridView.isRefreshing()){
+                    refreshGridView.onRefreshComplete();
                 }
-                myAdapter.setDataList(resultList);
-                myAdapter.notifyDataSetChanged();
-
             }
-        },2,offset,ROWS);
+        });
+    }
+
+    private void updateDataToGridView(NormalResponse response) {
+        Result[] results=response.getData().getResult();
+        paging=response.getData().getPaging();
+        List<Result> resultList=myAdapter.getDataList();
+        //如果  位移为0 ，一般是 下拉刷新或者是初始化，可以将UI也初始化
+        if (currentOffset==0){
+            resultList.clear();
+        }
+        for (Result result:results){
+            resultList.add(result);
+        }
+        myAdapter.setDataList(resultList);
+        myAdapter.notifyDataSetChanged();
     }
 
     class MyAdapter extends BaseAdapter{
