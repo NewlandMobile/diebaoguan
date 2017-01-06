@@ -20,6 +20,7 @@ import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.Const;
 import com.lin.diebaoguan.common.LogUtils;
 import com.lin.diebaoguan.network.response.BaseResponseTemplate;
+import com.lin.diebaoguan.network.send.ArticleCollectDS;
 import com.lin.diebaoguan.network.send.ArticleDetailDS;
 import com.lin.lib_volley_https.VolleyListener;
 
@@ -35,9 +36,13 @@ public class ArticleDetailsActivity extends BaseRedTitleBarActivity implements V
     private RelativeLayout rl1;
     private RelativeLayout rl2;
     private EditText edit_txt;
-    private String docid;
     private TextView text_title;
     private TextView text_time;
+
+    private String docid;
+    private String cid;
+    private String isCollected;
+    private String uid = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +54,10 @@ public class ArticleDetailsActivity extends BaseRedTitleBarActivity implements V
     private void initView() {
         Intent intent = getIntent();
         docid = intent.getStringExtra("id");
+        if (MyAppication.getInstance().hasLogined()) {
+            String uid = intent.getStringExtra("uid");
+            this.uid = uid;
+        }
         LogUtils.e("docid: " + docid);
         webView = (WebView) findViewById(R.id.detail_webview);
         TextView textView = (TextView) findViewById(R.id.detail_textview);
@@ -84,6 +93,9 @@ public class ArticleDetailsActivity extends BaseRedTitleBarActivity implements V
         sendParam.setDocid(docid);
         sendParam.setSize("" + 500);
         sendParam.setOffset("" + 0);
+        if (MyAppication.getInstance().hasLogined()) {
+            sendParam.setUid(uid);
+        }
         CommonUtils.httpGet(sendParam.parseParams(), new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
@@ -108,6 +120,8 @@ public class ArticleDetailsActivity extends BaseRedTitleBarActivity implements V
                     String docUrl = jsonObject2.getString("docUrl");
                     String type = jsonObject2.getString("type");
                     String content = jsonObject2.getString("content");
+                    cid = jsonObject2.getString("cid");
+                    isCollected = jsonObject2.getString("isCollected");
                     text_time.setText(date);
                     text_title.setText(title);
                     if (type.equals("pic")) {
@@ -140,6 +154,20 @@ public class ArticleDetailsActivity extends BaseRedTitleBarActivity implements V
                 rl2.setVisibility(View.VISIBLE);
                 break;
             case R.id.detail_collect:
+                if (MyAppication.getInstance().hasLogined()) {
+                    ArticleCollectDS articleCollectDS = new ArticleCollectDS();
+                    articleCollectDS.initTimePart();
+                    articleCollectDS.setModule("api_libraries_sjdbg_articlecollect");
+                    articleCollectDS.setDocid(docid);
+                    articleCollectDS.setCid("");
+                    articleCollectDS.setAuthkey("");
+                    articleCollectDS.setUid("");
+                    articleCollectDS.setModule("");
+                    CommonUtils.httpPost(articleCollectDS.parseParams(), collectList);
+                } else {
+                    startActivity(new Intent(this, LoginActivity.class));
+                }
+
                 break;
             case R.id.detail_share:
                 break;
@@ -175,6 +203,7 @@ public class ArticleDetailsActivity extends BaseRedTitleBarActivity implements V
             case R.id.baseactivity_back:
                 finish();
                 break;
+
         }
     }
 
@@ -199,5 +228,20 @@ public class ArticleDetailsActivity extends BaseRedTitleBarActivity implements V
             }
         }
 
+    };
+    /**
+     * 收藏取消监听
+     */
+    VolleyListener collectList = new VolleyListener() {
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+            LogUtils.e(volleyError.toString());
+            showToast(getString(R.string.collectedfailed) + volleyError.toString());
+        }
+
+        @Override
+        public void onResponse(String s) {
+
+        }
     };
 }

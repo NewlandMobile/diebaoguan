@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.lin.diebaoguan.MyAppication;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.activity.ArticleDetailsActivity;
 import com.lin.diebaoguan.adapter.RefreshListAdapter;
@@ -127,11 +128,16 @@ public class FSBSyntheticalFragment extends PullToRefreshBaseFragment implements
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         LogUtils.e("==" + position);
-        String title = dataList.get(position-1).getTitle();
-        int docid = dataList.get(position-1).getDocid();
+        String title = dataList.get(position - 1).getTitle();
+        int docid = dataList.get(position - 1).getDocid();
         Intent intent = new Intent(getActivity(), ArticleDetailsActivity.class);
         intent.putExtra("title", title);
         intent.putExtra("id", "" + docid);
+
+        if (MyAppication.getInstance().hasLogined()) {
+            String uid = MyAppication.getUid();
+            intent.putExtra("uid", uid);
+        }
         LogUtils.e("===id" + docid + "==" + "title" + title);
         startActivity(intent);
     }
