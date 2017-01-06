@@ -90,6 +90,7 @@ public class RefreshListAdapter extends BaseAdapter {
 //        viewHolder.imageView.setImageURI(Uri.parse(result.getPicUrl()));
         viewHolder.content.setText(result.getContent());
         viewHolder.title.setText(result.getTitle());
+        LogUtils.e("title = " + result.getTitle() + "==id=" + result.getDocid());
         String date = result.getDate();
         LogUtils.e("==" + date);
         String[] split = date.split(" ");

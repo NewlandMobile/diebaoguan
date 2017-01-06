@@ -100,13 +100,13 @@ public class FSBSyntheticalFragment extends PullToRefreshBaseFragment implements
             public void onResponse(String s) {
                 LogUtils.d(s);
                 basePullToRefreshListView.onRefreshComplete();
-                NormalResponse response = NormalResponse.
-                        parseObject(s, NormalResponse.class);
+                NormalResponse response = NormalResponse.parseObject(s, NormalResponse.class);
                 LogUtils.d(response.toString());
                 Result[] results = response.getData().getResult();
                 for (Result result : results) {
                     dataList.add(result);
                 }
+
                 Paging paging = response.getData().getPaging();
                 total = paging.getTotal();
                 refreshableView.post(new Runnable() {
@@ -126,11 +126,13 @@ public class FSBSyntheticalFragment extends PullToRefreshBaseFragment implements
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        String title = dataList.get(position).getTitle();
-        int docid = dataList.get(position).getDocid();
+        LogUtils.e("==" + position);
+        String title = dataList.get(position-1).getTitle();
+        int docid = dataList.get(position-1).getDocid();
         Intent intent = new Intent(getActivity(), ArticleDetailsActivity.class);
         intent.putExtra("title", title);
         intent.putExtra("id", "" + docid);
+        LogUtils.e("===id" + docid + "==" + "title" + title);
         startActivity(intent);
     }
 }

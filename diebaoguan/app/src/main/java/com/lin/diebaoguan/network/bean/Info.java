@@ -10,10 +10,15 @@ public class Info {
     private String title;
     private String type;
     private String cid;
-    private String isCollect;
+    private String isCollected;
     private String date;
     private String content;
     private String docUrl;
+    private String author;
+    private String[] picUrl;
+
+    public Info() {
+    }
 
     public String getDocid() {
         return docid;
@@ -32,7 +37,7 @@ public class Info {
     }
 
     public String getIsCollect() {
-        return isCollect;
+        return isCollected;
     }
 
     public String getDate() {
@@ -45,5 +50,13 @@ public class Info {
 
     public String getDocUrl() {
         return docUrl;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }

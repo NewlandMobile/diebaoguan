@@ -19,11 +19,12 @@ import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.Const;
 import com.lin.diebaoguan.common.LogUtils;
-import com.lin.diebaoguan.network.bean.Info;
-import com.lin.diebaoguan.network.response.ArticleDetailresponse;
 import com.lin.diebaoguan.network.response.BaseResponseTemplate;
 import com.lin.diebaoguan.network.send.ArticleDetailDS;
 import com.lin.lib_volley_https.VolleyListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * 文章详情界面
@@ -35,6 +36,8 @@ public class ArticleDetailsActivity extends BaseRedTitleBarActivity implements V
     private RelativeLayout rl2;
     private EditText edit_txt;
     private String docid;
+    private TextView text_title;
+    private TextView text_time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +58,11 @@ public class ArticleDetailsActivity extends BaseRedTitleBarActivity implements V
         rl2 = (RelativeLayout) findViewById(R.id.rl2);
         Button btn_send = (Button) findViewById(R.id.detail_send);
         edit_txt = (EditText) findViewById(R.id.detail_edit);
+        text_title = (TextView) findViewById(R.id.detail_title);
+        text_time = (TextView) findViewById(R.id.detail_time);
+
         btn_comments.setOnClickListener(this);
         btn_back.setOnClickListener(this);
-
         btn_send.setOnClickListener(this);
         edit_txt.setOnClickListener(this);
         textView.setOnClickListener(this);
@@ -89,25 +94,40 @@ public class ArticleDetailsActivity extends BaseRedTitleBarActivity implements V
             @Override
             public void onResponse(String s) {
                 LogUtils.e(s);
-                ArticleDetailresponse response = ArticleDetailresponse.parseObject(s, ArticleDetailresponse.class);
-                Info info = response.getData().getInfo();
-                String date = info.getDate();
-                String docUrl = info.getDocUrl();
-                LogUtils.e(docUrl);
                 //启用支持javascript
                 WebSettings settings = webView.getSettings();
                 settings.setJavaScriptEnabled(true);
-                //WebView加载web资源
-                webView.loadUrl(docUrl);
-                webView.setWebViewClient(new WebViewClient() {
-                    @Override
-                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                        // TODO Auto-generated method stub
-                        //返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
-                        view.loadUrl(url);
-                        return true;
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    String data = jsonObject.getString("data");
+                    JSONObject jsonObject1 = new JSONObject(data);
+                    String info = jsonObject1.getString("info");
+                    JSONObject jsonObject2 = new JSONObject(info);
+                    String title = jsonObject2.getString("title");
+                    String date = jsonObject2.getString("date");
+                    String docUrl = jsonObject2.getString("docUrl");
+                    String type = jsonObject2.getString("type");
+                    String content = jsonObject2.getString("content");
+                    text_time.setText(date);
+                    text_title.setText(title);
+                    if (type.equals("pic")) {
+                        webView.loadUrl(docUrl);
+                        webView.setWebViewClient(new WebViewClient() {
+                            @Override
+                            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                                // TODO Auto-generated method stub
+                                //返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
+                                view.loadUrl(url);
+                                return true;
+                            }
+                        });
+                    } else {
+                        //WebView加载web资源
+                        webView.loadDataWithBaseURL(docUrl, content, "text/html", "UTF-8", null);
                     }
-                });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
