@@ -2,48 +2,30 @@ package com.lin.diebaoguan.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.android.volley.VolleyError;
 import com.lin.diebaoguan.BaseRedTitleBarActivity;
 import com.lin.diebaoguan.MyAppication;
 import com.lin.diebaoguan.R;
-import com.lin.diebaoguan.common.CommonUtils;
-import com.lin.diebaoguan.common.Const;
 import com.lin.diebaoguan.common.LogUtils;
-import com.lin.diebaoguan.network.response.BaseResponseTemplate;
-import com.lin.diebaoguan.network.send.ArticleCollectDS;
-import com.lin.diebaoguan.network.send.ArticleDetailDS;
-import com.lin.lib_volley_https.VolleyListener;
+import com.lin.diebaoguan.fsb.fragment.ArticalItemFragment;
+import com.lin.diebaoguan.network.bean.Result;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.ArrayList;
 
 /**
  * 文章详情界面
  */
-public class ArticleDetailsActivity extends BaseRedTitleBarActivity implements View.OnClickListener {
-
-    private WebView webView;
-    private RelativeLayout rl1;
-    private RelativeLayout rl2;
-    private EditText edit_txt;
-    private TextView text_title;
-    private TextView text_time;
-
+public class ArticleDetailsActivity extends BaseRedTitleBarActivity implements ViewPager.OnPageChangeListener, View.OnClickListener {
     private String docid;
-    private String cid;
-    private String isCollected;
+
     private String uid = "";
-    private ImageView image_collect;
+    private ArrayList<Result> datalist = new ArrayList<>();//资源数据集合
+    private int position = 0;//用来记录初始position
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,154 +37,47 @@ public class ArticleDetailsActivity extends BaseRedTitleBarActivity implements V
     private void initView() {
         Intent intent = getIntent();
         docid = intent.getStringExtra("id");
-        if (MyAppication.getInstance().hasLogined()) {
-            String uid = intent.getStringExtra("uid");
-            this.uid = uid;
-            LogUtils.e("uid==" + uid);
-        }
         LogUtils.e("docid: " + docid);
-        webView = (WebView) findViewById(R.id.detail_webview);
-        TextView textView = (TextView) findViewById(R.id.detail_textview);
-        Button btn_share = (Button) findViewById(R.id.detail_share);
-        image_collect = (ImageView) findViewById(R.id.detail_collect);
-        rl1 = (RelativeLayout) findViewById(R.id.rl1);
-        rl2 = (RelativeLayout) findViewById(R.id.rl2);
-        Button btn_send = (Button) findViewById(R.id.detail_send);
-        edit_txt = (EditText) findViewById(R.id.detail_edit);
-        text_title = (TextView) findViewById(R.id.detail_title);
-        text_time = (TextView) findViewById(R.id.detail_time);
-
+        position = intent.getIntExtra("position", 0);
+        LogUtils.e("==position=" + position);
+        ArrayList<Result> arrayList = (ArrayList<Result>) intent.getSerializableExtra("datalsit");
+        LogUtils.e("==" + arrayList.size());
+        datalist.addAll(arrayList);
         btn_comments.setOnClickListener(this);
         btn_back.setOnClickListener(this);
-        btn_send.setOnClickListener(this);
-        edit_txt.setOnClickListener(this);
-        textView.setOnClickListener(this);
-        btn_share.setOnClickListener(this);
-        image_collect.setOnClickListener(this);
+
+        ViewPager viewPager = (ViewPager) findViewById(R.id.detail_viewpager);
+        FragmentManager fm = getSupportFragmentManager();
+        MyAdapter adapter = new MyAdapter(fm);
+        viewPager.setAdapter(adapter);
+        viewPager.setCurrentItem(position);
     }
 
     @Override
     protected void onResume() {
-        getData(docid);
         super.onResume();
     }
 
-    /**
-     * 获取数据
-     *
-     * @param docid
-     */
-    private void getData(String docid) {
-        ArticleDetailDS sendParam = new ArticleDetailDS();
-        sendParam.setModule("api_libraries_sjdbg_detail");
-        sendParam.initTimePart();
-        sendParam.setDocid(docid);
-        sendParam.setSize("" + 500);
-        sendParam.setOffset("" + 0);
-        if (MyAppication.getInstance().hasLogined()) {
-            sendParam.setUid(uid);
-        }
-        CommonUtils.httpGet(sendParam.parseParams(), new VolleyListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                LogUtils.e(volleyError.toString());
-                showToast(getString(R.string.getdatafail) + volleyError.toString());
-            }
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-            @Override
-            public void onResponse(String s) {
-                LogUtils.e(s);
-                //启用支持javascript
-                WebSettings settings = webView.getSettings();
-                settings.setJavaScriptEnabled(true);
-                try {
-                    JSONObject jsonObject = new JSONObject(s);
-                    String data = jsonObject.getString("data");
-                    JSONObject jsonObject1 = new JSONObject(data);
-                    String info = jsonObject1.getString("info");
-                    JSONObject jsonObject2 = new JSONObject(info);
-                    String title = jsonObject2.getString("title");
-                    String date = jsonObject2.getString("date");
-                    String docUrl = jsonObject2.getString("docUrl");
-                    String type = jsonObject2.getString("type");
-                    String content = jsonObject2.getString("content");
-                    cid = jsonObject2.getString("cid");
-                    isCollected = jsonObject2.getString("isCollected");
-                    text_time.setText(date);
-                    text_title.setText(title);
-                    if (type.equals("pic")) {
-                        webView.loadUrl(docUrl);
-                        webView.setWebViewClient(new WebViewClient() {
-                            @Override
-                            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                                // TODO Auto-generated method stub
-                                //返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
-                                view.loadUrl(url);
-                                return true;
-                            }
-                        });
-                    } else {
-                        //WebView加载web资源
-                        webView.loadDataWithBaseURL(docUrl, content, "text/html", "UTF-8", null);
-                    }
-                    if (isCollected.equals("1")) {
-                        image_collect.setImageDrawable(getResources().getDrawable(R.drawable.collection_icon));
-                    } else {
-                        image_collect.setImageDrawable(getResources().getDrawable(R.drawable.uncollection));
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.detail_textview:
-                rl1.setVisibility(View.GONE);
-                rl2.setVisibility(View.VISIBLE);
-                break;
-            case R.id.detail_collect:
-                if (MyAppication.getInstance().hasLogined()) {
-                    ArticleCollectDS articleCollectDS = new ArticleCollectDS();
-                    articleCollectDS.setModule("api_libraries_sjdbg_articlecollect");
-                    articleCollectDS.setDocid(docid);
-                    articleCollectDS.setCid(cid);
-                    articleCollectDS.setAuthkey(MyAppication.getKey());
-                    articleCollectDS.setUid(uid);
-                    if (isCollected.equals("0")) {
-                        articleCollectDS.setMethod("collection");
-                    } else {
-                        articleCollectDS.setMethod("cancel");
-                    }
-                    articleCollectDS.initTimePart();
-                    CommonUtils.httpPost(articleCollectDS.parseParams(), collectList);
-                } else {
-                    startActivity(new Intent(this, LoginActivity.class));
-                }
-
-                break;
-            case R.id.detail_share:
-                break;
-            case R.id.detail_send:
-                String trim = edit_txt.getText().toString().trim();
-                if (trim.equals("") || trim == null) {
-                    rl1.setVisibility(View.VISIBLE);
-                    rl2.setVisibility(View.GONE);
-                } else {
-                    MyAppication application = MyAppication.getInstance();
-                    boolean isLogined = application.hasLogined();
-                    if (isLogined) {
-                        CommonUtils.sendComment(trim, docid, volleyListener);
-                        rl1.setVisibility(View.VISIBLE);
-                        rl2.setVisibility(View.GONE);
-                        edit_txt.setText("");
-                    } else {
-                        startActivity(new Intent(this, LoginActivity.class));
-                    }
-                }
+            case R.id.baseactivity_back:
+                finish();
                 break;
             case R.id.baseactivity_comments:
                 MyAppication application = MyAppication.getInstance();
@@ -215,64 +90,30 @@ public class ArticleDetailsActivity extends BaseRedTitleBarActivity implements V
                     startActivity(new Intent(this, LoginActivity.class));
                 }
                 break;
-            case R.id.baseactivity_back:
-                finish();
-                break;
-
         }
     }
 
-    /**
-     * 提交评论监听
-     */
-    VolleyListener volleyListener = new VolleyListener() {
-        @Override
-        public void onErrorResponse(VolleyError volleyError) {
-            LogUtils.e(volleyError.toString());
-            showToast(getString(R.string.commentfail) + volleyError.toString());
+
+    class MyAdapter extends FragmentPagerAdapter {
+
+
+        public MyAdapter(FragmentManager fm) {
+            super(fm);
         }
 
         @Override
-        public void onResponse(String s) {
-            LogUtils.e(s);
-            BaseResponseTemplate responseTemplate = BaseResponseTemplate.parseObject(s, BaseResponseTemplate.class);
-            String code = responseTemplate.getCode();
-            final String message = responseTemplate.getMessage();
-            if (code.equals(Const.COMMENTSUCCESS)) {
-                showToast(getString(R.string.commentsuccess));
-            }
-        }
-
-    };
-    /**
-     * 收藏取消监听
-     */
-    VolleyListener collectList = new VolleyListener() {
-        @Override
-        public void onErrorResponse(VolleyError volleyError) {
-            LogUtils.e(volleyError.toString());
-            showToast(getString(R.string.collectedfailed) + volleyError.toString());
+        public Fragment getItem(int position) {
+            ArticalItemFragment articalItemFragment = new ArticalItemFragment();
+            int docid = datalist.get(position).getDocid();
+            articalItemFragment.setDocid("" + docid);
+            ArticleDetailsActivity.this.docid = docid + "";
+            LogUtils.e("==docid==" + docid);
+            return articalItemFragment;
         }
 
         @Override
-        public void onResponse(String s) {
-            LogUtils.e(s);
-            BaseResponseTemplate response = BaseResponseTemplate.parseObject(s, BaseResponseTemplate.class);
-            int status = response.getStatus();
-            String code = response.getCode();
-            String message = response.getMessage();
-            if (status == 1) {
-                showToast(message);
-                if (code.equals("60000015")) {
-                    image_collect.setImageDrawable(getResources().getDrawable(R.drawable.collection_icon));
-                    isCollected = "1";
-                } else {
-                    image_collect.setImageDrawable(getResources().getDrawable(R.drawable.uncollection));
-                    isCollected = "0";
-                }
-            } else {
-                showToast(getString(R.string.collectedfailed) + message);
-            }
+        public int getCount() {
+            return datalist == null ? 0 : datalist.size();
         }
-    };
+    }
 }

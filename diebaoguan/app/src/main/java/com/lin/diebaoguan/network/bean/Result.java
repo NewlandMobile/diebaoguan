@@ -1,11 +1,13 @@
 package com.lin.diebaoguan.network.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by Alan on 2017/1/1 0001.
  * 文章信息返回值
  */
 
-public class Result {
+public class Result implements Serializable {
     /*    docid	整型	文章id
         title	字符串	文章标题
         date	字符串	时间

@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.lin.diebaoguan.MyAppication;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.activity.ArticleDetailsActivity;
 import com.lin.diebaoguan.adapter.RefreshListAdapter;
@@ -28,6 +27,7 @@ import com.lin.diebaoguan.network.response.NormalResponse;
 import com.lin.diebaoguan.network.send.NormalDS;
 import com.lin.lib_volley_https.VolleyListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -133,12 +133,10 @@ public class FSBSyntheticalFragment extends PullToRefreshBaseFragment implements
         Intent intent = new Intent(getActivity(), ArticleDetailsActivity.class);
         intent.putExtra("title", title);
         intent.putExtra("id", "" + docid);
+        intent.putExtra("position", position - 1);
+        intent.putExtra("datalsit", (Serializable) dataList);
 
-        if (MyAppication.getInstance().hasLogined()) {
-            String uid = MyAppication.getUid();
-            intent.putExtra("uid", uid);
-        }
-        LogUtils.e("===id" + docid + "==" + "title" + title);
+        LogUtils.e("===id" + docid + "==" + "title" + title + "  position==" + position);
         startActivity(intent);
     }
 }
