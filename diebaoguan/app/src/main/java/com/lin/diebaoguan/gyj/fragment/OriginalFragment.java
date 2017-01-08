@@ -1,6 +1,7 @@
 package com.lin.diebaoguan.gyj.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,16 +18,19 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 import com.lin.diebaoguan.MyAppication;
 import com.lin.diebaoguan.R;
+import com.lin.diebaoguan.activity.GyjOriginalDetailsActivity;
 import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.IMAGEUtils;
 import com.lin.diebaoguan.common.LogUtils;
 import com.lin.diebaoguan.fragment.PullToRefreshBaseFragment;
+import com.lin.diebaoguan.network.bean.Data;
 import com.lin.diebaoguan.network.bean.Paging;
 import com.lin.diebaoguan.network.bean.Result;
 import com.lin.diebaoguan.network.response.NormalResponse;
 import com.lin.diebaoguan.network.send.NormalDS;
 import com.lin.lib_volley_https.VolleyListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -108,8 +112,20 @@ public class OriginalFragment extends PullToRefreshBaseFragment {
                 LogUtils.d(s);
                 NormalResponse response=NormalResponse.parseObject(s,NormalResponse.class);
                 LogUtils.d(response.toString());
+                gotoDetaiActivity(response);
             }
         });
+    }
+
+    private void gotoDetaiActivity(NormalResponse response) {
+        if (response==null)
+            return;
+        Data data=response.getData();
+        if (response.getData()==null)
+            return;
+        Intent detailIntent=new Intent(getActivity(), GyjOriginalDetailsActivity.class);
+        detailIntent.putExtra("Data",  data);
+        startActivity(detailIntent);
     }
 
     private void initRefreshListener() {

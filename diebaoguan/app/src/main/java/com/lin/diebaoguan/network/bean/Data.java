@@ -1,5 +1,7 @@
 package com.lin.diebaoguan.network.bean;
 
+import java.io.Serializable;
+
 /**
  * It's Created by NewLand-JianFeng on 2016/12/29.
  * <p>
@@ -10,7 +12,7 @@ package com.lin.diebaoguan.network.bean;
  * 3.JSon结构一定要分析清楚
  */
 
-public class Data {
+public class Data implements Serializable{
     String uid;
     String key;
     Result[] result;
@@ -29,6 +31,8 @@ public class Data {
     String date;
     String author;
     String[] picUrl;
+    String digest;
+    String docUrl;
 
 
     public String getUid() {
@@ -89,5 +93,13 @@ public class Data {
 
     public String[] getPicUrl() {
         return picUrl;
+    }
+
+    public String getDigest() {
+        return digest;
+    }
+
+    public String getDocUrl() {
+        return docUrl;
     }
 }

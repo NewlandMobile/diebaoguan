@@ -2,21 +2,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_article_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.lin.diebaoguan.activity.ArticleDetailsActivity">
+    tools:context="com.lin.diebaoguan.activity.GyjOriginalDetailsActivity">
+    
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager_gyj"
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/ll_title_part"
+        android:layout_height="wrap_content"/>
 
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:background="@drawable/bouttom_bj">
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/rl1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -25,43 +31,50 @@
 
             <TextView
                 android:id="@+id/detail_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_marginBottom="8dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/et_bj"
                 android:gravity="center_vertical"
-                android:text="@string/pleasescanfword"
+                android:layout_weight="1"
+                tools:text="@string/pleasescanfword"
                 android:textColor="@color/gray" />
+
+
 
             <ImageView
                 android:id="@+id/detail_collect"
-                android:layout_width="50dp"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/detail_textview"
-                android:background="@drawable/uncollection" />
+                android:src="@drawable/selector_collect_btn" />
+
+            <View android:layout_height="match_parent"
+                android:layout_width="2dp"
+                android:background="@drawable/db_line" />
+
+            <Button
+                android:id="@+id/detail_save"
+                android:layout_width="40dp"
+                android:background="@drawable/selector_bottom_save_btn"
+                android:layout_height="wrap_content" />
+
+            <View android:layout_height="match_parent"
+                android:layout_width="2dp"
+                android:background="@drawable/db_line" />
 
             <Button
                 android:id="@+id/detail_share"
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/detail_collect"
                 android:background="@drawable/share_select" />
-        </RelativeLayout>
+        </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/rl2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
             android:visibility="gone">
 
 
@@ -69,8 +82,6 @@
                 android:id="@+id/detail_send"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
@@ -82,27 +93,72 @@
                 android:id="@+id/detail_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
                 android:layout_marginBottom="8dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginStart="11dp"
                 android:layout_marginTop="8dp"
-                android:layout_toStartOf="@+id/detail_send"
                 android:background="@drawable/et_bj"
                 android:hint="@string/pleasescanfword"
                 android:inputType="textPersonName" />
         </RelativeLayout>
     </RelativeLayout>
 
-    <WebView
-        android:id="@+id/detail_webview"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/relativeLayout"
+        android:layout_margin="5dp"
+        android:maxLines="1"
+        tools:text="影驰手动阀史蒂芬孙孙菲菲是 超时的用问问第三方色色回访客户方式
+        可划分影驰手动阀史蒂芬孙孙菲菲是 超时的用问问第三方色色回访客户方式可划分
+        影驰手动阀史蒂芬孙孙菲菲是 超时的用问问第三方色色回访客户方式可划分"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:id="@+id/tv_content" />
+
+    <View android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:layout_above="@+id/tv_content"
+        android:id="@+id/dividerline_bet_title_and_content"
+        android:background="@color/gray"/>
+
+    <LinearLayout
+        android:id="@+id/ll_title_part"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_above="@+id/dividerline_bet_title_and_content"
+        android:layout_alignParentStart="true">
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            tools:text="标题标题标题标题标题标标题标题标题标题标题标标题标题标题标题标题标"/>
+
+        <TextView
+            tools:text="1/24"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:id="@+id/tv_pageNum" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            app:srcCompat="@drawable/selector_show_more_im"
+            android:id="@+id/im_show_more" />
+
+
+    </LinearLayout>
 
 
 </RelativeLayout>
