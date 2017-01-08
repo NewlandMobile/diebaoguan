@@ -43,6 +43,7 @@ public class ArticleDetailsActivity extends BaseRedTitleBarActivity implements V
     private String cid;
     private String isCollected;
     private String uid = "";
+    private ImageView image_collect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +58,13 @@ public class ArticleDetailsActivity extends BaseRedTitleBarActivity implements V
         if (MyAppication.getInstance().hasLogined()) {
             String uid = intent.getStringExtra("uid");
             this.uid = uid;
+            LogUtils.e("uid==" + uid);
         }
         LogUtils.e("docid: " + docid);
         webView = (WebView) findViewById(R.id.detail_webview);
         TextView textView = (TextView) findViewById(R.id.detail_textview);
         Button btn_share = (Button) findViewById(R.id.detail_share);
-        ImageView image_collect = (ImageView) findViewById(R.id.detail_collect);
+        image_collect = (ImageView) findViewById(R.id.detail_collect);
         rl1 = (RelativeLayout) findViewById(R.id.rl1);
         rl2 = (RelativeLayout) findViewById(R.id.rl2);
         Button btn_send = (Button) findViewById(R.id.detail_send);
@@ -77,8 +79,12 @@ public class ArticleDetailsActivity extends BaseRedTitleBarActivity implements V
         textView.setOnClickListener(this);
         btn_share.setOnClickListener(this);
         image_collect.setOnClickListener(this);
-        getData(docid);
+    }
 
+    @Override
+    protected void onResume() {
+        getData(docid);
+        super.onResume();
     }
 
     /**
@@ -139,6 +145,11 @@ public class ArticleDetailsActivity extends BaseRedTitleBarActivity implements V
                         //WebView加载web资源
                         webView.loadDataWithBaseURL(docUrl, content, "text/html", "UTF-8", null);
                     }
+                    if (isCollected.equals("1")) {
+                        image_collect.setImageDrawable(getResources().getDrawable(R.drawable.collection_icon));
+                    } else {
+                        image_collect.setImageDrawable(getResources().getDrawable(R.drawable.uncollection));
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -156,13 +167,17 @@ public class ArticleDetailsActivity extends BaseRedTitleBarActivity implements V
             case R.id.detail_collect:
                 if (MyAppication.getInstance().hasLogined()) {
                     ArticleCollectDS articleCollectDS = new ArticleCollectDS();
-                    articleCollectDS.initTimePart();
                     articleCollectDS.setModule("api_libraries_sjdbg_articlecollect");
                     articleCollectDS.setDocid(docid);
-                    articleCollectDS.setCid("");
-                    articleCollectDS.setAuthkey("");
-                    articleCollectDS.setUid("");
-                    articleCollectDS.setModule("");
+                    articleCollectDS.setCid(cid);
+                    articleCollectDS.setAuthkey(MyAppication.getKey());
+                    articleCollectDS.setUid(uid);
+                    if (isCollected.equals("0")) {
+                        articleCollectDS.setMethod("collection");
+                    } else {
+                        articleCollectDS.setMethod("cancel");
+                    }
+                    articleCollectDS.initTimePart();
                     CommonUtils.httpPost(articleCollectDS.parseParams(), collectList);
                 } else {
                     startActivity(new Intent(this, LoginActivity.class));
@@ -241,7 +256,23 @@ public class ArticleDetailsActivity extends BaseRedTitleBarActivity implements V
 
         @Override
         public void onResponse(String s) {
-
+            LogUtils.e(s);
+            BaseResponseTemplate response = BaseResponseTemplate.parseObject(s, BaseResponseTemplate.class);
+            int status = response.getStatus();
+            String code = response.getCode();
+            String message = response.getMessage();
+            if (status == 1) {
+                showToast(message);
+                if (code.equals("60000015")) {
+                    image_collect.setImageDrawable(getResources().getDrawable(R.drawable.collection_icon));
+                    isCollected = "1";
+                } else {
+                    image_collect.setImageDrawable(getResources().getDrawable(R.drawable.uncollection));
+                    isCollected = "0";
+                }
+            } else {
+                showToast(getString(R.string.collectedfailed) + message);
+            }
         }
     };
 }
