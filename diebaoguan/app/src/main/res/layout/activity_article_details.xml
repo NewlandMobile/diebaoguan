@@ -8,8 +8,8 @@
     tools:context="com.lin.diebaoguan.activity.ArticleDetailsActivity">
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/detail_viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/relativeLayout" />
+    android:id="@+id/detail_viewpager"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_above="@+id/relativeLayout" />
 </RelativeLayout>

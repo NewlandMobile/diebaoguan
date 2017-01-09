@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.lin.diebaoguan.R;
@@ -37,7 +38,7 @@ public class HeadlineFragment extends PullToRefreshBaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initArgument(getActivity(), R.layout.fragment_headline, true, false);
+        initArgument(getActivity(), 0, false, true);
         initList();
     }
 
@@ -51,8 +52,13 @@ public class HeadlineFragment extends PullToRefreshBaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view == null) {
             view = super.onCreateView(inflater, container, savedInstanceState);
-            ListView listview = (ListView) view.findViewById(R.id.headline_listview);
+
+            ListView listview = basePullToRefreshListView.getRefreshableView();
+            View headView = getActivity().getLayoutInflater().inflate(R.layout.view_ad, null);
+            listview.addHeaderView(headView);
             listview.setAdapter(new MyAdapter());
+//            ListView listview = (ListView) view.findViewById(R.id.headline_listview);
+//            listview.setAdapter(new MyAdapter());
         }
         return view;
     }
@@ -112,8 +118,9 @@ public class HeadlineFragment extends PullToRefreshBaseFragment {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
-//            TextView view = (TextView) getLayoutInflater(getActivity()).inflate(android.R.layout.simple_expandable_list_item_1, null);
-            return null;
+            TextView view = (TextView) getActivity().getLayoutInflater().inflate(android.R.layout.simple_expandable_list_item_1, null);
+            view.setText(list.get(position));
+            return view;
         }
     }
 }

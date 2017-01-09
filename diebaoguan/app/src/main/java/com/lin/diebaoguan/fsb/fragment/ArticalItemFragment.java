@@ -95,12 +95,12 @@ public class ArticalItemFragment extends Fragment implements View.OnClickListene
         return docid;
     }
 
-    @Override
-    public void onDestroyView() {
-        ViewGroup parent = (ViewGroup) inflate.getParent();
-        parent.removeAllViews();
-        super.onDestroyView();
-    }
+//    @Override
+//    public void onDestroyView() {
+//        ViewGroup parent = (ViewGroup) inflate.getParent();
+//        parent.removeAllViews();
+//        super.onDestroyView();
+//    }
 
     /**
      * 获取数据

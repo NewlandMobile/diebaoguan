@@ -12,7 +12,6 @@ import com.lin.diebaoguan.MainActivity;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.Const;
-import com.lin.diebaoguan.common.IMAGEUtils;
 import com.lin.diebaoguan.common.LogUtils;
 import com.lin.diebaoguan.network.response.NormalResponse;
 import com.lin.diebaoguan.network.send.BaseSendTemplate;
@@ -57,7 +56,7 @@ public class LogoActivity extends BaseActivity {
             if (normalResponse.getStatus() == 1) {
                 String logoSrc = normalResponse.getData().getLogoSrc();
 // logo的图片基本不变，为了更加迅速的进入，可以暂时不做图片的加载
-                IMAGEUtils.displayImageWithRounder(logoSrc, imageView, 0, R.drawable.welcome);
+//                IMAGEUtils.displayImageWithRounder(logoSrc, imageView, 0, R.drawable.welcome);
             }
         } else {
             showToast(getResources().getString(R.string.getdatafail) + message);
