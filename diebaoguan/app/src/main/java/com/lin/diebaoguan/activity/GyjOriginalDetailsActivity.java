@@ -1,5 +1,6 @@
 package com.lin.diebaoguan.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -53,7 +54,8 @@ public class GyjOriginalDetailsActivity extends BaseRedTitleBarActivity implemen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initTitleBar(getString(R.string.JingPinOrigin), true, true, false, R.layout.activity_gyj_original_details);
+        initTitleBar(getString(R.string.JingPinOrigin), true, true, true, R.layout.activity_gyj_original_details);
+        iniTitleButton();
         initView();
         Data data= (Data) getIntent().getSerializableExtra("Data");
         if (data!=null){
@@ -61,6 +63,43 @@ public class GyjOriginalDetailsActivity extends BaseRedTitleBarActivity implemen
             initTextPart(data);
         }
 
+    }
+
+    private void iniTitleButton() {
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        imageView_allpic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                TODO   换成图集浏览模式
+                Intent intent=new Intent(GyjOriginalDetailsActivity.this,GyjDetailPicActivity.class);
+                intent.putExtra("Title",tv_title.getText());
+                intent.putExtra("Pics",urls);
+                startActivityForResult(intent,1);
+//                startActivity(intent);
+//                viewPager_gyj.setCurrentItem();
+            }
+        });
+        btn_comments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                TODO    跟帖评论按钮
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode!=1){
+            return;
+        }
+//        TODO    解析返回数据
+//        if ()
     }
 
     private void initTextPart(Data data) {
@@ -114,8 +153,9 @@ public class GyjOriginalDetailsActivity extends BaseRedTitleBarActivity implemen
 
         @Override
         public boolean isViewFromObject(View view, Object object) {
-
+//            LogUtils.d("View:"+view+";Object:"+object);
             return view.equals(object);
+//            return true;
         }
 
         @Override
@@ -131,7 +171,7 @@ public class GyjOriginalDetailsActivity extends BaseRedTitleBarActivity implemen
             }
             IMAGEUtils.displayImage(urls[position],view);
             viewPager_gyj.addView(view);
-            LogUtils.d("after addView at"+position);
+//            LogUtils.d("after addView at"+position);
 //            return super.instantiateItem(container, position);
             return view;
         }
@@ -142,7 +182,7 @@ public class GyjOriginalDetailsActivity extends BaseRedTitleBarActivity implemen
             cachViewsList.add((ImageView) object);
             viewPager_gyj.removeView((View) object);
 
-            LogUtils.d("after removeView at"+position);
+//            LogUtils.d("after removeView at"+position);
 //            container.removeView();
         }
     }
@@ -172,6 +212,7 @@ public class GyjOriginalDetailsActivity extends BaseRedTitleBarActivity implemen
         showMoreImageView.setOnClickListener(this);
         ll_title_part = (LinearLayout) findViewById(R.id.ll_title_part);
         viewPager_gyj = (ViewPager) findViewById(R.id.viewPager_gyj);
+//        viewPager_gyj.setCurrentItem();
 //        viewPager_gyj.setOnClickListener(this);
     }
 
@@ -196,7 +237,7 @@ public class GyjOriginalDetailsActivity extends BaseRedTitleBarActivity implemen
     private void changeShowMoreState() {
         boolean isSelect=showMoreImageView.isSelected();
         if (!isSelect){
-            tv_content.setMaxLines(10);
+            tv_content.setMaxLines(15);
         }else {
             tv_content.setMaxLines(1);
         }
