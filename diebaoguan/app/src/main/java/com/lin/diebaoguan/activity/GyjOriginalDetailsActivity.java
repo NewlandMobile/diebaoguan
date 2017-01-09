@@ -50,6 +50,8 @@ public class GyjOriginalDetailsActivity extends BaseRedTitleBarActivity implemen
 
     int picCount=0;
     private String[] urls;
+    private Data data;
+    private String picId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +59,9 @@ public class GyjOriginalDetailsActivity extends BaseRedTitleBarActivity implemen
         initTitleBar(getString(R.string.JingPinOrigin), true, true, true, R.layout.activity_gyj_original_details);
         iniTitleButton();
         initView();
-        Data data= (Data) getIntent().getSerializableExtra("Data");
+        data= (Data) getIntent().getSerializableExtra("Data");
         if (data!=null){
+            picId=data.getId();
             initViewPager(data);
             initTextPart(data);
         }
@@ -77,8 +80,9 @@ public class GyjOriginalDetailsActivity extends BaseRedTitleBarActivity implemen
             public void onClick(View v) {
 //                TODO   换成图集浏览模式
                 Intent intent=new Intent(GyjOriginalDetailsActivity.this,GyjDetailPicActivity.class);
-                intent.putExtra("Title",tv_title.getText());
-                intent.putExtra("Pics",urls);
+                intent.putExtra("Data",data);
+//                intent.putExtra("Title",tv_title.getText());
+//                intent.putExtra("Pics",urls);
                 startActivityForResult(intent,1);
 //                startActivity(intent);
 //                viewPager_gyj.setCurrentItem();
@@ -87,7 +91,9 @@ public class GyjOriginalDetailsActivity extends BaseRedTitleBarActivity implemen
         btn_comments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                TODO    跟帖评论按钮
+                Intent intent=new Intent(GyjOriginalDetailsActivity.this,CommentActivity.class);
+                intent.putExtra("docid",picId);
+                startActivity(intent);
             }
         });
     }

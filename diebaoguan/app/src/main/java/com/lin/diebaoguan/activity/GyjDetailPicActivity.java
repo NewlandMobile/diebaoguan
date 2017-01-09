@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import com.lin.diebaoguan.BaseRedTitleBarActivity;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.common.IMAGEUtils;
+import com.lin.diebaoguan.network.bean.Data;
 
 import java.net.URI;
 
@@ -23,19 +24,36 @@ import java.net.URI;
 public class GyjDetailPicActivity extends BaseRedTitleBarActivity {
     private GridView gridView_Image_browsing;
     private String[] urls;
+    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        String title= (String) intent.getCharSequenceExtra("Title");
-        urls=intent.getStringArrayExtra("Pics");
+        Data data= (Data) intent.getSerializableExtra("Data");
+        String title= data.getTitle();
+        urls=data.getPicUrl();
+        id= data.getId();
         if (title==null|urls==null){
             return;
         }
         initTitleBar(title, true, true, false, R.layout.activity_detail_pic_gyj);
         initView();
         initBackBtn();
+        initCommentBtn();
+    }
+
+    private void initCommentBtn() {
+        btn_comments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(GyjDetailPicActivity.this,CommentActivity.class);
+                intent.putExtra("docid",id);
+                startActivity(intent);
+//                setResult(0,intent);
+//                finish();
+            }
+        });
     }
 
     private void initBackBtn() {
