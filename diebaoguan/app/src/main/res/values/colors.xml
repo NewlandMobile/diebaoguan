@@ -12,5 +12,6 @@
     <color name="lucency">#00000000</color>
     <color name="red">#ffD51924</color>
     <color name="deepgray">#acacac</color>
+    <color name="dark_gray">#36393c</color>
 
 </resources>

@@ -30,6 +30,7 @@ public class IMAGEUtils {
         @Override
         public void onLoadingComplete(String imageUri, View view,
                                       Bitmap loadedImage) {
+            LogUtils.d("imageUri:"+imageUri);
             if (loadedImage != null) {
                 ImageView imageView = (ImageView) view;
                 boolean firstDisplay = !displayedImages.contains(imageUri);
@@ -77,6 +78,7 @@ public class IMAGEUtils {
                     .showImageOnLoading(R.drawable.default_article_list)
                     .showImageForEmptyUri(R.drawable.default_article_list)
                     .showImageOnFail(R.drawable.default_article_list).cacheInMemory(true)
+                    .bitmapConfig(Bitmap.Config.RGB_565)
                     .cacheOnDisk(true).considerExifParams(true).build();
         }
     }

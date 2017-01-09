@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gyj_bj"
     tools:context="com.lin.diebaoguan.activity.GyjOriginalDetailsActivity">
     
     <android.support.v4.view.ViewPager
@@ -108,8 +109,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/relativeLayout"
-        android:layout_margin="5dp"
+        android:padding="5dp"
+        android:textColor="@color/deepgray"
         android:maxLines="1"
+        android:background="@color/black"
         tools:text="影驰手动阀史蒂芬孙孙菲菲是 超时的用问问第三方色色回访客户方式
         可划分影驰手动阀史蒂芬孙孙菲菲是 超时的用问问第三方色色回访客户方式可划分
         影驰手动阀史蒂芬孙孙菲菲是 超时的用问问第三方色色回访客户方式可划分"
@@ -127,7 +130,8 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
+        android:padding="5dp"
+        android:background="@color/black"
         android:layout_above="@+id/dividerline_bet_title_and_content"
         android:layout_alignParentStart="true">
         <TextView
@@ -139,6 +143,7 @@
             android:maxLines="1"
             android:layout_weight="1"
             android:textSize="16sp"
+            android:textColor="@color/white"
             tools:text="标题标题标题标题标题标标题标题标题标题标题标标题标题标题标题标题标"/>
 
         <TextView
@@ -146,6 +151,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
+            android:textColor="@color/white"
             android:gravity="center"
             android:id="@+id/tv_pageNum" />
 
@@ -154,7 +160,7 @@
             android:layout_height="30dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            app:srcCompat="@drawable/selector_show_more_im"
+            android:src="@drawable/selector_show_more_im"
             android:id="@+id/im_show_more" />
 
 

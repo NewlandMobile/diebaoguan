@@ -107,11 +107,11 @@ public class PullToRefreshBaseFragment extends Fragment {
     //本类名  方便测试打印
 //    protected final String classNameString=this.getClass().getName();
 
-    protected void showToast(String message){
+    public void showToast(String message){
         Toast.makeText(getActivity(),message,Toast.LENGTH_SHORT).show();
     }
 
-    protected void showLongTimeToast(String message){
+    public void showLongTimeToast(String message){
         Toast.makeText(getActivity(),message,Toast.LENGTH_LONG).show();
     }
 
