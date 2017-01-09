@@ -35,6 +35,19 @@ public class GyjDetailPicActivity extends BaseRedTitleBarActivity {
         }
         initTitleBar(title, true, true, false, R.layout.activity_detail_pic_gyj);
         initView();
+        initBackBtn();
+    }
+
+    private void initBackBtn() {
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent();
+                intent.putExtra("haveChange",false);
+                setResult(0,intent);
+                finish();
+            }
+        });
     }
 
     private void initView() {
@@ -75,7 +88,11 @@ public class GyjDetailPicActivity extends BaseRedTitleBarActivity {
         gridView_Image_browsing.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                Intent intent=new Intent();
+                intent.putExtra("haveChange",true);
+                intent.putExtra("pageNum",position);
+                setResult(0,intent);
+                finish();
             }
         });
     }

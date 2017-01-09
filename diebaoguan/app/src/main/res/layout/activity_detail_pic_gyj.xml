@@ -8,5 +8,6 @@
         android:id="@+id/gridView_Image_browsing"
         android:numColumns="3"
         android:layout_width="match_parent"
+        android:listSelector="@color/lucency"
         android:layout_height="match_parent"/>
 </LinearLayout>

@@ -98,8 +98,14 @@ public class GyjOriginalDetailsActivity extends BaseRedTitleBarActivity implemen
         if (requestCode!=1){
             return;
         }
-//        TODO    解析返回数据
-//        if ()
+        if (data==null){
+            return;
+        }
+        if (data.getBooleanExtra("haveChange",false)){
+            int pageNum=data.getIntExtra("pageNum",0);
+            viewPager_gyj.setCurrentItem(pageNum);
+        }
+
     }
 
     private void initTextPart(Data data) {
@@ -163,7 +169,11 @@ public class GyjOriginalDetailsActivity extends BaseRedTitleBarActivity implemen
 //            String url=urls[position];
 //            ImageView imageView=new ImageView(GyjOriginalDetailsActivity.this);
 //            IMAGEUtils.displayImage(url,imageView);
-            ImageView view=  cachViewsList.get(0);
+
+            ImageView view=null;
+            if (cachViewsList.size()!=0){
+                view   =  cachViewsList.get(0);
+            }
             if (view==null){
                 view=new ImageView(GyjOriginalDetailsActivity.this);
             }else {
