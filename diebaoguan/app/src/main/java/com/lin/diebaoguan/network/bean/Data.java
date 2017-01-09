@@ -12,7 +12,7 @@ import java.io.Serializable;
  * 3.JSon结构一定要分析清楚
  */
 
-public class Data implements Serializable{
+public class Data implements Serializable {
     String uid;
     String key;
     Result[] result;
@@ -33,7 +33,10 @@ public class Data implements Serializable{
     String[] picUrl;
     String digest;
     String docUrl;
-
+    /*
+    logoSrc 欢迎界面logo
+     */
+    private String logoSrc;
 
     public String getUid() {
         return uid;
@@ -101,5 +104,9 @@ public class Data implements Serializable{
 
     public String getDocUrl() {
         return docUrl;
+    }
+
+    public String getLogoSrc() {
+        return logoSrc;
     }
 }

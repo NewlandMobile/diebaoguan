@@ -34,4 +34,6 @@ public class Const {
 
     public static String COMMENTSUCCESS = "60000011";//评论成功返回码
     public static int ROWS = 20;//分页用
+    public static String SP_ISFIRSTNAME = "ISFIRST";//是否首次
+    public static String SP_ISFIRSTKEY = "isFirst";
 }
