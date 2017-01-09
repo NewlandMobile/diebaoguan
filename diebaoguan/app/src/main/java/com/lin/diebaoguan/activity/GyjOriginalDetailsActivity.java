@@ -33,7 +33,7 @@ public class GyjOriginalDetailsActivity extends BaseRedTitleBarActivity implemen
     private ImageView detail_collect;
     private Button detail_save;
     private Button detail_share;
-    private LinearLayout rl1;
+//    private LinearLayout rl1;
     private Button detail_send;
     private EditText detail_edit;
     private RelativeLayout rl2;
@@ -213,7 +213,7 @@ public class GyjOriginalDetailsActivity extends BaseRedTitleBarActivity implemen
         detail_save.setOnClickListener(this);
         detail_share = (Button) findViewById(R.id.detail_share);
         detail_share.setOnClickListener(this);
-        rl1 = (LinearLayout) findViewById(R.id.rl1);
+//        rl1 = (LinearLayout) findViewById(R.id.rl1);
         detail_send = (Button) findViewById(R.id.detail_send);
         detail_send.setOnClickListener(this);
         detail_edit = (EditText) findViewById(R.id.detail_edit);
