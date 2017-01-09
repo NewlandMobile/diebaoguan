@@ -89,9 +89,11 @@ public class CommentActivity extends BaseRedTitleBarActivity implements View.OnC
                 LogUtils.e(s);
                 NormalResponse normalResponse = NormalResponse.parseObject(s, NormalResponse.class);
                 Result[] result = normalResponse.getData().getResult();
-                for (Result rslt : result) {
-                    list.add(rslt);
-                    adapter.notifyDataSetChanged();
+                if(result!=null){
+                    for (Result rslt : result) {
+                        list.add(rslt);
+                        adapter.notifyDataSetChanged();
+                    }
                 }
             }
         });

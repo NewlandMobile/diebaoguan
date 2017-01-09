@@ -24,7 +24,6 @@ import com.lin.diebaoguan.fragment.PullToRefreshBaseFragment;
 import com.lin.diebaoguan.network.bean.Paging;
 import com.lin.diebaoguan.network.bean.Result;
 import com.lin.diebaoguan.network.response.NormalResponse;
-import com.lin.diebaoguan.network.send.NormalDS;
 import com.lin.lib_volley_https.VolleyListener;
 
 import java.io.Serializable;
@@ -47,7 +46,6 @@ public class FSBSyntheticalFragment extends PullToRefreshBaseFragment implements
 
     private ListView refreshableView;
     private View view;
-    private NormalDS sendParams = new NormalDS();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

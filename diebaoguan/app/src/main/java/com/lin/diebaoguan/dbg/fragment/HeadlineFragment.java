@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
 
 import com.android.volley.VolleyError;
 import com.lin.diebaoguan.R;
@@ -14,7 +16,9 @@ import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.fragment.PullToRefreshBaseFragment;
 import com.lin.lib_volley_https.VolleyListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,6 +28,7 @@ public class HeadlineFragment extends PullToRefreshBaseFragment {
 
 
     private View view;
+    private List<String> list = new ArrayList<>();
 
     public HeadlineFragment() {
         // Required empty public constructor
@@ -32,16 +37,22 @@ public class HeadlineFragment extends PullToRefreshBaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initArgument(getActivity(), R.layout.fragment_headline,true,false);
+        initArgument(getActivity(), R.layout.fragment_headline, true, false);
+        initList();
+    }
+
+    private void initList() {
+        for (int i = 0; i < 20; i++) {
+            list.add("内容");
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view == null) {
             view = super.onCreateView(inflater, container, savedInstanceState);
-//            baseLinearLayout.setVisibility(View.VISIBLE);
-//            baseLinearLayout.setBackgroundResource(R.drawable.btn_long_bg);
-//            getData();
+            ListView listview = (ListView) view.findViewById(R.id.headline_listview);
+            listview.setAdapter(new MyAdapter());
         }
         return view;
     }
@@ -78,5 +89,31 @@ public class HeadlineFragment extends PullToRefreshBaseFragment {
 
             }
         });
+    }
+
+
+    class MyAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return list.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return list.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+//            TextView view = (TextView) getLayoutInflater(getActivity()).inflate(android.R.layout.simple_expandable_list_item_1, null);
+            return null;
+        }
     }
 }
