@@ -161,9 +161,11 @@ public class ArticalItemFragment extends Fragment implements View.OnClickListene
                         webView.loadDataWithBaseURL(docUrl, content, "text/html", "UTF-8", null);
                     }
                     if (isCollected.equals("1")) {
-                        image_collect.setImageDrawable(getResources().getDrawable(R.drawable.collection_icon));
+                        image_collect.setImageResource(R.drawable.collection_icon);
+//                        image_collect.setImageDrawable(getResources().getDrawable(R.drawable.collection_icon));
                     } else {
-                        image_collect.setImageDrawable(getResources().getDrawable(R.drawable.uncollection));
+                        image_collect.setImageResource(R.drawable.uncollection);
+//                        image_collect.setImageDrawable(getResources().getDrawable(R.drawable.uncollection));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

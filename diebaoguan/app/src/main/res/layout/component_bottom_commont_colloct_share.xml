@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentStart="true"
+    android:background="@drawable/bouttom_bj">
+
+    <RelativeLayout
+        android:id="@+id/rl2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:visibility="gone">
+
+
+        <Button
+            android:id="@+id/detail_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/btnsend_selecot"
+            android:text="@string/send" />
+
+        <EditText
+            android:id="@+id/detail_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="8dp"
+            android:layout_toStartOf="@+id/detail_send"
+            android:background="@drawable/et_bj"
+            android:hint="@string/pleasescanfword"
+            android:inputType="textPersonName" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+
+        <View
+            android:id="@+id/ddline_bet_save_share"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@+id/detail_save"
+            android:background="@drawable/db_line"
+            android:layout_alignStart="@+id/detail_share" />
+
+        <Button
+            android:id="@+id/detail_share"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/share_select"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true" />
+
+        <Button
+            android:id="@+id/detail_save"
+            android:visibility="gone"
+            android:layout_width="40dp"
+            android:background="@drawable/selector_bottom_save_btn"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/detail_share" />
+
+        <View
+            android:id="@+id/ddline_bet_collect_save"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/db_line"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/detail_save" />
+
+        <ImageView
+            android:id="@+id/detail_collect"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/uncollection"
+            android:layout_centerVertical="true"
+            android:scaleType="center"
+            android:layout_toStartOf="@+id/ddline_bet_collect_save" />
+
+        <TextView
+            android:id="@+id/detail_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/detail_collect"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/et_bj"
+            android:gravity="center_vertical"
+            android:text="@string/pleasescanfword"
+            android:textColor="@color/gray" />
+
+
+    </RelativeLayout>
+</RelativeLayout>
