@@ -101,7 +101,7 @@
             android:id="@+id/detail_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/detail_collect"
+            android:layout_toStartOf="@+id/detail_collect"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginBottom="8dp"

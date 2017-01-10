@@ -43,7 +43,7 @@ public class GyjOriginalDetailsActivity extends BaseRedTitleBarActivity implemen
     private TextView tv_title;
     private TextView tv_pageNum;
     private ImageView showMoreImageView;
-    private LinearLayout ll_title_part;
+//    private LinearLayout ll_title_part;
 //    private RelativeLayout activity_article_details;
     private ViewPager viewPager_gyj;
     private List<ImageView> cachViewsList;
@@ -226,7 +226,7 @@ public class GyjOriginalDetailsActivity extends BaseRedTitleBarActivity implemen
         tv_pageNum = (TextView) findViewById(R.id.tv_pageNum);
         showMoreImageView = (ImageView) findViewById(R.id.im_show_more);
         showMoreImageView.setOnClickListener(this);
-        ll_title_part = (LinearLayout) findViewById(R.id.ll_title_part);
+//        ll_title_part = (LinearLayout) findViewById(R.id.ll_title_part);
         viewPager_gyj = (ViewPager) findViewById(R.id.viewPager_gyj);
 //        viewPager_gyj.setCurrentItem();
 //        viewPager_gyj.setOnClickListener(this);

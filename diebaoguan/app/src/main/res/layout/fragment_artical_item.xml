@@ -37,7 +37,5 @@
         android:layout_above="@+id/relativeLayout"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView4" />
-
-    <include layout="@layout/component_bottom_commont_colloct_share"/>
 </RelativeLayout>
 
