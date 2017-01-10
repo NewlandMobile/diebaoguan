@@ -72,6 +72,7 @@ public class LogoActivity extends BaseActivity {
                 } else {
                     startActivity(new Intent(LogoActivity.this, MainActivity.class));
                 }
+                finish();
             }
         }, 2000);
     }

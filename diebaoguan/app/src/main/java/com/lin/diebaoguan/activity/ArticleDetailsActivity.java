@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class ArticleDetailsActivity extends BaseCommentAndShareActivity implements ViewPager.OnPageChangeListener, View.OnClickListener {
 
     private ArrayList<Result> dataList = new ArrayList<>();//资源数据集合
+    private MyAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,7 @@ public class ArticleDetailsActivity extends BaseCommentAndShareActivity implemen
     private void initView() {
         Intent intent = getIntent();
         docid = intent.getStringExtra("id");
-        LogUtils.e("docid: " + docid);
+//        LogUtils.e("docid: " + docid);
         int position = intent.getIntExtra("position", 0);
         LogUtils.e("==position=" + position);
         ArrayList<Result> arrayList = (ArrayList<Result>) intent.getSerializableExtra("datalsit");
@@ -47,9 +48,10 @@ public class ArticleDetailsActivity extends BaseCommentAndShareActivity implemen
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.detail_viewpager);
         FragmentManager fm = getSupportFragmentManager();
-        MyAdapter adapter = new MyAdapter(fm);
+        adapter = new MyAdapter(fm);
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(position);
+        viewPager.addOnPageChangeListener(this);
     }
 
 
@@ -60,7 +62,8 @@ public class ArticleDetailsActivity extends BaseCommentAndShareActivity implemen
 
     @Override
     public void onPageSelected(int position) {
-
+        //  实时更新 当前文章的docid
+        docid= ((ArticalItemFragment) adapter.getItem(position)).getDocid();
     }
 
     @Override
@@ -83,7 +86,7 @@ public class ArticleDetailsActivity extends BaseCommentAndShareActivity implemen
             ArticalItemFragment articalItemFragment = new ArticalItemFragment();
             int docid = dataList.get(position).getDocid();
             articalItemFragment.setDocid("" + docid);
-            ArticleDetailsActivity.this.docid = docid + "";
+//            ArticleDetailsActivity.this.docid = docid + "";
             LogUtils.e("==docid==" + docid);
             return articalItemFragment;
         }

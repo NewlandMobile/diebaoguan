@@ -14,6 +14,7 @@ import com.lin.lib_volley_https.VolleyListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,8 +47,8 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
     // TODO 再加一下  关于Fragment 切换时的   数据更新组合方法
 
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    protected void onResume() {
+        super.onResume();
         hasLogin=MyAppication.getInstance().hasLogined();
     }
 
@@ -59,7 +60,7 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
         }
     }
 
-    protected void initBottomPart(){
+    private void initBottomPart(){
 //        TextView textView = (TextView) inflate.findViewById(R.id.detail_textview);
 //        Button btn_share = (Button) inflate.findViewById(R.id.detail_share);
 //        image_collect = (ImageView) inflate.findViewById(R.id.detail_collect);
@@ -83,18 +84,18 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
         image_collect.setOnClickListener(this);
     }
 
-    public boolean isCollected() {
-        return isCollected;
-    }
+//    public boolean isCollected() {
+//        return isCollected;
+//    }
 
     public void setCollected(boolean collected) {
         isCollected = collected;
         changeCollectState(collected);
     }
 
-    public String getCid() {
-        return cid;
-    }
+//    public String getCid() {
+//        return cid;
+//    }
 
     public void setCid(String cid) {
         this.cid = cid;
@@ -107,9 +108,9 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
                 finish();
                 break;
             case R.id.baseactivity_comments:
-                MyAppication application = MyAppication.getInstance();
-                boolean isLogined = application.hasLogined();
-                if (isLogined) {
+//                MyAppication application = MyAppication.getInstance();
+//                boolean isLogined = application.hasLogined();
+                if (hasLogin) {
                     Intent intent = new Intent(this, CommentActivity.class);
                     intent.putExtra("docid", docid);
                     startActivity(intent);
@@ -142,13 +143,12 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
                 } else {
                     startActivity(new Intent(BaseCommentAndShareActivity.this, LoginActivity.class));
                 }
-
                 break;
             case R.id.detail_share:
                 break;
             case R.id.detail_send:
                 String trim = edit_txt.getText().toString().trim();
-                if (trim.equals("") || trim == null) {
+                if (TextUtils.isEmpty(trim)) {
                     rl1.setVisibility(View.VISIBLE);
                     rl2.setVisibility(View.GONE);
                 } else {
@@ -180,7 +180,7 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
             LogUtils.e(s);
             BaseResponseTemplate responseTemplate = BaseResponseTemplate.parseObject(s, BaseResponseTemplate.class);
             String code = responseTemplate.getCode();
-            final String message = responseTemplate.getMessage();
+//            final String message = responseTemplate.getMessage();
             if (code.equals(Const.COMMENTSUCCESS)) {
                 showToast(getString(R.string.commentsuccess));
             }

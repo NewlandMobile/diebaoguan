@@ -66,7 +66,7 @@ public class ArticalItemFragment extends Fragment  {
             }
             inflate = inflater.inflate(R.layout.fragment_artical_item, container, false);
             initView();
-            String docid = getDocid();
+//            String docid = getDocid();
             getData(docid);
         }
         return inflate;
