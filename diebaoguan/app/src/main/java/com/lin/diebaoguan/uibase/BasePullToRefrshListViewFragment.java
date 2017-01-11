@@ -116,6 +116,10 @@ public abstract class BasePullToRefrshListViewFragment extends PullToRefreshBase
             NormalResponse response = NormalResponse.parseObject(s, NormalResponse.class);
             LogUtils.d(response.toString());
             Result[] results = response.getData().getResult();
+            // 假如是下拉刷新而不是上拉加载更多，需要先清旧数据，再加
+            if (currentPageOffset == 0) {
+                dataList.clear();
+            }
             // 这行是新写法，下次要记住
             Collections.addAll(dataList, results);
             adapter.notifyDataSetChanged();
