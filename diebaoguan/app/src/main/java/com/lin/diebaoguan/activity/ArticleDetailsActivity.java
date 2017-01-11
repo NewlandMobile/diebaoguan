@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * 文章详情界面
  */
-public class ArticleDetailsActivity extends BaseCommentAndShareActivity implements ViewPager.OnPageChangeListener, View.OnClickListener {
+public class ArticleDetailsActivity extends BaseCommentAndShareActivity {
 
     //    private ArrayList<Result> dataList = new ArrayList<>();//资源数据集合
     private MyAdapter adapter;
@@ -59,25 +59,28 @@ public class ArticleDetailsActivity extends BaseCommentAndShareActivity implemen
         adapter = new MyAdapter(fm);
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(currentOffset);
-        viewPager.addOnPageChangeListener(this);
+        viewPager.addOnPageChangeListener(new MyPageChangeListener());
+    }
+
+    private class MyPageChangeListener implements ViewPager.OnPageChangeListener {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            //  实时更新 当前文章的docid
+            docid = ((ArticalItemFragment) adapter.getItem(position)).getDocid();
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
     }
 
 
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        //  实时更新 当前文章的docid
-        docid= ((ArticalItemFragment) adapter.getItem(position)).getDocid();
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
 
     private class MyAdapter extends FragmentPagerAdapter {
 
