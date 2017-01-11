@@ -89,16 +89,20 @@ public abstract class BasePullToRefrshListViewFragment extends PullToRefreshBase
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        LogUtils.e("==" + position);
-        String title = dataList.get(position - 1).getTitle();
-        int docid = dataList.get(position - 1).getDocid();
         Intent intent = new Intent(getActivity(), ArticleDetailsActivity.class);
-        intent.putExtra("title", title);
-        intent.putExtra("id", "" + docid);
-        intent.putExtra("position", position - 1);
-        intent.putExtra("datalsit", (Serializable) dataList);
+//        Result result=dataList.get(position-1);
+        intent.putExtra("currentOffset", position - 1);
+        intent.putExtra("allItem", dataList.toArray());
+//        LogUtils.e("==" + position);
+//        String title = dataList.get(position - 1).getTitle();
+//        int docid = dataList.get(position - 1).getDocid();
 
-        LogUtils.e("===id" + docid + "==" + "title" + title + "  position==" + position);
+//        intent.putExtra("title", title);
+//        intent.putExtra("id", "" + docid);
+//        intent.putExtra("position", position - 1);
+//        intent.putExtra("datalsit", (Serializable) dataList);
+//
+//        LogUtils.e("===id" + docid + "==" + "title" + title + "  position==" + position);
         startActivity(intent);
     }
 

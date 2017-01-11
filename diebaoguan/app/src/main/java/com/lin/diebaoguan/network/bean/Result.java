@@ -14,7 +14,7 @@ public class Result implements Serializable {
         picUrl	字符串	图片地址
         content	字符串	简介
         */
-    int docid;
+    String docid;
     String title;
     String date;
     String picUrl;
@@ -28,7 +28,7 @@ public class Result implements Serializable {
     private String username;
     private String avatar;
 
-    public int getDocid() {
+    public String getDocid() {
         return docid;
     }
 

@@ -15,14 +15,16 @@ import com.lin.diebaoguan.network.bean.Result;
 import com.lin.diebaoguan.uibase.BaseCommentAndShareActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 文章详情界面
  */
 public class ArticleDetailsActivity extends BaseCommentAndShareActivity implements ViewPager.OnPageChangeListener, View.OnClickListener {
 
-    private ArrayList<Result> dataList = new ArrayList<>();//资源数据集合
+    //    private ArrayList<Result> dataList = new ArrayList<>();//资源数据集合
     private MyAdapter adapter;
+    private Object[] dataArray = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,19 +41,24 @@ public class ArticleDetailsActivity extends BaseCommentAndShareActivity implemen
 
     private void initView() {
         Intent intent = getIntent();
-        docid = intent.getStringExtra("id");
+        dataArray = (Object[]) intent.getSerializableExtra("allItem");
+//        List<Result>
+        int currentOffset = intent.getIntExtra("currentOffset", 0);
+        Result currentItem = (Result) dataArray[currentOffset];
+//        docid = intent.getStringExtra("id");
+        docid = currentItem.getDocid();
 //        LogUtils.e("docid: " + docid);
-        int position = intent.getIntExtra("position", 0);
-        LogUtils.e("==position=" + position);
-        ArrayList<Result> arrayList = (ArrayList<Result>) intent.getSerializableExtra("datalsit");
-        LogUtils.e("==" + arrayList.size());
-        dataList.addAll(arrayList);
+//        int position = intent.getIntExtra("position", 0);
+//        LogUtils.e("==position=" + position);
+//        ArrayList<Result> arrayList = (ArrayList<Result>) intent.getSerializableExtra("datalsit");
+//        LogUtils.e("==" + arrayList.size());
+//        dataList.addAll(arrayList);
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.detail_viewpager);
         FragmentManager fm = getSupportFragmentManager();
         adapter = new MyAdapter(fm);
         viewPager.setAdapter(adapter);
-        viewPager.setCurrentItem(position);
+        viewPager.setCurrentItem(currentOffset);
         viewPager.addOnPageChangeListener(this);
     }
 
@@ -72,10 +79,7 @@ public class ArticleDetailsActivity extends BaseCommentAndShareActivity implemen
 
     }
 
-
-
-
-    class MyAdapter extends FragmentPagerAdapter {
+    private class MyAdapter extends FragmentPagerAdapter {
 
 
         public MyAdapter(FragmentManager fm) {
@@ -85,16 +89,19 @@ public class ArticleDetailsActivity extends BaseCommentAndShareActivity implemen
         @Override
         public Fragment getItem(int position) {
             ArticalItemFragment articalItemFragment = new ArticalItemFragment();
-            int docid = dataList.get(position).getDocid();
-            articalItemFragment.setDocid("" + docid);
+//            int docid = dataList.get(position).getDocid();
+            String docid = ((Result) dataArray[position]).getDocid();
+            articalItemFragment.setDocid(docid);
 //            ArticleDetailsActivity.this.docid = docid + "";
-            LogUtils.e("==docid==" + docid);
+//            LogUtils.e("==docid==" + docid);
             return articalItemFragment;
         }
 
         @Override
         public int getCount() {
-            return dataList == null ? 0 : dataList.size();
+//            return dataList == null ? 0 : dataList.size();
+
+            return dataArray == null ? 0 : dataArray.length;
         }
     }
 }
