@@ -6,16 +6,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 
 import com.lin.diebaoguan.R;
-import com.lin.diebaoguan.common.LogUtils;
-import com.lin.diebaoguan.fsb.fragment.ArticalItemFragment;
+import com.lin.diebaoguan.fragment.ArticalItemFragment;
 import com.lin.diebaoguan.network.bean.Result;
 import com.lin.diebaoguan.uibase.BaseCommentAndShareActivity;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 文章详情界面

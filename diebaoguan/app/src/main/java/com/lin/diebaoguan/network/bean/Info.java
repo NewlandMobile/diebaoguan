@@ -9,7 +9,7 @@ public class Info {
     private String docid;
     private String title;
     private String type;
-    private String cid;
+    private int cid;
     private String isCollected;
     private String date;
     private String content;
@@ -32,7 +32,7 @@ public class Info {
         return type;
     }
 
-    public String getCid() {
+    public int getCid() {
         return cid;
     }
 
