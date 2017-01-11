@@ -29,7 +29,6 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
     protected String docid;
     private boolean isCollected;
     private int cid;
-
     private RelativeLayout rl1;
     private RelativeLayout rl2;
     private EditText edit_txt;

@@ -20,6 +20,7 @@ import com.lin.diebaoguan.adapter.RefreshListAdapter;
 import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.Const;
 import com.lin.diebaoguan.common.LogUtils;
+import com.lin.diebaoguan.uibase.BasePullToRefrshListViewFragment;
 import com.lin.diebaoguan.uibase.PullToRefreshBaseFragment;
 import com.lin.diebaoguan.network.bean.Paging;
 import com.lin.diebaoguan.network.bean.Result;
@@ -34,18 +35,10 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  * 综合
  */
-public class FSBSyntheticalFragment extends PullToRefreshBaseFragment implements AdapterView.OnItemClickListener {
-
-    private RefreshListAdapter adapter;
-    private List<Result> dataList = new ArrayList<>();
-    private int currentOffset = 0;//用于分页
-    private int total;//总共数量
+public class FSBSyntheticalFragment extends BasePullToRefrshListViewFragment {
 
     public FSBSyntheticalFragment() {
     }
-
-    private ListView refreshableView;
-    private View view;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,39 +48,15 @@ public class FSBSyntheticalFragment extends PullToRefreshBaseFragment implements
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (view == null) {
-            view = super.onCreateView(inflater, container, savedInstanceState);
-            initView();
-        }
-        return view;
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-    private void initView() {
-        refreshableView = basePullToRefreshListView.getRefreshableView();
-        getData(0);
-        refreshableView.setOnItemClickListener(this);
-        //下拉刷新
-        basePullToRefreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-            @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                currentOffset = 0;
-                getData(0);
-            }
 
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                if (currentOffset >= total) {
-                    Toast.makeText(getActivity(), R.string.alreadyatthebottom, Toast.LENGTH_SHORT).show();
-                }
-                getData(currentOffset);
-            }
-        });
-    }
 
     /**
      * 获取数据
      */
-    private void getData(final int offset) {
+    protected void getData(final int offset) {
         CommonUtils.fetchDataAtFsbOrDbg(offset, FSBSyntheticalFragment.this, true, 1, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
@@ -123,18 +92,5 @@ public class FSBSyntheticalFragment extends PullToRefreshBaseFragment implements
         });
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        LogUtils.e("==" + position);
-        String title = dataList.get(position - 1).getTitle();
-        int docid = dataList.get(position - 1).getDocid();
-        Intent intent = new Intent(getActivity(), ArticleDetailsActivity.class);
-        intent.putExtra("title", title);
-        intent.putExtra("id", "" + docid);
-        intent.putExtra("position", position - 1);
-        intent.putExtra("datalsit", (Serializable) dataList);
 
-        LogUtils.e("===id" + docid + "==" + "title" + title + "  position==" + position);
-        startActivity(intent);
-    }
 }
