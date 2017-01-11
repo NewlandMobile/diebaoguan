@@ -36,61 +36,10 @@ import java.util.List;
  * 综合
  */
 public class FSBSyntheticalFragment extends BasePullToRefrshListViewFragment {
-
-    public FSBSyntheticalFragment() {
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initArgument(getActivity(), 0, false, true);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
-
-
     /**
      * 获取数据
      */
-    protected void getData(final int offset) {
-        CommonUtils.fetchDataAtFsbOrDbg(offset, FSBSyntheticalFragment.this, true, 1, new VolleyListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                LogUtils.d(volleyError.toString());
-                basePullToRefreshListView.onRefreshComplete();
-            }
-
-            @Override
-            public void onResponse(String s) {
-                LogUtils.d(s);
-                basePullToRefreshListView.onRefreshComplete();
-                NormalResponse response = NormalResponse.parseObject(s, NormalResponse.class);
-                LogUtils.d(response.toString());
-                Result[] results = response.getData().getResult();
-                for (Result result : results) {
-                    dataList.add(result);
-                }
-
-                Paging paging = response.getData().getPaging();
-                total = paging.getTotal();
-                refreshableView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        refreshableView.smoothScrollToPosition(offset - 1);
-                    }
-                });
-                currentOffset += Const.ROWS;
-                adapter = new RefreshListAdapter(getActivity(), dataList);
-                refreshableView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
-
-            }
-        });
+    protected void getData(final int offset, VolleyListener volleyListener) {
+        CommonUtils.fetchDataAtFsbOrDbg(offset, FSBSyntheticalFragment.this, true, 1, volleyListener);
     }
-
-
 }
