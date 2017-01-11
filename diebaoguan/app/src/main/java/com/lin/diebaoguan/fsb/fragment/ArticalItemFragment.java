@@ -132,7 +132,7 @@ public class ArticalItemFragment extends Fragment  {
                     String docUrl = jsonObject2.getString("docUrl");
                     String type = jsonObject2.getString("type");
                     String content = jsonObject2.getString("content");
-                    parentActivity.setCid( jsonObject2.getString("cid"));
+                    parentActivity.setCid( jsonObject2.getInt("cid"));
                     String isCollected = jsonObject2.getString("isCollected");
                     parentActivity.setCollected(("1").equals(isCollected));
                     text_time.setText(date);

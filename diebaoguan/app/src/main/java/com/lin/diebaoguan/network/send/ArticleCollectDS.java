@@ -7,7 +7,7 @@ package com.lin.diebaoguan.network.send;
  */
 public class ArticleCollectDS extends BaseSendTemplate {
     private String docid;
-    private String cid;
+    private int cid;
     private String authkey;
     private String uid;
     private String method;
@@ -16,7 +16,7 @@ public class ArticleCollectDS extends BaseSendTemplate {
         this.docid = docid;
     }
 
-    public void setCid(String cid) {
+    public void setCid(int cid) {
         this.cid = cid;
     }
 

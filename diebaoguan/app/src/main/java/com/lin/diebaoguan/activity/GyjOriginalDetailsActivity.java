@@ -28,18 +28,18 @@ import java.util.List;
  * It's Created by NewLand-JianFeng on 2017/1/5.
  */
 
-public class GyjOriginalDetailsActivity extends BaseRedTitleBarActivity implements View.OnClickListener {
-    private TextView detail_textview;
-    private ImageView detail_collect;
+public class GyjOriginalDetailsActivity extends BaseCommentAndShareActivity {
+//    private TextView detail_textview;
+//    private ImageView detail_collect;
     private Button detail_save;
     private Button detail_share;
-//    private LinearLayout rl1;
-    private Button detail_send;
-    private EditText detail_edit;
-    private RelativeLayout rl2;
-    private RelativeLayout relativeLayout;
+////    private LinearLayout rl1;
+//    private Button detail_send;
+//    private EditText detail_edit;
+//    private RelativeLayout rl2;
+//    private RelativeLayout relativeLayout;
     private TextView tv_content;
-//    private View dividerline_bet_title_and_content;
+    private View dividerline_bet_title_and_content;
     private TextView tv_title;
     private TextView tv_pageNum;
     private ImageView showMoreImageView;
@@ -51,52 +51,66 @@ public class GyjOriginalDetailsActivity extends BaseRedTitleBarActivity implemen
     int picCount=0;
     private String[] urls;
     private Data data;
-    private String picId;
+//    private String picId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initTitleBar(getString(R.string.JingPinOrigin), true, true, true, R.layout.activity_gyj_original_details);
-        iniTitleButton();
+        initPublicUI(getString(R.string.JingPinOrigin),true,
+                R.layout.activity_gyj_original_details);
+        initShowMoreImageBtn();
+//        initTitleBar(getString(R.string.JingPinOrigin), true, true, true, R.layout.activity_gyj_original_details);
+//        iniTitleButton();
         initView();
         data= (Data) getIntent().getSerializableExtra("Data");
         if (data!=null){
-            picId=data.getId();
+            docid=data.getId();
+            setCid(data.getCid());
+            setCollected("1".equals(data.getIsCollected()));
             initViewPager(data);
             initTextPart(data);
         }
-
     }
 
-    private void iniTitleButton() {
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+    private void initShowMoreImageBtn() {
         imageView_allpic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                TODO   换成图集浏览模式
                 Intent intent=new Intent(GyjOriginalDetailsActivity.this,GyjDetailPicActivity.class);
                 intent.putExtra("Data",data);
-//                intent.putExtra("Title",tv_title.getText());
-//                intent.putExtra("Pics",urls);
                 startActivityForResult(intent,1);
-//                startActivity(intent);
-//                viewPager_gyj.setCurrentItem();
-            }
-        });
-        btn_comments.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(GyjOriginalDetailsActivity.this,CommentActivity.class);
-                intent.putExtra("docid",picId);
-                startActivity(intent);
             }
         });
     }
+
+//    private void iniTitleButton() {
+//        btn_back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
+//        imageView_allpic.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent=new Intent(GyjOriginalDetailsActivity.this,GyjDetailPicActivity.class);
+//                intent.putExtra("Data",data);
+////                intent.putExtra("Title",tv_title.getText());
+////                intent.putExtra("Pics",urls);
+//                startActivityForResult(intent,1);
+////                startActivity(intent);
+////                viewPager_gyj.setCurrentItem();
+//            }
+//        });
+//        btn_comments.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent=new Intent(GyjOriginalDetailsActivity.this,CommentActivity.class);
+//                intent.putExtra("docid",picId);
+//                startActivity(intent);
+//            }
+//        });
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -205,49 +219,42 @@ public class GyjOriginalDetailsActivity extends BaseRedTitleBarActivity implemen
 
     private void initView() {
 
-        detail_textview = (TextView) findViewById(R.id.detail_textview);
-        detail_textview.setOnClickListener(this);
-        detail_collect = (ImageView) findViewById(R.id.detail_collect);
-        detail_collect.setOnClickListener(this);
+//        detail_textview = (TextView) findViewById(R.id.detail_textview);
+//        detail_textview.setOnClickListener(this);
+//        detail_collect = (ImageView) findViewById(R.id.detail_collect);
+//        detail_collect.setOnClickListener(this);
         detail_save = (Button) findViewById(R.id.detail_save);
-        detail_save.setOnClickListener(this);
-        detail_share = (Button) findViewById(R.id.detail_share);
-        detail_share.setOnClickListener(this);
+        detail_save.setVisibility(View.VISIBLE);
+        detail_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO  保存
+            }
+        });
+//        detail_share = (Button) findViewById(R.id.detail_share);
+//        detail_share.setOnClickListener(this);
 //        rl1 = (LinearLayout) findViewById(R.id.rl1);
-        detail_send = (Button) findViewById(R.id.detail_send);
-        detail_send.setOnClickListener(this);
-        detail_edit = (EditText) findViewById(R.id.detail_edit);
-        detail_edit.setOnClickListener(this);
-        rl2 = (RelativeLayout) findViewById(R.id.rl2);
-        rl2.setOnClickListener(this);
-        relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
+//        detail_send = (Button) findViewById(R.id.detail_send);
+//        detail_send.setOnClickListener(this);
+//        detail_edit = (EditText) findViewById(R.id.detail_edit);
+//        detail_edit.setOnClickListener(this);
+//        rl2 = (RelativeLayout) findViewById(R.id.rl2);
+//        rl2.setOnClickListener(this);
+//        relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
         tv_content = (TextView) findViewById(R.id.tv_content);
         tv_title = (TextView) findViewById(R.id.tv_title);
         tv_pageNum = (TextView) findViewById(R.id.tv_pageNum);
         showMoreImageView = (ImageView) findViewById(R.id.im_show_more);
-        showMoreImageView.setOnClickListener(this);
+        showMoreImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeShowMoreState();
+            }
+        });
 //        ll_title_part = (LinearLayout) findViewById(R.id.ll_title_part);
         viewPager_gyj = (ViewPager) findViewById(R.id.viewPager_gyj);
 //        viewPager_gyj.setCurrentItem();
 //        viewPager_gyj.setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.detail_save:
-
-                break;
-            case R.id.detail_share:
-
-                break;
-            case R.id.detail_send:
-
-                break;
-            case R.id.im_show_more:
-                changeShowMoreState();
-                break;
-        }
     }
 
     private void changeShowMoreState() {
@@ -260,16 +267,14 @@ public class GyjOriginalDetailsActivity extends BaseRedTitleBarActivity implemen
         showMoreImageView.setSelected(!isSelect);
     }
 
-    private void submit() {
-        // validate
-        String edit = detail_edit.getText().toString().trim();
-        if (TextUtils.isEmpty(edit)) {
-            Toast.makeText(this, "edit不能为空", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // TODO validate success, do something
-
-
-    }
+//    private void submit() {
+//        // validate
+//        String edit = detail_edit.getText().toString().trim();
+//        if (TextUtils.isEmpty(edit)) {
+//            Toast.makeText(this, "edit不能为空", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//
+//
+//    }
 }

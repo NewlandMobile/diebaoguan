@@ -12,8 +12,6 @@ import com.lin.diebaoguan.network.send.ArticleCollectDS;
 import com.lin.lib_volley_https.VolleyListener;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -29,7 +27,7 @@ import android.widget.TextView;
 public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity implements View.OnClickListener {
     protected String docid;
     private boolean isCollected;
-    private String cid;
+    private int cid;
 
     private RelativeLayout rl1;
     private RelativeLayout rl2;
@@ -43,8 +41,6 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
         btn_back.setOnClickListener(this);
         initBottomPart();
     }
-
-    // TODO 再加一下  关于Fragment 切换时的   数据更新组合方法
 
     @Override
     protected void onResume() {
@@ -97,7 +93,7 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
 //        return cid;
 //    }
 
-    public void setCid(String cid) {
+    public void setCid(int cid) {
         this.cid = cid;
     }
 
@@ -126,20 +122,7 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
                 break;
             case R.id.detail_collect:
                 if (hasLogin) {
-                    ArticleCollectDS articleCollectDS = new ArticleCollectDS();
-                    articleCollectDS.setModule("api_libraries_sjdbg_articlecollect");
-                    articleCollectDS.setDocid(docid);
-                    articleCollectDS.setCid(cid);
-                    articleCollectDS.setAuthkey(MyAppication.getKey());
-                    articleCollectDS.setUid(MyAppication.getUid());
-                    if (!isCollected) {
-                        articleCollectDS.setMethod("collection");
-                    } else {
-                        articleCollectDS.setMethod("cancel");
-                    }
-                    articleCollectDS.initTimePart();
-                    image_collect.setEnabled(false);
-                    CommonUtils.httpPost(articleCollectDS.parseParams(), collectListener);
+                   postCollect();
                 } else {
                     startActivity(new Intent(BaseCommentAndShareActivity.this, LoginActivity.class));
                 }
@@ -163,6 +146,23 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
                 }
                 break;
         }
+    }
+
+    private void postCollect() {
+        ArticleCollectDS articleCollectDS = new ArticleCollectDS();
+        articleCollectDS.setModule("api_libraries_sjdbg_articlecollect");
+        articleCollectDS.setDocid(docid);
+        articleCollectDS.setCid(cid);
+        articleCollectDS.setAuthkey(MyAppication.getKey());
+        articleCollectDS.setUid(MyAppication.getUid());
+        if (!isCollected) {
+            articleCollectDS.setMethod("collection");
+        } else {
+            articleCollectDS.setMethod("cancel");
+        }
+        articleCollectDS.initTimePart();
+        image_collect.setEnabled(false);
+        CommonUtils.httpPost(articleCollectDS.parseParams(), collectListener);
     }
 
     /**

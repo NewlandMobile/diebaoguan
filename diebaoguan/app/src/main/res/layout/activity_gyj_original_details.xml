@@ -13,9 +13,6 @@
         android:layout_above="@+id/ll_title_part"
         android:layout_height="wrap_content"/>
 
-
-    <include layout="@layout/component_bottom_commont_colloct_share"/>
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -74,8 +71,10 @@
             android:src="@drawable/selector_show_more_im"
             android:id="@+id/im_show_more" />
 
-
     </LinearLayout>
+    <include
+        android:id="@+id/relativeLayout"
+        layout="@layout/component_bottom_commont_colloct_share"/>
 
 
 </RelativeLayout>

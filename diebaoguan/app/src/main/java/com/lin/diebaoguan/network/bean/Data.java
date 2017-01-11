@@ -33,6 +33,11 @@ public class Data implements Serializable {
     String[] picUrl;
     String digest;
     String docUrl;
+    /*收藏分类id,
+            1为谍报收藏
+    2为生活收藏
+    3为图片收藏*/
+    int cid;
     /*
     logoSrc 欢迎界面logo
      */
@@ -108,5 +113,9 @@ public class Data implements Serializable {
 
     public String getLogoSrc() {
         return logoSrc;
+    }
+
+    public int getCid() {
+        return cid;
     }
 }
