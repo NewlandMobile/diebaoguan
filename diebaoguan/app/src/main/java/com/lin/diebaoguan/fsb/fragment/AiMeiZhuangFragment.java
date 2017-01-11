@@ -25,6 +25,7 @@ import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
+ * 爱美妆
  */
 public class AiMeiZhuangFragment extends BasePullToRefrshListViewFragment {
     @Override
