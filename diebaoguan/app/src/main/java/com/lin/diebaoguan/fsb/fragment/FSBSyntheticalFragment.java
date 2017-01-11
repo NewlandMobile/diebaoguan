@@ -39,7 +39,7 @@ public class FSBSyntheticalFragment extends BasePullToRefrshListViewFragment {
     /**
      * 获取数据
      */
-    protected void getData(final int offset, VolleyListener volleyListener) {
-        CommonUtils.fetchDataAtFsbOrDbg(offset, FSBSyntheticalFragment.this, true, 1, volleyListener);
+    protected void getData(final int pageOffset, VolleyListener volleyListener) {
+        CommonUtils.fetchDataAtFsbOrDbg(pageOffset, FSBSyntheticalFragment.this, true, 1, volleyListener);
     }
 }

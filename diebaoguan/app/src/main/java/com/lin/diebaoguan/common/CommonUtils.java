@@ -230,19 +230,18 @@ public class CommonUtils<T extends BaseResponseTemplate> {
      * 根据 具体板块内容，获取后台信息
      * 用于谍报馆与风尚标模块
      *
-     * @param offset          分页使用记录行数
+     * @param pageOffset          分页使用记录行数
      * @param isFengShangBiao 是否属于风尚标板块
      * @param detailPageNum   具体板块的数值 （当isclass=0时，传值1,2,3,4分别对应谍报馆：新品，价格，体验，应用.
      *                        当isclass=1时，传值1,2,3,4分别对应风尚标：综合，爱美妆，爱美访，雯琰文
      *                        ）
      */
-    public static void fetchDataAtFsbOrDbg(int offset, Fragment fragment, boolean isFengShangBiao, int detailPageNum, VolleyListener volleyListener) {
+    public static void fetchDataAtFsbOrDbg(int pageOffset, Fragment fragment, boolean isFengShangBiao, int detailPageNum, VolleyListener volleyListener) {
         NormalDS sendParams = new NormalDS();
         sendParams.setModule(moduleString);
         sendParams.setIsclass(isFengShangBiao ? 1 : 0);
         sendParams.setCid(detailPageNum);
-        //TODO 这几个参数后期要改活的
-        sendParams.setOffset(0);
+        sendParams.setOffset(pageOffset * Const.ROWS);
         sendParams.setRows(Const.ROWS);
         sendParams.initTimePart();
 

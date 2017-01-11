@@ -23,6 +23,7 @@ import com.lin.lib_volley_https.VolleyListener;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -33,8 +34,11 @@ public abstract class BasePullToRefrshListViewFragment extends PullToRefreshBase
     private ListView refreshableView;
     private RefreshListAdapter adapter;
     private List<Result> dataList = new ArrayList<>();
-    private int currentOffset = 0;//用于分页
-    private int total;//总共数量
+    //    private int currentPageOffset = 0;//用于分页
+//    private int totalPage;//总共数量
+    //改用 记页数 传递页数的方式
+    private int currentPageOffset = 0;//  当前已加载多少页
+    private int totalPage;//总共有多少页
     private View view;
     private CommonListVolleyListener volleyListener = new CommonListVolleyListener();
     private CommonListRefreshListener refreshListener = new CommonListRefreshListener();
@@ -56,8 +60,10 @@ public abstract class BasePullToRefrshListViewFragment extends PullToRefreshBase
 
     private void initView() {
         refreshableView = basePullToRefreshListView.getRefreshableView();
-        getData(currentOffset, volleyListener);
+        getData(currentPageOffset, volleyListener);
         refreshableView.setOnItemClickListener(this);
+        adapter = new RefreshListAdapter(getActivity(), dataList);
+        refreshableView.setAdapter(adapter);
         //下拉刷新
         basePullToRefreshListView.setOnRefreshListener(refreshListener);
     }
@@ -65,21 +71,21 @@ public abstract class BasePullToRefrshListViewFragment extends PullToRefreshBase
     private class CommonListRefreshListener implements PullToRefreshBase.OnRefreshListener2<ListView> {
         @Override
         public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-            currentOffset = 0;
-            getData(currentOffset, volleyListener);
+            currentPageOffset = 0;
+            getData(currentPageOffset, volleyListener);
         }
 
         @Override
         public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-            if (currentOffset >= total) {
+            if (currentPageOffset >= totalPage) {
                 showToast(getString(R.string.alreadyatthebottom));
 //                    Toast.makeText(getActivity(), , Toast.LENGTH_SHORT).show();
             }
-            getData(currentOffset, volleyListener);
+            getData(currentPageOffset, volleyListener);
         }
     }
 
-    protected abstract void getData(final int Offset, VolleyListener volleyListener);
+    protected abstract void getData(final int pageOffset, VolleyListener volleyListener);
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -110,22 +116,21 @@ public abstract class BasePullToRefrshListViewFragment extends PullToRefreshBase
             NormalResponse response = NormalResponse.parseObject(s, NormalResponse.class);
             LogUtils.d(response.toString());
             Result[] results = response.getData().getResult();
-            for (Result result : results) {
-                dataList.add(result);
-            }
-
+            // 这行是新写法，下次要记住
+            Collections.addAll(dataList, results);
+            adapter.notifyDataSetChanged();
             Paging paging = response.getData().getPaging();
-            total = paging.getTotal();
+//            totalPage = paging.getTotal();
+            totalPage = paging.getPages();
+            final int offset = currentPageOffset * Const.ROWS - 1;
             refreshableView.post(new Runnable() {
                 @Override
                 public void run() {
-                    refreshableView.smoothScrollToPosition(currentOffset - 1);
+                    refreshableView.smoothScrollToPosition(offset);
                 }
             });
-            currentOffset += Const.ROWS;
-            adapter = new RefreshListAdapter(getActivity(), dataList);
-            refreshableView.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
+//            currentPageOffset += Const.ROWS;
+            currentPageOffset += 1;
         }
     }
 }
