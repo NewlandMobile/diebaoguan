@@ -30,7 +30,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.lin.diebaoguan.fragment.PullToRefreshBaseFragment;
+import com.lin.diebaoguan.uibase.PullToRefreshBaseFragment;
 import com.lin.lib_volley_https.UTFStringRequest;
 import com.lin.lib_volley_https.VolleyListener;
 

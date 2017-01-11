@@ -22,7 +22,7 @@ import com.lin.diebaoguan.activity.GyjOriginalDetailsActivity;
 import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.IMAGEUtils;
 import com.lin.diebaoguan.common.LogUtils;
-import com.lin.diebaoguan.fragment.PullToRefreshBaseFragment;
+import com.lin.diebaoguan.uibase.PullToRefreshBaseFragment;
 import com.lin.diebaoguan.network.bean.Data;
 import com.lin.diebaoguan.network.bean.Paging;
 import com.lin.diebaoguan.network.bean.Result;
@@ -30,7 +30,6 @@ import com.lin.diebaoguan.network.response.NormalResponse;
 import com.lin.diebaoguan.network.send.NormalDS;
 import com.lin.lib_volley_https.VolleyListener;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 

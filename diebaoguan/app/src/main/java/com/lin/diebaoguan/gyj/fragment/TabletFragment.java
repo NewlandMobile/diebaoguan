@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.lin.diebaoguan.fragment.PullToRefreshBaseFragment;
+import com.lin.diebaoguan.uibase.PullToRefreshBaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;

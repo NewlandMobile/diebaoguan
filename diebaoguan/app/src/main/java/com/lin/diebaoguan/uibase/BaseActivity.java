@@ -1,4 +1,4 @@
-package com.lin.diebaoguan;
+package com.lin.diebaoguan.uibase;
 
 import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;

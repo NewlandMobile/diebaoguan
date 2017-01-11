@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 
 import com.android.volley.VolleyError;
-import com.lin.diebaoguan.BaseActivity;
+import com.lin.diebaoguan.uibase.BaseActivity;
 import com.lin.diebaoguan.MainActivity;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.common.CommonUtils;

@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.common.CommonUtils;
-import com.lin.diebaoguan.fragment.PullToRefreshBaseFragment;
+import com.lin.diebaoguan.uibase.PullToRefreshBaseFragment;
 import com.lin.lib_volley_https.VolleyListener;
 
 import java.util.ArrayList;

@@ -12,6 +12,7 @@ import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.common.LogUtils;
 import com.lin.diebaoguan.fsb.fragment.ArticalItemFragment;
 import com.lin.diebaoguan.network.bean.Result;
+import com.lin.diebaoguan.uibase.BaseCommentAndShareActivity;
 
 import java.util.ArrayList;
 

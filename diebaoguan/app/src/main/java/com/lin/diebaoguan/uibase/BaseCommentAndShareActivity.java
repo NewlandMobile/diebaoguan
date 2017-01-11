@@ -1,7 +1,8 @@
-package com.lin.diebaoguan.activity;
+package com.lin.diebaoguan.uibase;
 
 import com.android.volley.VolleyError;
-import com.lin.diebaoguan.BaseRedTitleBarActivity;
+import com.lin.diebaoguan.activity.CommentActivity;
+import com.lin.diebaoguan.activity.LoginActivity;
 import com.lin.diebaoguan.MyAppication;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.common.CommonUtils;

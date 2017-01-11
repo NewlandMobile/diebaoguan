@@ -4,9 +4,6 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.text.method.HideReturnsTransformationMethod;
-import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -15,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
-import com.lin.diebaoguan.BaseActivity;
+import com.lin.diebaoguan.uibase.BaseActivity;
 import com.lin.diebaoguan.MyAppication;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.common.CommonUtils;
@@ -24,7 +21,6 @@ import com.lin.diebaoguan.network.response.RegisterResponse;
 import com.lin.diebaoguan.network.send.RegisterDS;
 import com.lin.lib_volley_https.VolleyListener;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 

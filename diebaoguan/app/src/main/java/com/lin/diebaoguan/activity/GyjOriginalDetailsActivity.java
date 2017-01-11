@@ -4,22 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.lin.diebaoguan.BaseRedTitleBarActivity;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.common.IMAGEUtils;
 import com.lin.diebaoguan.common.LogUtils;
 import com.lin.diebaoguan.network.bean.Data;
+import com.lin.diebaoguan.uibase.BaseCommentAndShareActivity;
 
 import java.util.ArrayList;
 import java.util.List;

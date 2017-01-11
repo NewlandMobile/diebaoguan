@@ -10,12 +10,10 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
-import com.lin.diebaoguan.BaseRedTitleBarActivity;
+import com.lin.diebaoguan.uibase.BaseRedTitleBarActivity;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.common.IMAGEUtils;
 import com.lin.diebaoguan.network.bean.Data;
-
-import java.net.URI;
 
 /**
  * It's Created by NewLand-JianFeng on 2017/1/9.

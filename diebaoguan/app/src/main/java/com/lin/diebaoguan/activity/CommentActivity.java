@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.lin.diebaoguan.BaseRedTitleBarActivity;
+import com.lin.diebaoguan.uibase.BaseRedTitleBarActivity;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.adapter.CommentAdapter;
 import com.lin.diebaoguan.common.CommonUtils;

@@ -12,6 +12,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.lin.diebaoguan.R;
+import com.lin.diebaoguan.uibase.BaseFragment;
 
 /**
  * A simple {@link Fragment} subclass.

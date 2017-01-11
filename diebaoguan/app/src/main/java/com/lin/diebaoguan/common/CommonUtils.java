@@ -8,7 +8,7 @@ import android.support.v4.content.SharedPreferencesCompat;
 import android.util.Log;
 
 import com.lin.diebaoguan.MyAppication;
-import com.lin.diebaoguan.fragment.PullToRefreshBaseFragment;
+import com.lin.diebaoguan.uibase.PullToRefreshBaseFragment;
 import com.lin.diebaoguan.network.response.BaseResponseTemplate;
 import com.lin.diebaoguan.network.send.BaseSendTemplate;
 import com.lin.diebaoguan.network.send.CommentDS;

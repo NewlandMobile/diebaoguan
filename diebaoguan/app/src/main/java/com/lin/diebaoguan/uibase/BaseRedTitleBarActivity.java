@@ -1,4 +1,4 @@
-package com.lin.diebaoguan;
+package com.lin.diebaoguan.uibase;
 
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.lin.diebaoguan.R;
 
 /**
  * 带红色标题栏的公共父类

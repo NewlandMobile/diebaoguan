@@ -1,4 +1,4 @@
-package com.lin.diebaoguan.fragment;
+package com.lin.diebaoguan.uibase;
 
 import android.app.ProgressDialog;
 import android.content.Context;

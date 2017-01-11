@@ -1,6 +1,5 @@
 package com.lin.diebaoguan.fsb.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,10 +9,6 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,13 +16,8 @@ import com.android.volley.VolleyError;
 import com.lin.diebaoguan.MyAppication;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.activity.ArticleDetailsActivity;
-import com.lin.diebaoguan.activity.BaseCommentAndShareActivity;
-import com.lin.diebaoguan.activity.LoginActivity;
 import com.lin.diebaoguan.common.CommonUtils;
-import com.lin.diebaoguan.common.Const;
 import com.lin.diebaoguan.common.LogUtils;
-import com.lin.diebaoguan.network.response.BaseResponseTemplate;
-import com.lin.diebaoguan.network.send.ArticleCollectDS;
 import com.lin.diebaoguan.network.send.ArticleDetailDS;
 import com.lin.lib_volley_https.VolleyListener;
 

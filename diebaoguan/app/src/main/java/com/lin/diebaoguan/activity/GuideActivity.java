@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.lin.diebaoguan.BaseActivity;
+import com.lin.diebaoguan.uibase.BaseActivity;
 import com.lin.diebaoguan.MainActivity;
 import com.lin.diebaoguan.R;
 

@@ -5,7 +5,7 @@
     android:id="@+id/activity_base"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.lin.diebaoguan.BaseRedTitleBarActivity">
+    tools:context="com.lin.diebaoguan.uibase.BaseRedTitleBarActivity">
 
     <RelativeLayout
         android:id="@+id/relativeLayout"

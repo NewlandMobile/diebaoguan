@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.lin.diebaoguan.fragment.PullToRefreshBaseFragment">
+    tools:context="com.lin.diebaoguan.uibase.PullToRefreshBaseFragment">
 
     <com.handmark.pulltorefresh.library.PullToRefreshScrollView
         xmlns:ptr="http://schemas.android.com/apk/res-auto"

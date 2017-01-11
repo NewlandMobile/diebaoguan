@@ -31,9 +31,6 @@ public class RefreshListAdapter extends BaseAdapter {
         TextView content;
         TextView time;
     }
-
-
-    //    TODO  这个方法这是为了  不改动太多临时加的。后期确认后要删掉
     public RefreshListAdapter(Context context, List<Result> dataList) {
         this.context = context;
         this.datalist = dataList;

@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.lin.diebaoguan.R;
+import com.lin.diebaoguan.uibase.BaseFragment;
 
 /**
  * A simple {@link Fragment} subclass.

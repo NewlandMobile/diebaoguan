@@ -10,7 +10,7 @@ import android.widget.EditText;
 
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
-import com.lin.diebaoguan.BaseActivity;
+import com.lin.diebaoguan.uibase.BaseActivity;
 import com.lin.diebaoguan.MyAppication;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.common.CommonUtils;
