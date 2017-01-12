@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,13 +17,15 @@ import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.activity.ArticleDetailsActivity;
 import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.LogUtils;
-import com.lin.diebaoguan.network.bean.Info;
-import com.lin.diebaoguan.network.response.NormalResponse;
 import com.lin.diebaoguan.network.send.ArticleDetailDS;
 import com.lin.lib_volley_https.VolleyListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 public class ArticalItemFragment extends Fragment {
     private String docid;
@@ -131,12 +132,23 @@ public class ArticalItemFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setLoadWithOverviewMode(true);
+        webSettings.setTextSize(WebSettings.TextSize.NORMAL);
 
+        Document doc = Jsoup.parse(content);
+        Elements elements = doc.getElementsByTag("img");
+        for (Element element : elements) {
+            element.attr("width", "100%").attr("height", "auto");
+        }
+
+//        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         if (("pic").equals(type)) {
             webView.loadUrl(docUrl);
         } else {
             //WebView加载web资源
-            webView.loadDataWithBaseURL(docUrl, content, "text/html", "UTF-8", null);
+            webView.loadDataWithBaseURL("", doc.toString(), "text/html", "UTF-8", null);
         }
     }
 }
