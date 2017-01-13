@@ -21,7 +21,6 @@ import com.lin.diebaoguan.network.bean.Result;
 import com.lin.diebaoguan.network.response.NormalResponse;
 import com.lin.lib_volley_https.VolleyListener;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,8 +30,8 @@ import java.util.List;
  */
 
 public abstract class BasePullToRefrshListViewFragment extends PullToRefreshBaseFragment implements AdapterView.OnItemClickListener {
-    private ListView refreshableView;
-    private RefreshListAdapter adapter;
+    protected ListView refreshableView;
+    protected RefreshListAdapter adapter;
     private List<Result> dataList = new ArrayList<>();
     //    private int currentPageOffset = 0;//用于分页
 //    private int totalPage;//总共数量
