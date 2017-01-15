@@ -27,6 +27,11 @@ public class Result implements Serializable {
     private String uid;
     private String username;
     private String avatar;
+    /*
+    爱美志
+     */
+    private String pic;
+    private String author;
 
     public String getDocid() {
         return docid;
@@ -108,5 +113,14 @@ public class Result implements Serializable {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+
+    public String getPic() {
+        return pic;
+    }
+
+    public String getAuthor() {
+        return author;
     }
 }

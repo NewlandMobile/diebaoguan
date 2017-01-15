@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="10dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="10dp">
 
 
     <ImageView
+        android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:src="@drawable/image"
         android:background="@drawable/gyj_td"
-        android:paddingStart="6dp"
-        android:paddingTop="7dp"
         android:paddingBottom="9dp"
         android:paddingEnd="9dp"
+        android:paddingStart="6dp"
+        android:paddingTop="7dp"
         android:scaleType="fitXY"
-        android:id="@+id/imageView3" />
+        tools:src="@drawable/image" />
 
     <TextView
-        android:text="TextView"
-        android:layout_alignBottom="@+id/imageView3"
+        android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="光影集：移动电源也时尚"
-        android:maxLines="1"
-        android:ellipsize="end"
-        android:textColor="@color/gray"
-        android:paddingTop="3dp"
+        android:layout_alignBottom="@+id/imageView3"
         android:background="@drawable/shape_dark_gradient_bg"
-        android:id="@+id/textView2" />
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingTop="3dp"
+        android:text="TextView"
+        android:textColor="@color/gray"
+        tools:text="光影集：移动电源也时尚" />
 </RelativeLayout>
