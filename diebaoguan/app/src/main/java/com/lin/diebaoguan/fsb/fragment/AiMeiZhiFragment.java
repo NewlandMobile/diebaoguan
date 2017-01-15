@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.lin.diebaoguan.MyAppication;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.Const;
@@ -24,6 +26,7 @@ import com.lin.diebaoguan.network.bean.Paging;
 import com.lin.diebaoguan.network.bean.Result;
 import com.lin.diebaoguan.network.response.NormalResponse;
 import com.lin.diebaoguan.network.send.AiMeiZhiDS;
+import com.lin.diebaoguan.network.send.PicDetailDS;
 import com.lin.diebaoguan.uibase.PullToRefreshBaseFragment;
 import com.lin.lib_volley_https.VolleyListener;
 
@@ -34,7 +37,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AiMeiZhiFragment extends PullToRefreshBaseFragment {
+public class AiMeiZhiFragment extends PullToRefreshBaseFragment implements AdapterView.OnItemClickListener {
 
 
     private View view;
@@ -62,9 +65,36 @@ public class AiMeiZhiFragment extends PullToRefreshBaseFragment {
             refreshableView.setBackground(getResources().getDrawable(R.drawable.gyj_bj));
             adapter = new MyAdapter();
             refreshableView.setAdapter(adapter);
+            refreshableView.setOnItemClickListener(this);
             getData(0);
         }
         return view;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//        startActivity(new Intent(getActivity(),));
+        String docid = ((Result) adapter.getItem(position)).getDocid();
+        PicDetailDS params = new PicDetailDS();
+        params.setDocid(docid);
+        params.setModule("api_libraries_sjdbg_detail");
+        params.setUid(MyAppication.getUid());
+        params.setSize("" + 500);
+        params.initTimePart();
+        CommonUtils.httpGet(this, params.parseParams(), new VolleyListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                LogUtils.d(volleyError.toString());
+                showToast(getString(R.string.getdatafail));
+            }
+
+            @Override
+            public void onResponse(String s) {
+                LogUtils.d(s);
+            }
+        });
+
+
     }
 
     class MyAdapter extends BaseAdapter {
@@ -124,6 +154,7 @@ public class AiMeiZhiFragment extends PullToRefreshBaseFragment {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 LogUtils.d(volleyError.toString());
+                showToast(getString(R.string.getdatafail));
                 basePullToRefreshListView.onRefreshComplete();
             }
 
