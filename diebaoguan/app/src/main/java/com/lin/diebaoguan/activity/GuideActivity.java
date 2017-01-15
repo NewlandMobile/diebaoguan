@@ -112,7 +112,7 @@ public class GuideActivity extends BaseActivity implements ViewPager.OnPageChang
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView(imageList.get(position));
+            container.removeView((View) object);
         }
     }
 }
