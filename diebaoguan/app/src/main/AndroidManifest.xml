@@ -40,6 +40,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.AmzDetailActivity" />
+        <activity android:name=".menu.AboutActivity" />
+        <activity android:name=".menu.SettingActivity"></activity>
     </application>
 
 </manifest>
