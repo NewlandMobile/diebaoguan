@@ -100,10 +100,10 @@ public abstract class BasePullToRefrshListViewFragment extends PullToRefreshBase
 
         @Override
         public void onResponse(String s) {
-            LogUtils.d(s);
+            //LogUtils.d(s);
             basePullToRefreshListView.onRefreshComplete();
             NormalResponse response = NormalResponse.parseObject(s, NormalResponse.class);
-            LogUtils.d(response.toString());
+            //  LogUtils.d(response.toString());
             Result[] results = response.getData().getResult();
             // 假如是下拉刷新而不是上拉加载更多，需要先清旧数据，再加
             if (currentPageOffset == 0) {

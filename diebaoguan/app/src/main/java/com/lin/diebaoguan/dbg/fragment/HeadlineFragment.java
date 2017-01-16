@@ -105,14 +105,16 @@ public class HeadlineFragment extends BasePullToRefrshListViewFragment implement
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        pointList.get(position % 6).setImageDrawable(getResources().getDrawable(R.drawable.red_point));
-        pointList.get(beforeInt).setImageDrawable(getResources().getDrawable(R.drawable.gray_point));
-        beforeInt = position % 6;
     }
 
     @Override
     public void onPageSelected(int position) {
-
+        if (isAdded()) {
+            int pi = position % 6;
+            pointList.get(pi).setBackground(getResources().getDrawable(R.drawable.red_point));
+            pointList.get(beforeInt).setBackground(getResources().getDrawable(R.drawable.gray_point));
+            beforeInt = pi;
+        }
     }
 
     @Override
