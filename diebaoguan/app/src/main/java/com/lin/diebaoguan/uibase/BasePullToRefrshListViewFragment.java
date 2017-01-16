@@ -33,8 +33,6 @@ public abstract class BasePullToRefrshListViewFragment extends PullToRefreshBase
     protected ListView refreshableView;
     protected RefreshListAdapter adapter;
     private List<Result> dataList = new ArrayList<>();
-    //    private int currentPageOffset = 0;//用于分页
-//    private int totalPage;//总共数量
     //改用 记页数 传递页数的方式
     private int currentPageOffset = 0;//  当前已加载多少页
     private int totalPage;//总共有多少页
@@ -78,7 +76,6 @@ public abstract class BasePullToRefrshListViewFragment extends PullToRefreshBase
         public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
             if (currentPageOffset >= totalPage) {
                 showToast(getString(R.string.alreadyatthebottom));
-//                    Toast.makeText(getActivity(), , Toast.LENGTH_SHORT).show();
             }
             getData(currentPageOffset, volleyListener);
         }
@@ -89,19 +86,8 @@ public abstract class BasePullToRefrshListViewFragment extends PullToRefreshBase
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(getActivity(), ArticleDetailsActivity.class);
-//        Result result=dataList.get(position-1);
         intent.putExtra("currentOffset", position - 1);
         intent.putExtra("allItem", dataList.toArray());
-//        LogUtils.e("==" + position);
-//        String title = dataList.get(position - 1).getTitle();
-//        int docid = dataList.get(position - 1).getDocid();
-
-//        intent.putExtra("title", title);
-//        intent.putExtra("id", "" + docid);
-//        intent.putExtra("position", position - 1);
-//        intent.putExtra("datalsit", (Serializable) dataList);
-//
-//        LogUtils.e("===id" + docid + "==" + "title" + title + "  position==" + position);
         startActivity(intent);
     }
 
@@ -127,7 +113,6 @@ public abstract class BasePullToRefrshListViewFragment extends PullToRefreshBase
             Collections.addAll(dataList, results);
             adapter.notifyDataSetChanged();
             Paging paging = response.getData().getPaging();
-//            totalPage = paging.getTotal();
             totalPage = paging.getPages();
             final int offset = currentPageOffset * Const.ROWS - 1;
             refreshableView.post(new Runnable() {
@@ -136,7 +121,6 @@ public abstract class BasePullToRefrshListViewFragment extends PullToRefreshBase
                     refreshableView.smoothScrollToPosition(offset);
                 }
             });
-//            currentPageOffset += Const.ROWS;
             currentPageOffset += 1;
         }
     }

@@ -141,7 +141,7 @@ public class HeadlineFragment extends BasePullToRefrshListViewFragment implement
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            ((ViewPager) container).removeView((View) object);
+            container.removeView((View) object);
         }
 
         @Override
