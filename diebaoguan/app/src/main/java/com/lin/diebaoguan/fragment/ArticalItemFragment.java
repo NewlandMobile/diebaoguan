@@ -62,7 +62,6 @@ public class ArticalItemFragment extends Fragment {
             }
             inflate = inflater.inflate(R.layout.fragment_artical_item, container, false);
             initView();
-//            String docid = getDocid();
             getData(docid);
         }
         return inflate;
@@ -85,7 +84,7 @@ public class ArticalItemFragment extends Fragment {
     /**
      * 获取数据
      *
-     * @param docid
+     * @param docid docid
      */
     private void getData(String docid) {
         ArticleDetailDS sendParam = new ArticleDetailDS();
@@ -146,7 +145,6 @@ public class ArticalItemFragment extends Fragment {
             element.attr("width", "100%").attr("height", "auto");
         }
 
-//        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         if (("pic").equals(type)) {
             webView.loadUrl(docUrl);
         } else {

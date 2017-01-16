@@ -1,15 +1,18 @@
 package com.lin.diebaoguan.dbg.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 
 import com.lin.diebaoguan.R;
+import com.lin.diebaoguan.activity.ArticleDetailsActivity;
 import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.uibase.BasePullToRefrshListViewFragment;
 import com.lin.lib_volley_https.VolleyListener;
@@ -51,12 +54,13 @@ public class HeadlineFragment extends BasePullToRefrshListViewFragment implement
             adapter.notifyDataSetChanged();
             postDelayAd();
             viewPager.setOnPageChangeListener(this);
+            refreshableView.setOnItemClickListener(this);
         }
         return view;
     }
 
     /**
-     * 加载徐涛滚动的图片资源
+     * 加载滚动的图片资源
      */
     private void initImageId() {
         for (int i = 0; i < imageId.length; i++) {
@@ -150,5 +154,13 @@ public class HeadlineFragment extends BasePullToRefrshListViewFragment implement
             container.addView(imageView);
             return imageView;
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(getActivity(), ArticleDetailsActivity.class);
+        intent.putExtra("currentOffset", position - 2);
+        intent.putExtra("allItem", dataList.toArray());
+        startActivity(intent);
     }
 }

@@ -32,7 +32,7 @@ import java.util.List;
 public abstract class BasePullToRefrshListViewFragment extends PullToRefreshBaseFragment implements AdapterView.OnItemClickListener {
     protected ListView refreshableView;
     protected RefreshListAdapter adapter;
-    private List<Result> dataList = new ArrayList<>();
+    protected List<Result> dataList = new ArrayList<>();
     //改用 记页数 传递页数的方式
     private int currentPageOffset = 0;//  当前已加载多少页
     private int totalPage;//总共有多少页

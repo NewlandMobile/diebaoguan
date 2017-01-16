@@ -20,6 +20,7 @@ public class ArticleDetailsActivity extends BaseCommentAndShareActivity {
     //    private ArrayList<Result> dataList = new ArrayList<>();//资源数据集合
     private MyAdapter adapter;
     private Object[] dataArray = null;
+    private String activityLog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +31,15 @@ public class ArticleDetailsActivity extends BaseCommentAndShareActivity {
 
     private void initView() {
         Intent intent = getIntent();
+        activityLog = intent.getStringExtra("ActivityLog");
         dataArray = (Object[]) intent.getSerializableExtra("allItem");
         int currentOffset = intent.getIntExtra("currentOffset", 0);
         Result currentItem = (Result) dataArray[currentOffset];
-        docid = currentItem.getDocid();
+        if ("GYJSYNTH".equals(activityLog)) {  //如果是由光影集综合跳转过来的
+            docid = "" + currentItem.getPicid();
+        } else {
+            docid = currentItem.getDocid();
+        }
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.detail_viewpager);
         FragmentManager fm = getSupportFragmentManager();
@@ -71,19 +77,20 @@ public class ArticleDetailsActivity extends BaseCommentAndShareActivity {
 
         @Override
         public Fragment getItem(int position) {
+            String docid;
             ArticalItemFragment articalItemFragment = new ArticalItemFragment();
-//            int docid = dataList.get(position).getDocid();
-            String docid = ((Result) dataArray[position]).getDocid();
+            Result result = (Result) dataArray[position];
+            if ("GYJSYNTH".equals(activityLog)) {  //如果是由光影集综合跳转过来的
+                docid = "" + result.getPicid();
+            } else {
+                docid = result.getDocid();
+            }
             articalItemFragment.setDocid(docid);
-//            ArticleDetailsActivity.this.docid = docid + "";
-//            LogUtils.e("==docid==" + docid);
             return articalItemFragment;
         }
 
         @Override
         public int getCount() {
-//            return dataList == null ? 0 : dataList.size();
-
             return dataArray == null ? 0 : dataArray.length;
         }
     }
