@@ -106,15 +106,6 @@ public class AiMeiZhiFragment extends PullToRefreshBaseFragment implements Adapt
                         Intent intent = new Intent(getActivity(), AmzDetailActivity.class);
                         intent.putExtra("info", info);
                         startActivity(intent);
-//                        String cid = info.getString("cid");
-//                        String isCollected = info.getString("isCollected");
-//                        String type = info.getString("type");
-//                        String title = info.getString("title");
-//                        JSONArray content = info.getJSONArray("content");
-//                        for (int i = 0;i<content.length();i++){
-//
-//                        }
-//                        JSONArray picUrl = info.getJSONArray("picUrl");
                     } else {
                         showToast("文章内容解析失败！");
                     }
