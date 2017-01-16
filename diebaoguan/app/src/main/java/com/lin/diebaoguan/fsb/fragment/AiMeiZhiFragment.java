@@ -1,6 +1,7 @@
 package com.lin.diebaoguan.fsb.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.lin.diebaoguan.MyAppication;
 import com.lin.diebaoguan.R;
+import com.lin.diebaoguan.activity.AmzDetailActivity;
 import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.Const;
 import com.lin.diebaoguan.common.IMAGEUtils;
@@ -29,6 +31,9 @@ import com.lin.diebaoguan.network.send.AiMeiZhiDS;
 import com.lin.diebaoguan.network.send.PicDetailDS;
 import com.lin.diebaoguan.uibase.PullToRefreshBaseFragment;
 import com.lin.lib_volley_https.VolleyListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -91,6 +96,33 @@ public class AiMeiZhiFragment extends PullToRefreshBaseFragment implements Adapt
             @Override
             public void onResponse(String s) {
                 LogUtils.d(s);
+                JSONObject response = null;
+                try {
+                    response = new JSONObject(s);
+                    String status = response.getString("status");
+                    if (status.equals("1")) {
+                        JSONObject data = response.getJSONObject("data");
+                        String info = data.getString("info");
+                        Intent intent = new Intent(getActivity(), AmzDetailActivity.class);
+                        intent.putExtra("info", info);
+                        startActivity(intent);
+//                        String cid = info.getString("cid");
+//                        String isCollected = info.getString("isCollected");
+//                        String type = info.getString("type");
+//                        String title = info.getString("title");
+//                        JSONArray content = info.getJSONArray("content");
+//                        for (int i = 0;i<content.length();i++){
+//
+//                        }
+//                        JSONArray picUrl = info.getJSONArray("picUrl");
+                    } else {
+                        showToast("文章内容解析失败！");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
             }
         });
 

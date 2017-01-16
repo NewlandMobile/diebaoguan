@@ -27,6 +27,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+/**
+ * 文章详情fragment
+ */
 public class ArticalItemFragment extends Fragment {
     private String docid;
     private View inflate;

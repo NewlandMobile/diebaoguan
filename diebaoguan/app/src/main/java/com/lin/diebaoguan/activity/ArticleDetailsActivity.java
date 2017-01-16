@@ -24,30 +24,16 @@ public class ArticleDetailsActivity extends BaseCommentAndShareActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        initTitleBar(, true, true, false, R.layout.activity_article_details);
-        initPublicUI(getString(R.string.articdetail),false, R.layout.activity_article_details);
-//        initBottomPart();
+        initPublicUI(getString(R.string.articdetail), false, R.layout.activity_article_details);
         initView();
     }
-
-//    public void initBottomPart(){
-//        super.initBottomPart();
-//    }
 
     private void initView() {
         Intent intent = getIntent();
         dataArray = (Object[]) intent.getSerializableExtra("allItem");
-//        List<Result>
         int currentOffset = intent.getIntExtra("currentOffset", 0);
         Result currentItem = (Result) dataArray[currentOffset];
-//        docid = intent.getStringExtra("id");
         docid = currentItem.getDocid();
-//        LogUtils.e("docid: " + docid);
-//        int position = intent.getIntExtra("position", 0);
-//        LogUtils.e("==position=" + position);
-//        ArrayList<Result> arrayList = (ArrayList<Result>) intent.getSerializableExtra("datalsit");
-//        LogUtils.e("==" + arrayList.size());
-//        dataList.addAll(arrayList);
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.detail_viewpager);
         FragmentManager fm = getSupportFragmentManager();
@@ -74,7 +60,6 @@ public class ArticleDetailsActivity extends BaseCommentAndShareActivity {
 
         }
     }
-
 
 
     private class MyAdapter extends FragmentPagerAdapter {

@@ -24,11 +24,11 @@ import java.util.List;
  */
 
 public class GyjOriginalDetailsActivity extends BaseCommentAndShareActivity {
-//    private TextView detail_textview;
+    //    private TextView detail_textview;
 //    private ImageView detail_collect;
     private Button detail_save;
     private Button detail_share;
-////    private LinearLayout rl1;
+    ////    private LinearLayout rl1;
 //    private Button detail_send;
 //    private EditText detail_edit;
 //    private RelativeLayout rl2;
@@ -38,12 +38,12 @@ public class GyjOriginalDetailsActivity extends BaseCommentAndShareActivity {
     private TextView tv_title;
     private TextView tv_pageNum;
     private ImageView showMoreImageView;
-//    private LinearLayout ll_title_part;
+    //    private LinearLayout ll_title_part;
 //    private RelativeLayout activity_article_details;
     private ViewPager viewPager_gyj;
     private List<ImageView> cachViewsList;
 
-    int picCount=0;
+    int picCount = 0;
     private String[] urls;
     private Data data;
 //    private String picId;
@@ -51,15 +51,15 @@ public class GyjOriginalDetailsActivity extends BaseCommentAndShareActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initPublicUI(getString(R.string.JingPinOrigin),true,
+        initPublicUI(getString(R.string.JingPinOrigin), true,
                 R.layout.activity_gyj_original_details);
         initShowMoreImageBtn();
 //        initTitleBar(getString(R.string.JingPinOrigin), true, true, true, R.layout.activity_gyj_original_details);
 //        iniTitleButton();
         initView();
-        data= (Data) getIntent().getSerializableExtra("Data");
-        if (data!=null){
-            docid=data.getId();
+        data = (Data) getIntent().getSerializableExtra("Data");
+        if (data != null) {
+            docid = data.getId();
             setCid(data.getCid());
             setCollected("1".equals(data.getIsCollected()));
             initViewPager(data);
@@ -71,9 +71,16 @@ public class GyjOriginalDetailsActivity extends BaseCommentAndShareActivity {
         imageView_allpic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(GyjOriginalDetailsActivity.this,GyjDetailPicActivity.class);
-                intent.putExtra("Data",data);
-                startActivityForResult(intent,1);
+                Intent intent = new Intent(GyjOriginalDetailsActivity.this, GyjDetailPicActivity.class);
+                intent.putExtra("title", data.getTitle());
+                String[] picUrl = data.getPicUrl();
+                ArrayList<String> list = new ArrayList<>();
+                for (String pics : picUrl) {
+                    list.add(pics);
+                }
+                intent.putStringArrayListExtra("pic", list);
+                intent.putExtra("id", data.getId());
+                startActivityForResult(intent, 1);
             }
         });
     }
@@ -110,14 +117,14 @@ public class GyjOriginalDetailsActivity extends BaseCommentAndShareActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode!=1){
+        if (requestCode != 1) {
             return;
         }
-        if (data==null){
+        if (data == null) {
             return;
         }
-        if (data.getBooleanExtra("haveChange",false)){
-            int pageNum=data.getIntExtra("pageNum",0);
+        if (data.getBooleanExtra("haveChange", false)) {
+            int pageNum = data.getIntExtra("pageNum", 0);
             viewPager_gyj.setCurrentItem(pageNum);
         }
 
@@ -129,15 +136,15 @@ public class GyjOriginalDetailsActivity extends BaseCommentAndShareActivity {
     }
 
     private void initViewPager(Data data) {
-        MyViewPagerAdapter adapter=new MyViewPagerAdapter();
+        MyViewPagerAdapter adapter = new MyViewPagerAdapter();
 
-        urls=data.getPicUrl();
-        picCount=urls.length;
-        adapter.count=picCount;
-        tv_pageNum.setText("1/"+picCount);
-        cachViewsList =new ArrayList<>(4);
-        for (int i=0;i<4;i++){
-            ImageView imageView=new ImageView(this);
+        urls = data.getPicUrl();
+        picCount = urls.length;
+        adapter.count = picCount;
+        tv_pageNum.setText("1/" + picCount);
+        cachViewsList = new ArrayList<>(4);
+        for (int i = 0; i < 4; i++) {
+            ImageView imageView = new ImageView(this);
 //            IMAGEUtils.displayImage(url,imageView);
 //            viewPager_gyj.addView(imageView);
             cachViewsList.add(imageView);
@@ -151,8 +158,8 @@ public class GyjOriginalDetailsActivity extends BaseCommentAndShareActivity {
 
             @Override
             public void onPageSelected(int position) {
-                LogUtils.d("position:"+position);
-                tv_pageNum.setText((position+1)+"/"+picCount);
+                LogUtils.d("position:" + position);
+                tv_pageNum.setText((position + 1) + "/" + picCount);
             }
 
             @Override
@@ -163,7 +170,7 @@ public class GyjOriginalDetailsActivity extends BaseCommentAndShareActivity {
         });
     }
 
-    private class MyViewPagerAdapter extends PagerAdapter{
+    private class MyViewPagerAdapter extends PagerAdapter {
 
         int count;
 
@@ -185,16 +192,16 @@ public class GyjOriginalDetailsActivity extends BaseCommentAndShareActivity {
 //            ImageView imageView=new ImageView(GyjOriginalDetailsActivity.this);
 //            IMAGEUtils.displayImage(url,imageView);
 
-            ImageView view=null;
-            if (cachViewsList.size()!=0){
-                view   =  cachViewsList.get(0);
+            ImageView view = null;
+            if (cachViewsList.size() != 0) {
+                view = cachViewsList.get(0);
             }
-            if (view==null){
-                view=new ImageView(GyjOriginalDetailsActivity.this);
-            }else {
+            if (view == null) {
+                view = new ImageView(GyjOriginalDetailsActivity.this);
+            } else {
                 cachViewsList.remove(view);
             }
-            IMAGEUtils.displayImage(urls[position],view);
+            IMAGEUtils.displayImage(urls[position], view);
             viewPager_gyj.addView(view);
 //            LogUtils.d("after addView at"+position);
 //            return super.instantiateItem(container, position);
@@ -253,10 +260,10 @@ public class GyjOriginalDetailsActivity extends BaseCommentAndShareActivity {
     }
 
     private void changeShowMoreState() {
-        boolean isSelect=showMoreImageView.isSelected();
-        if (!isSelect){
+        boolean isSelect = showMoreImageView.isSelected();
+        if (!isSelect) {
             tv_content.setMaxLines(15);
-        }else {
+        } else {
             tv_content.setMaxLines(1);
         }
         showMoreImageView.setSelected(!isSelect);
