@@ -42,6 +42,10 @@ public class Data implements Serializable {
     logoSrc 欢迎界面logo
      */
     private String logoSrc;
+    /*
+    应用推荐
+     */
+    private RecommendAppList[] recommendAppList;
 
     public String getUid() {
         return uid;
@@ -117,5 +121,9 @@ public class Data implements Serializable {
 
     public int getCid() {
         return cid;
+    }
+
+    public RecommendAppList[] getRecommendAppList() {
+        return recommendAppList;
     }
 }
