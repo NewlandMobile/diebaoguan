@@ -37,4 +37,6 @@ public class Const {
     public final static int ROWS = 10;//分页用
     public static String SP_ISFIRSTNAME = "ISFIRST";//是否首次
     public static String SP_ISFIRSTKEY = "isFirst";
+
+    public static String OFFICIAL_WEBSITE = "http://www.cnmo.com";//官网
 }

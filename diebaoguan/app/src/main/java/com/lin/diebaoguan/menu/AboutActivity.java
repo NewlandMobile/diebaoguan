@@ -1,10 +1,13 @@
 package com.lin.diebaoguan.menu;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.lin.diebaoguan.R;
+import com.lin.diebaoguan.common.Const;
 import com.lin.diebaoguan.uibase.BaseRedTitleBarActivity;
 
 /**
@@ -37,11 +40,20 @@ public class AboutActivity extends BaseRedTitleBarActivity implements View.OnCli
             case R.id.baseactivity_back:
                 finish();
                 break;
-            case R.id.about_url:
+            case R.id.about_url://连接官网
+                Uri uri = Uri.parse(Const.OFFICIAL_WEBSITE);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
                 break;
             case R.id.about_termsofservice:
+                Intent intent1 = new Intent(this, TermsofServiceAndDisclaimerActivity.class);
+                intent1.putExtra("activitylog", "TermsofService");
+                startActivity(intent1);
                 break;
             case R.id.about_disclaimer:
+                Intent intent2 = new Intent(this, TermsofServiceAndDisclaimerActivity.class);
+                intent2.putExtra("activitylog", "Disclaimer");
+                startActivity(intent2);
                 break;
         }
     }

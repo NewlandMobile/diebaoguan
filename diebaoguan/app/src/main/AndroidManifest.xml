@@ -41,7 +41,8 @@
         </activity>
         <activity android:name=".activity.AmzDetailActivity" />
         <activity android:name=".menu.AboutActivity" />
-        <activity android:name=".menu.SettingActivity"></activity>
+        <activity android:name=".menu.SettingActivity" />
+        <activity android:name=".menu.TermsofServiceAndDisclaimerActivity"></activity>
     </application>
 
 </manifest>

@@ -22,23 +22,6 @@
             android:layout_alignParentStart="true"
             android:background="@drawable/back_selector" />
 
-        <TextView
-            android:id="@+id/baseactivity_titil"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_toEndOf="@+id/baseactivity_back"
-            android:layout_toStartOf="@+id/baseactivity_all"
-            android:layout_height="match_parent"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:layout_width="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            tools:text="TextViewTextViewTextViewTextViewTextViewTextView"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-
         <Button
             android:id="@+id/baseactivity_comments"
             android:layout_width="50dp"
@@ -62,6 +45,21 @@
             android:layout_toStartOf="@+id/baseactivity_comments"
             android:background="@drawable/lookallpic_selector"
             android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/baseactivity_titil"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_height="match_parent"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            tools:text="TextView"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_below="@+id/baseactivity_all"
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 
     <RelativeLayout
