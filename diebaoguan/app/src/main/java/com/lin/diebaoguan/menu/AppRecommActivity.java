@@ -45,7 +45,7 @@ public class AppRecommActivity extends BaseRedTitleBarActivity implements View.O
 
     public void getData() {
         BaseSendTemplate sendTemplate = new BaseSendTemplate();
-        sendTemplate.setModule("api_libraries_sjdbg_updatedbg");
+        sendTemplate.setModule("api_libraries_kuruanhui_indexrecommend");
         sendTemplate.initTimePart();
         CommonUtils.httpGet(sendTemplate.parseParams(), new VolleyListener() {
             @Override

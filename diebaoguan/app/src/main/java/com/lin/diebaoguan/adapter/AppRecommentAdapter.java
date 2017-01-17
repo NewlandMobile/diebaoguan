@@ -1,10 +1,13 @@
 package com.lin.diebaoguan.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -54,6 +57,16 @@ public class AppRecommentAdapter extends BaseAdapter {
         text_name.setText(recommendApp.getGoodName());
         text_goodname.setText(recommendApp.getName());
         IMAGEUtils.displayImage(recommendApp.getHeadPictureSrc(), imageView);
+        final String downloadUrl = recommendApp.getDownloadUrl();
+        Button btn_download = (Button) inflate.findViewById(R.id.apprecom_download);
+        btn_download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse(downloadUrl);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                context.startActivity(intent);
+            }
+        });
         return inflate;
     }
 }
