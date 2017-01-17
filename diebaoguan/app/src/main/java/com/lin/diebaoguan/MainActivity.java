@@ -19,6 +19,8 @@ import com.lin.diebaoguan.fragment.DieBaoGuanFragment;
 import com.lin.diebaoguan.fragment.FengShangBiaoFragment;
 import com.lin.diebaoguan.fragment.GuangYinJiFragment;
 import com.lin.diebaoguan.menu.AboutActivity;
+import com.lin.diebaoguan.menu.AppRecommActivity;
+import com.lin.diebaoguan.menu.SettingActivity;
 
 
 public class MainActivity extends FragmentActivity {
@@ -99,7 +101,6 @@ public class MainActivity extends FragmentActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         int index = itemId - ITEM_ID + 1;
-//        Toast.makeText(MainActivity.this, "按下了第" + index + "个菜单键", Toast.LENGTH_SHORT).show();
         switch (index) {
             case 1:
                 break;
