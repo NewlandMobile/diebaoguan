@@ -3,16 +3,18 @@ package com.lin.diebaoguan.common;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.SharedPreferencesCompat;
 import android.util.Log;
 
 import com.lin.diebaoguan.MyAppication;
-import com.lin.diebaoguan.uibase.PullToRefreshBaseFragment;
 import com.lin.diebaoguan.network.response.BaseResponseTemplate;
 import com.lin.diebaoguan.network.send.BaseSendTemplate;
 import com.lin.diebaoguan.network.send.CommentDS;
 import com.lin.diebaoguan.network.send.NormalDS;
+import com.lin.diebaoguan.uibase.PullToRefreshBaseFragment;
 import com.lin.lib_volley_https.VolleyListener;
 
 import java.security.MessageDigest;
@@ -184,7 +186,7 @@ public class CommonUtils<T extends BaseResponseTemplate> {
     /**
      * @param fragment
      * @param cid            传值1,2,3,4,5分别对应光影集：综合，精品原创，数码漫谈，手机美图，平板美图.
-     * @param pageOffset         获取第几页
+     * @param pageOffset     获取第几页
      * @param volleyListener 响应监听
      */
     public static void fetchDataAtGyjPage(PullToRefreshBaseFragment fragment, int cid, int pageOffset, VolleyListener volleyListener) {
@@ -229,7 +231,7 @@ public class CommonUtils<T extends BaseResponseTemplate> {
      * 根据 具体板块内容，获取后台信息
      * 用于谍报馆与风尚标模块
      *
-     * @param pageOffset          获取第几页
+     * @param pageOffset      获取第几页
      * @param isFengShangBiao 是否属于风尚标板块
      * @param detailPageNum   具体板块的数值 （当isclass=0时，传值1,2,3,4分别对应谍报馆：新品，价格，体验，应用.
      *                        当isclass=1时，传值1,2,3,4分别对应风尚标：综合，爱美妆，爱美访，雯琰文
@@ -314,6 +316,32 @@ public class CommonUtils<T extends BaseResponseTemplate> {
             result = sp.getFloat(key, (Float) defValue);
         }
         return result;
+    }
+
+    /**
+     * 获取单个App版本名
+     **/
+    public static String getVersionName(Context context) {
+        return getPackageInfo(context).versionName;
+    }
+
+    /**
+     * 获取单个App版本号
+     **/
+    public static int getVersionCode(Context context) {
+        return getPackageInfo(context).versionCode;
+    }
+
+    private static PackageInfo getPackageInfo(Context context) {
+        PackageInfo pi = null;
+        try {
+            PackageManager pm = context.getPackageManager();
+            pi = pm.getPackageInfo(context.getPackageName(), PackageManager.GET_CONFIGURATIONS);
+            return pi;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return pi;
     }
 }
 

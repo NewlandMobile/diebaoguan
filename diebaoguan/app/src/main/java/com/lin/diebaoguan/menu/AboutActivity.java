@@ -5,8 +5,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.lin.diebaoguan.R;
+import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.Const;
 import com.lin.diebaoguan.uibase.BaseRedTitleBarActivity;
 
@@ -25,13 +27,14 @@ public class AboutActivity extends BaseRedTitleBarActivity implements View.OnCli
         RelativeLayout rl_url = (RelativeLayout) findViewById(R.id.about_url);
         RelativeLayout rl_termsofservice = (RelativeLayout) findViewById(R.id.about_termsofservice);
         RelativeLayout rl_disclaimer = (RelativeLayout) findViewById(R.id.about_disclaimer);
+        TextView textView = (TextView) findViewById(R.id.about_appversion);
 
         rl_url.setOnClickListener(this);
         rl_termsofservice.setOnClickListener(this);
         rl_disclaimer.setOnClickListener(this);
         btn_back.setOnClickListener(this);
-
-
+        String versionName = CommonUtils.getVersionName(this);
+        textView.setText(getResources().getString(R.string.appversion) + versionName);
     }
 
     @Override
