@@ -184,17 +184,16 @@ public class CommonUtils<T extends BaseResponseTemplate> {
     /**
      * @param fragment
      * @param cid            传值1,2,3,4,5分别对应光影集：综合，精品原创，数码漫谈，手机美图，平板美图.
-     * @param offset         初始坐标
-     * @param rows           每次获取数据条数
+     * @param pageOffset         获取第几页
      * @param volleyListener 响应监听
      */
-    public static void fetchDataAtGyjPage(PullToRefreshBaseFragment fragment, int cid, int offset, int rows, VolleyListener volleyListener) {
+    public static void fetchDataAtGyjPage(PullToRefreshBaseFragment fragment, int cid, int pageOffset, VolleyListener volleyListener) {
         NormalDS params = new NormalDS();
         params.setModule("api_libraries_sjdbg_tulist");
 
         params.setCid(cid);
-        params.setOffset(offset);
-        params.setRows(rows);
+        params.setOffset(pageOffset * Const.ROWS);
+        params.setRows(Const.ROWS);
         normalGetWayFetch(params, fragment, volleyListener);
     }
 
@@ -230,7 +229,7 @@ public class CommonUtils<T extends BaseResponseTemplate> {
      * 根据 具体板块内容，获取后台信息
      * 用于谍报馆与风尚标模块
      *
-     * @param pageOffset          分页使用记录行数
+     * @param pageOffset          获取第几页
      * @param isFengShangBiao 是否属于风尚标板块
      * @param detailPageNum   具体板块的数值 （当isclass=0时，传值1,2,3,4分别对应谍报馆：新品，价格，体验，应用.
      *                        当isclass=1时，传值1,2,3,4分别对应风尚标：综合，爱美妆，爱美访，雯琰文

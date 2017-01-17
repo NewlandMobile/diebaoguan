@@ -68,7 +68,7 @@ public class GYJSyntheticalFragment extends PullToRefreshBaseFragment implements
     }
 
     private void getData(int offset, VolleyListener volleyListener) {
-        CommonUtils.fetchDataAtGyjPage(GYJSyntheticalFragment.this, 1, offset, Const.ROWS, volleyListener);
+        CommonUtils.fetchDataAtGyjPage(GYJSyntheticalFragment.this, 1, offset, volleyListener);
     }
 
     @Override

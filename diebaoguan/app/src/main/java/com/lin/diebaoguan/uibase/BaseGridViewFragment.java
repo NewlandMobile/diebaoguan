@@ -245,7 +245,7 @@ public class BaseGridViewFragment extends PullToRefreshBaseFragment {
      * @param offset
      */
     private void fetchListData(int offset) {
-        CommonUtils.fetchDataAtGyjPage(this, cid, offset, Const.ROWS, new VolleyListener() {
+        CommonUtils.fetchDataAtGyjPage(this, cid, offset, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 LogUtils.d("网络请求出错：" + volleyError);
