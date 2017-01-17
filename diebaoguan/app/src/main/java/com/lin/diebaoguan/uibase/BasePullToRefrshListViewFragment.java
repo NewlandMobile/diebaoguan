@@ -88,7 +88,12 @@ public abstract class BasePullToRefrshListViewFragment extends PullToRefreshBase
         Intent intent = new Intent(getActivity(), ArticleDetailsActivity.class);
         intent.putExtra("currentOffset", position - 1);
         intent.putExtra("allItem", dataList.toArray());
+        addSpecialArgu(intent);
         startActivity(intent);
+    }
+
+    protected void addSpecialArgu(Intent intent) {
+
     }
 
     private class CommonListVolleyListener implements VolleyListener {
