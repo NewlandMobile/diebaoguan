@@ -12,7 +12,9 @@ import com.android.volley.VolleyError;
 import com.lin.diebaoguan.MyAppication;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.common.CommonUtils;
+import com.lin.diebaoguan.common.IMAGEUtils;
 import com.lin.diebaoguan.common.LogUtils;
+import com.lin.diebaoguan.network.response.PersonInfoResponse;
 import com.lin.diebaoguan.network.send.PersonInfoDS;
 import com.lin.diebaoguan.uibase.BaseRedTitleBarActivity;
 import com.lin.lib_volley_https.VolleyListener;
@@ -67,6 +69,16 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
             public void onResponse(String s) {
 //                showToast(s);
                 LogUtils.d(s);
+                PersonInfoResponse response = PersonInfoResponse.parseObject(s, PersonInfoResponse.class);
+                LogUtils.d(response.toString());
+                String userName = response.getData().getUsername();
+                String avater = response.getData().getAvatar();
+                if (userName != null) {
+                    tv_have_not_login.setText(userName);
+                }
+                if (avater != null) {
+                    IMAGEUtils.displayImage(avater, account_Image);
+                }
             }
         });
 
