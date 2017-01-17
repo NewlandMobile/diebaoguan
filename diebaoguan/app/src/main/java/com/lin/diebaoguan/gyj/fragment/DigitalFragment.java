@@ -13,8 +13,14 @@ import com.lin.diebaoguan.uibase.BaseGridViewFragment;
  */
 public class DigitalFragment extends BaseGridViewFragment {
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initCid(3);
+    public int getCid() {
+        return 3;
     }
+
+
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        initCid(3);
+//    }
 }

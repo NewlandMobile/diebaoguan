@@ -13,8 +13,12 @@ import com.lin.diebaoguan.uibase.BaseGridViewFragment;
  */
 public class PhoneFragment extends BaseGridViewFragment {
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initCid(4);
+    public int getCid() {
+        return 4;
     }
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        initCid(4);
+//    }
 }

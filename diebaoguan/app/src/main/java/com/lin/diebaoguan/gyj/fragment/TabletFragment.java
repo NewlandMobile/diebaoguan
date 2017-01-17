@@ -13,9 +13,13 @@ import com.lin.diebaoguan.uibase.BaseGridViewFragment;
  */
 public class TabletFragment extends BaseGridViewFragment {
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initCid(4);
+    public int getCid() {
+        return 5;
     }
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        initCid(4);
+//    }
 
 }

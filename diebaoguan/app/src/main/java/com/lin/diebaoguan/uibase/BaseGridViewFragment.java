@@ -35,7 +35,7 @@ import java.util.List;
 /**
  *
  */
-public class BaseGridViewFragment extends PullToRefreshBaseFragment {
+public abstract class BaseGridViewFragment extends PullToRefreshBaseFragment {
     private View view;
     private MyAdapter myAdapter = null;
     private PullToRefreshBase.OnRefreshListener2 refreshListener2;
@@ -44,11 +44,13 @@ public class BaseGridViewFragment extends PullToRefreshBaseFragment {
     private AdapterView.OnItemClickListener itemClickListener = null;
     // 获取完网络数据后 会更新这一变量，用于下次获取前的校验
     private Paging paging = null;
-    private int cid;
+//    private int cid;
 
     public BaseGridViewFragment() {
 
     }
+
+    public abstract int getCid();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -228,14 +230,14 @@ public class BaseGridViewFragment extends PullToRefreshBaseFragment {
         myAdapter.notifyDataSetChanged();
     }
 
-    /**
-     * 必须调用该方法来传入对应的cid
-     *
-     * @param cid
-     */
-    protected void initCid(int cid) {
-        this.cid = cid;
-    }
+//    /**
+//     * 必须调用该方法来传入对应的cid
+//     *
+//     * @param cid
+//     */
+//    protected void initCid(int cid) {
+//        this.cid = cid;
+//    }
 
     ;
 
@@ -245,7 +247,7 @@ public class BaseGridViewFragment extends PullToRefreshBaseFragment {
      * @param offset
      */
     private void fetchListData(int offset) {
-        CommonUtils.fetchDataAtGyjPage(this, cid, offset, new VolleyListener() {
+        CommonUtils.fetchDataAtGyjPage(this, getCid(), offset, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 LogUtils.d("网络请求出错：" + volleyError);
