@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">手机谍报</string>
-
+    <!--第一导航标题-->
     <string name="diebaoguan">谍报馆</string>
     <string name="fengshanbiao">风尚标</string>
     <string name="guangyinji">光影集</string>
     <string name="aimeifang">爱美坊</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- 四大模块 -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_base">BaseActivity</string>
     <string name="comments">跟帖</string>
@@ -31,6 +31,14 @@
     <string name="collectedfailed">收藏（取消）失败</string>
     <string name="startexperience">开始体验</string>
     <string name="aimeizhi">爱美志</string>
+
+    <!--menu-->
     <string name="aboutwe">关于我们</string>
     <string name="introduction">简介:</string>
+    <string name="www_cnmo_com">网址:www.cnmo.com</string>
+    <string name="introduction_content">谍报馆是手机中国推出的手机资讯客户端，为用户提供最快速 全面的手机新品谍报 新机评测 应用体验 几个促销等精彩内容。手机中国沉溺于2007年9月，
+        是一资讯覆盖全国定位于专业与品位并重的新兴垂直手机网站，被认为是中国第一专业手机门户。手机中国立足于手机高端专业内容的建设，拥有20多个专业频道
+        。100余个子频道。每天提供上百篇最细心呢最快的手机市场信息 新品曝光 新机评测 购买指导等专业原创内容</string>
+    <string name="termsofservice">服务条款</string>
+    <string name="disclaimer">免责声明</string>
 </resources>
