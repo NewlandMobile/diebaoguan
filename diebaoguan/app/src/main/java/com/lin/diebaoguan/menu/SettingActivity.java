@@ -8,8 +8,14 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
+import com.lin.diebaoguan.MyAppication;
 import com.lin.diebaoguan.R;
+import com.lin.diebaoguan.common.CommonUtils;
+import com.lin.diebaoguan.common.LogUtils;
+import com.lin.diebaoguan.network.send.PersonInfoDS;
 import com.lin.diebaoguan.uibase.BaseRedTitleBarActivity;
+import com.lin.lib_volley_https.VolleyListener;
 
 import static com.lin.diebaoguan.R.id.setting_rl_goto_textSize;
 
@@ -35,7 +41,35 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
         super.onCreate(savedInstanceState);
         initTitleBar("设置", true, false, false, R.layout.activity_setting);
         initView();
+        if (MyAppication.getInstance().hasLogined()) {
+            String uid = MyAppication.getInstance().getUid();
+            fetchUserData(uid);
+        }
+
 //        setContentView(R.layout.activity_setting);
+    }
+
+    private void fetchUserData(String uid) {
+        PersonInfoDS personInfoDS = new PersonInfoDS();
+        personInfoDS.setModule("api_libraries_sjdbg_userinfo");
+        personInfoDS.setUid(uid);
+        personInfoDS.initTimePart();
+//        头像的大小，分三种尺寸  分别传'big', 'middle', 'small'
+        personInfoDS.setAvatarsize("big");
+        CommonUtils.normalGetWayFetch(personInfoDS, null, new VolleyListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+//                showToast(volleyError.toString());
+                LogUtils.e(volleyError.toString());
+            }
+
+            @Override
+            public void onResponse(String s) {
+//                showToast(s);
+                LogUtils.d(s);
+            }
+        });
+
     }
 
     private void initView() {

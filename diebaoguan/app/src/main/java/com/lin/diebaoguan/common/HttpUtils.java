@@ -100,21 +100,26 @@ public class HttpUtils {
 
     public static void get(Context context, Fragment fragment, String url, final VolleyListener listener) {
         final PullToRefreshBaseFragment pullToRefreshBaseFragment = (PullToRefreshBaseFragment) fragment;
-        pullToRefreshBaseFragment.showProgress();
+        if (pullToRefreshBaseFragment != null)
+            pullToRefreshBaseFragment.showProgress();
         StringRequest myReq = new UTFStringRequest(Method.GET, url, new Listener<String>() {
             public void onResponse(String response) {
                 listener.onResponse(response);
-                pullToRefreshBaseFragment.dismissProgress();
+                if (pullToRefreshBaseFragment != null)
+                    pullToRefreshBaseFragment.dismissProgress();
             }
         }, new Response.ErrorListener() {
             public void onErrorResponse(VolleyError error) {
-                if (error instanceof TimeoutError){
-                    pullToRefreshBaseFragment.showToast("网络超时");
-                }else {
-                    pullToRefreshBaseFragment.showToast("网络异常");
+                if (pullToRefreshBaseFragment != null) {
+                    if (error instanceof TimeoutError) {
+                        pullToRefreshBaseFragment.showToast("网络超时");
+                    } else {
+                        pullToRefreshBaseFragment.showToast("网络异常");
+                    }
+                    pullToRefreshBaseFragment.dismissProgress();
                 }
                 listener.onErrorResponse(error);
-                pullToRefreshBaseFragment.dismissProgress();
+
             }
         });
         if (mRequestQueue == null) {
