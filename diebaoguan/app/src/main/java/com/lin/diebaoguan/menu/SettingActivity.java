@@ -33,6 +33,7 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
     private CheckBox setting_checkbox_save_flow;
     private CheckBox setting_checkbox_offline_download;
     private TextView setting_tv_item_instruction_cache;
+    private Button btn_login;
 //    private View setting_rl_goto_clear_cache;
 //    private View setting_rl_goto_push_server;
 //    private View setting_rl_goto_feedback;
@@ -44,14 +45,18 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
         initTitleBar("设置", true, false, false, R.layout.activity_setting);
         initView();
         if (MyAppication.getInstance().hasLogined()) {
+            btn_login.setText("注销");
             String uid = MyAppication.getInstance().getUid();
             fetchUserData(uid);
+        } else {
+            btn_login.setText("登录");
         }
 
 //        setContentView(R.layout.activity_setting);
     }
 
     private void fetchUserData(String uid) {
+        LogUtils.d("uid=" + uid);
         PersonInfoDS personInfoDS = new PersonInfoDS();
         personInfoDS.setModule("api_libraries_sjdbg_userinfo");
         personInfoDS.setUid(uid);
@@ -106,7 +111,8 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
 //        setting_rl_goto_guide =
         findViewById(R.id.setting_rl_goto_guide).setOnClickListener(this);
 //        setting_rl_goto_guide.setOnClickListener(this);
-        findViewById(R.id.btn_login_or_logout).setOnClickListener(this);
+        btn_login = (Button) findViewById(R.id.btn_login_or_logout);
+        btn_login.setOnClickListener(this);
     }
 
 

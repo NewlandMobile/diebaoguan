@@ -113,7 +113,7 @@
 </string>
 
     <string name="disclaimer">免责声明</string>
-    <string name="havenot_login">未登录</string>
+    <string name="havenot_login">未登录      </string>
     <string name="have_not_login_hint">登录之后就可以发表、回复跟帖了</string>
     <string name="cashe_size">清除缓存，当前缓存大小 0 MB</string>
     <string name="disclaimer_content"> 责任限制\n

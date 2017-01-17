@@ -38,7 +38,12 @@ public class BaseRedTitleBarActivity extends BaseActivity {
         imageView_allpic = (ImageView) findViewById(R.id.baseactivity_all);
         text_title = (TextView) findViewById(R.id.baseactivity_titil);
         rl_content = (RelativeLayout) findViewById(R.id.baseactivity_content);
-
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 
