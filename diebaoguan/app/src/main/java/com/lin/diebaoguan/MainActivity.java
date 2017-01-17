@@ -19,6 +19,7 @@ import com.lin.diebaoguan.fragment.DieBaoGuanFragment;
 import com.lin.diebaoguan.fragment.FengShangBiaoFragment;
 import com.lin.diebaoguan.fragment.GuangYinJiFragment;
 import com.lin.diebaoguan.menu.AboutActivity;
+import com.lin.diebaoguan.menu.SettingActivity;
 
 
 public class MainActivity extends FragmentActivity {
@@ -109,6 +110,7 @@ public class MainActivity extends FragmentActivity {
             case 3:
                 break;
             case 4:
+                startActivity(new Intent(this, SettingActivity.class));
                 break;
             case 5://关于
                 startActivity(new Intent(this, AboutActivity.class));

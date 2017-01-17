@@ -1,13 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_setting"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.lin.diebaoguan.menu.SettingActivity">
+    android:layout_height="match_parent">
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:text="账号"
+            style="@style/setting_textView_divider" />
+
+        <RelativeLayout
+            style="@style/setting_RL"
+            android:paddingEnd="20dp">
+
+            <TextView
+                android:id="@+id/tv_have_not_login"
+                style="@style/wrap_content.setting_tv_item"
+                android:layout_alignBottom="@+id/account_Image"
+                android:text="@string/havenot_login" />
+
+            <TextView
+                style="@style/wrap_content.setting_tv_item_instruction"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/tv_have_not_login"
+                android:text="@string/have_not_login_hint" />
+
+            <ImageView
+                android:id="@+id/account_Image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/tv_have_not_login"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/account_ph_default" />
+
+            <Button
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:background="@drawable/lookmore_selector"
+                android:textColor="@color/white"
+                android:text="登录"
+                android:elevation="0dp" />
+        </RelativeLayout>
+
+        <TextView
+            android:text="正文"
+            style="@style/setting_textView_divider" />
+
+        <RelativeLayout
+            android:id="@+id/setting_rl_goto_textSize"
+            style="@style/setting_RL">
+
+            <ImageView style="@style/wrap_content.parent_right.setting_imageView_right_arrow" />
+
+            <TextView
+                android:id="@+id/setting_tv_item_textSize"
+                style="@style/wrap_content.setting_tv_item"
+                android:text="字体设置" />
+
+            <TextView
+                style="@style/wrap_content.setting_tv_item_instruction"
+                android:layout_below="@+id/setting_tv_item_textSize"
+                android:text="设置字体大小" />
+        </RelativeLayout>
+
+        <TextView
+            android:text="流量控制"
+            style="@style/setting_textView_divider" />
+
+        <RelativeLayout style="@style/setting_RL">
+
+            <CheckBox
+                android:id="@+id/setting_checkbox_wifi"
+                style="@style/wrap_content.parent_right.setting_checkbox" />
+
+            <TextView
+                android:id="@+id/setting_tv_item_wifi_setting"
+                style="@style/wrap_content.setting_tv_item"
+                android:text="WiFi设置" />
+
+            <TextView
+                style="@style/wrap_content.setting_tv_item_instruction"
+                android:layout_below="@id/setting_tv_item_wifi_setting"
+                android:text="离线后不需要网络也可以看文章图片" />
+        </RelativeLayout>
+
+        <RelativeLayout style="@style/setting_RL">
+
+            <CheckBox
+                android:id="@+id/setting_checkbox_save_flow"
+                style="@style/wrap_content.parent_right.setting_checkbox" />
+
+            <TextView
+                android:id="@+id/setting_tv_item_save_flow"
+                style="@style/wrap_content.setting_tv_item"
+                android:text="3G/2G网络节省流量设置" />
+
+            <TextView
+                style="@style/wrap_content.setting_tv_item_instruction"
+                android:layout_below="@id/setting_tv_item_save_flow"
+                android:text="关闭后不再加载图片" />
+        </RelativeLayout>
+
+        <RelativeLayout style="@style/setting_RL">
+
+            <CheckBox
+                android:id="@+id/setting_checkbox_offline_download"
+                style="@style/wrap_content.parent_right.setting_checkbox" />
+
+            <TextView
+                android:id="@+id/setting_tv_item_offline_download"
+                style="@style/wrap_content.setting_tv_item"
+                android:text="离线下载" />
+
+            <TextView
+                style="@style/wrap_content.setting_tv_item_instruction"
+                android:layout_below="@id/setting_tv_item_offline_download"
+                android:text="在WiFi状态下是否离线下载所有文章数据" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/setting_rl_goto_clear_cache"
+            style="@style/setting_RL">
+
+            <ImageView style="@style/wrap_content.parent_right.setting_imageView_right_arrow" />
+
+            <TextView
+                android:id="@+id/setting_tv_item_clear_cache"
+                style="@style/wrap_content.setting_tv_item"
+                android:text="清除缓存" />
+
+            <TextView
+                android:id="@+id/setting_tv_item_instruction_cache"
+                style="@style/wrap_content.setting_tv_item_instruction"
+                android:layout_below="@+id/setting_tv_item_clear_cache"
+                android:text="@string/cashe_size" />
+        </RelativeLayout>
+
+        <TextView
+            android:text="推送"
+            style="@style/setting_textView_divider" />
+
+        <RelativeLayout
+            android:id="@+id/setting_rl_goto_push_server"
+            style="@style/setting_RL">
+
+            <ImageView style="@style/wrap_content.parent_right.setting_imageView_right_arrow" />
+
+            <TextView
+                android:id="@+id/setting_tv_item_push_server"
+                style="@style/wrap_content.setting_tv_item"
+                android:text="推送设置" />
+
+            <TextView
+                style="@style/wrap_content.setting_tv_item_instruction"
+                android:layout_below="@+id/setting_tv_item_push_server"
+                android:text="设置推送提醒" />
+        </RelativeLayout>
+
+        <TextView
+            android:text="软件信息"
+            style="@style/setting_textView_divider" />
+
+        <RelativeLayout
+            android:id="@+id/setting_rl_goto_feedback"
+            style="@style/setting_RL">
+
+            <ImageView
+
+                style="@style/wrap_content.parent_right.setting_imageView_right_arrow" />
+
+            <TextView
+                style="@style/wrap_content.setting_tv_item"
+                android:layout_centerVertical="true"
+                android:text="意见反馈" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/setting_rl_goto_guide"
+            style="@style/setting_RL">
+
+            <ImageView style="@style/wrap_content.parent_right.setting_imageView_right_arrow" />
+
+            <TextView
+                style="@style/wrap_content.setting_tv_item"
+                android:layout_centerVertical="true"
+                android:text="新手指南" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</ScrollView>

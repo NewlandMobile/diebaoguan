@@ -113,6 +113,9 @@
 </string>
 
     <string name="disclaimer">免责声明</string>
+    <string name="havenot_login">未登录</string>
+    <string name="have_not_login_hint">登录之后就可以发表、回复跟帖了</string>
+    <string name="cashe_size">清除缓存，当前缓存大小 0 MB</string>
     <string name="disclaimer_content"> 责任限制\n
 手机中国及用户同意并特此确认：\n
 （1）用户使用"手机中国"，"手机中国"对用户不承担任何责任，不对网络服务作任何形式的明示或默示的声明或担保。\n
