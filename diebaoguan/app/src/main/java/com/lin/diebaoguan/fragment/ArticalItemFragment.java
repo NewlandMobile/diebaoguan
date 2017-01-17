@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -137,7 +138,11 @@ public class ArticalItemFragment extends Fragment {
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setLoadWithOverviewMode(true);
-        webSettings.setTextSize(WebSettings.TextSize.NORMAL);
+//        拦截图片下载 测试
+        webSettings.setBlockNetworkImage(true);
+        // 字体大小 测试
+        webSettings.setTextZoom(80);
+//        webSettings.setTextSize(WebSettings.TextSize.);
 
         Document doc = Jsoup.parse(content);
         Elements elements = doc.getElementsByTag("img");
@@ -146,6 +151,7 @@ public class ArticalItemFragment extends Fragment {
         }
 
         if (("pic").equals(type)) {
+            webView.setWebViewClient(new WebViewClient());
             webView.loadUrl(docUrl);
         } else {
             //WebView加载web资源
