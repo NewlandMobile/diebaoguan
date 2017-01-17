@@ -86,7 +86,7 @@
     </style>
 
     <style name="wrap_content.parent_right.setting_checkbox">
-        <item name="android:checked">true</item>
+        <!--<item name="android:checked">true</item>-->
     </style>
 
 </resources>

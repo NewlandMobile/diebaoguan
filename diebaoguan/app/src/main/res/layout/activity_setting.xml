@@ -38,6 +38,7 @@
                 android:src="@drawable/account_ph_default" />
 
             <Button
+                android:id="@+id/btn_login_or_logout"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
