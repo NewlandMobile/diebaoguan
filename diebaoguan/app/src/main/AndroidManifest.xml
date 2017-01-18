@@ -44,6 +44,7 @@
         <activity android:name=".menu.SettingActivity" />
         <activity android:name=".menu.TermsofServiceAndDisclaimerActivity" />
         <activity android:name=".menu.AppRecommActivity"></activity>
+        <activity android:name=".menu.CollectActivity" />
     </application>
 
 </manifest>

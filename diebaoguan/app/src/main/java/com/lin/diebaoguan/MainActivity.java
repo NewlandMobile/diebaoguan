@@ -20,6 +20,7 @@ import com.lin.diebaoguan.fragment.FengShangBiaoFragment;
 import com.lin.diebaoguan.fragment.GuangYinJiFragment;
 import com.lin.diebaoguan.menu.AboutActivity;
 import com.lin.diebaoguan.menu.AppRecommActivity;
+import com.lin.diebaoguan.menu.CollectActivity;
 import com.lin.diebaoguan.menu.SettingActivity;
 
 
@@ -102,7 +103,8 @@ public class MainActivity extends FragmentActivity {
         int itemId = item.getItemId();
         int index = itemId - ITEM_ID + 1;
         switch (index) {
-            case 1:
+            case 1://收藏
+                startActivity(new Intent(this, CollectActivity.class));
                 break;
             case 2://应用推荐
                 startActivity(new Intent(this, AppRecommActivity.class));
