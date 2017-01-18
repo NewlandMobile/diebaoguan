@@ -139,9 +139,9 @@ public class ArticalItemFragment extends Fragment {
         webSettings.setJavaScriptEnabled(true);
         webSettings.setLoadWithOverviewMode(true);
 //        拦截图片下载 测试
-        webSettings.setBlockNetworkImage(true);
+        webSettings.setBlockNetworkImage(MyAppication.isBlockImage());
         // 字体大小 测试
-        webSettings.setTextZoom(80);
+        webSettings.setTextZoom(MyAppication.getTextSizeZoom());
 //        webSettings.setTextSize(WebSettings.TextSize.);
 
         Document doc = Jsoup.parse(content);

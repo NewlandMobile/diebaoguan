@@ -20,18 +20,32 @@ public class MyAppication extends Application {
     private static String uid=null;
     private static String key=null;
     private static String userName=null;
-    private static String uidSPKey="uid",keySPKey="key",firstRunSPKey="isFirstRun",userNameSPKey="userName";
+    private static final String uidSPKey = "uid", keySPKey = "key", firstRunSPKey = "isFirstRun", userNameSPKey = "userName";
     //是否是第一次运行
     private static boolean isFirstRun=false;
     //是否已登录
     private static boolean isLogined;
+
+    private static boolean blockImage = false;
+
+    private static int textSizeZoom;
 
     @Override
     public void onCreate() {
         super.onCreate();
         myAppication = this;
         initGlobalValiable();
+        initSettingValue();
         initImageLoader(getApplicationContext());
+    }
+
+    /**
+     * 对设置页相关的设置项做一个初始化，方便页面取用
+     */
+    private void initSettingValue() {
+        blockImage = (boolean) CommonUtils.getSp(this, "blockImage", false);
+        textSizeZoom = (int) CommonUtils.getSp(this, "textSizeZoom", 100);
+//        TODO  把设置项都初始化  从SP获取
     }
 
     /**
@@ -45,12 +59,18 @@ public class MyAppication extends Application {
         userName= (String) CommonUtils.getSp(this,userNameSPKey,"");
     }
 
-    public boolean hasLogined(){
+    public static boolean hasLogined() {
         if (TextUtils.isEmpty(uid)||TextUtils.isEmpty(key)){
             return false;
         }else {
             return true;
         }
+    }
+
+    public static void logout() {
+        //TODO  退出账号  删除 账户相关信息
+        CommonUtils.deleteSp(MyAppication.getInstance(), uidSPKey);
+        CommonUtils.deleteSp(MyAppication.getInstance(), keySPKey);
     }
 
     public static MyAppication getInstance() {
@@ -85,6 +105,24 @@ public class MyAppication extends Application {
     public static void setUserName(String userName) {
         MyAppication.userName = userName;
         CommonUtils.saveBySp(MyAppication.getInstance(),userNameSPKey,userName);
+    }
+
+    public static boolean isBlockImage() {
+        return blockImage;
+    }
+
+    public static void setBlockImage(boolean blockImage) {
+        MyAppication.blockImage = blockImage;
+        CommonUtils.saveBySp(MyAppication.getInstance(), "blockImage", blockImage);
+    }
+
+    public static int getTextSizeZoom() {
+        return textSizeZoom;
+    }
+
+    public static void setTextSizeZoom(int textSizeZoom) {
+        MyAppication.textSizeZoom = textSizeZoom;
+        CommonUtils.saveBySp(MyAppication.getInstance(), "textSizeZoom", textSizeZoom);
     }
 
     /**

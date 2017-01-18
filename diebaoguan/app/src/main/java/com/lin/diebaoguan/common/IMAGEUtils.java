@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.lin.diebaoguan.MyAppication;
 import com.lin.diebaoguan.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -49,6 +50,10 @@ public class IMAGEUtils {
      * @param mImageView 目标控件
      */
     public static void displayImage(String imageUrls, ImageView mImageView) {
+        // 如果 要屏蔽图片下载 就不执行具体
+        if (MyAppication.isBlockImage()) {
+            return;
+        }
         initOptions();
         ImageLoader.getInstance().displayImage(imageUrls, mImageView, options,
                 animateFirstListener);

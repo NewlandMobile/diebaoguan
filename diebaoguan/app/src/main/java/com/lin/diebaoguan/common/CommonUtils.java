@@ -10,6 +10,7 @@ import android.support.v4.content.SharedPreferencesCompat;
 import android.util.Log;
 
 import com.lin.diebaoguan.MyAppication;
+import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.network.response.BaseResponseTemplate;
 import com.lin.diebaoguan.network.send.BaseSendTemplate;
 import com.lin.diebaoguan.network.send.CommentDS;
@@ -271,13 +272,27 @@ public class CommonUtils<T extends BaseResponseTemplate> {
     }
 
     /**
+     * 删除SP项
+     * @param context
+     * @param key 键
+     */
+    public static void deleteSp(Context context, String key) {
+        SharedPreferences sp = context.getSharedPreferences(context.getString(R.string.spNmae), Context.MODE_PRIVATE);
+        if (sp.contains(key)) {
+            SharedPreferences.Editor edit = sp.edit();
+            edit.remove(key);
+            SharedPreferencesCompat.EditorCompat.getInstance().apply(edit);
+        }
+    }
+
+    /**
      * 通过sp保存信息
      *
      * @param key    键
      * @param values 值
      */
     public static void saveBySp(Context context, String key, Object values) {
-        SharedPreferences sp = context.getSharedPreferences("DieBaoGuan", Context.MODE_PRIVATE);
+        SharedPreferences sp = context.getSharedPreferences(context.getString(R.string.spNmae), Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = sp.edit();
         if (values instanceof String) {
             edit.putString(key, (String) values);
@@ -301,7 +316,7 @@ public class CommonUtils<T extends BaseResponseTemplate> {
      * @return
      */
     public static Object getSp(Context context, String key, Object defValue) {
-        SharedPreferences sp = context.getSharedPreferences("DieBaoGuan", Context.MODE_PRIVATE);
+        SharedPreferences sp = context.getSharedPreferences(context.getString(R.string.spNmae), Context.MODE_PRIVATE);
         Object result = null;
         if (!sp.contains(key)) {
             return defValue;

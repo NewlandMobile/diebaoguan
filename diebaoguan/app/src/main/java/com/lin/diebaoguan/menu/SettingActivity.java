@@ -1,5 +1,6 @@
 package com.lin.diebaoguan.menu;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.lin.diebaoguan.MyAppication;
 import com.lin.diebaoguan.R;
+import com.lin.diebaoguan.activity.LoginActivity;
 import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.IMAGEUtils;
 import com.lin.diebaoguan.common.LogUtils;
@@ -137,6 +139,13 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
                 break;
             case R.id.btn_login_or_logout:
                 showToast("登录或注销");
+                if (MyAppication.hasLogined()) {
+                    MyAppication.logout();
+                    btn_login.setText("登录");
+                } else {
+                    startActivity(new Intent(SettingActivity.this, LoginActivity.class));
+                    finish();
+                }
                 break;
         }
     }
