@@ -17,6 +17,8 @@ import com.lin.diebaoguan.common.Const;
 public class FengShangBiaoFragment extends EvolveFragment {
 
 
+    private View view;
+
     public FengShangBiaoFragment() {
         // Required empty public constructor
     }
@@ -29,7 +31,16 @@ public class FengShangBiaoFragment extends EvolveFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = super.onCreateView(inflater, container, savedInstanceState);
+        if (view == null) {
+            view = super.onCreateView(inflater, container, savedInstanceState);
+        }
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        ViewGroup parent = (ViewGroup) view.getParent();
+        parent.removeView(view);
+        super.onDestroyView();
     }
 }

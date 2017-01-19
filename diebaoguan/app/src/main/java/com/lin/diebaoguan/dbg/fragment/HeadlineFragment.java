@@ -165,4 +165,11 @@ public class HeadlineFragment extends BasePullToRefrshListViewFragment implement
         intent.putExtra("allItem", dataList.toArray());
         startActivity(intent);
     }
+
+    @Override
+    public void onDestroyView() {
+        ViewGroup parent = (ViewGroup) view.getParent();
+        parent.removeView(view);
+        super.onDestroyView();
+    }
 }

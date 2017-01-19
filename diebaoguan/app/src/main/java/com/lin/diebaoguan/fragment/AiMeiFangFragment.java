@@ -3,22 +3,21 @@ package com.lin.diebaoguan.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.lin.diebaoguan.R;
+import com.lin.diebaoguan.fsb.fragment.FSBAiMeiFangFragment;
 import com.lin.diebaoguan.uibase.BaseFragment;
 
 /**
- * A simple {@link Fragment} subclass.
+ * 爱美坊
  */
 public class AiMeiFangFragment extends BaseFragment {
-    public PullToRefreshListView pullToRefreshListView;//用于实现下拉刷新listview控件
+    private View view;
 
     public AiMeiFangFragment() {
         // Required empty public constructor
@@ -32,11 +31,20 @@ public class AiMeiFangFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = super.onCreateView(inflater, container, savedInstanceState);
-        pullToRefreshListView = (PullToRefreshListView) view.findViewById(R.id.amf_refresh_list);
-        pullToRefreshListView.setMode(PullToRefreshBase.Mode.BOTH);//两端刷新
-        ListView refreshableView = pullToRefreshListView.getRefreshableView();
-//        refreshableView.setAdapter(new RefreshListAdapter(getActivity(), new ArrayList<String>()));
+        if (view == null) {
+            view = super.onCreateView(inflater, container, savedInstanceState);
+            FragmentManager fragmentManager = getFragmentManager();//获得管理器
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();//开启一个新事务
+            fragmentTransaction.add(R.id.framelayout, new FSBAiMeiFangFragment());
+            fragmentTransaction.commit();
+        }
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        ViewGroup parent = (ViewGroup) view.getParent();
+        parent.removeView(view);
+        super.onDestroyView();
     }
 }

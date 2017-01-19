@@ -17,6 +17,8 @@ import com.lin.diebaoguan.common.Const;
 public class GuangYinJiFragment extends EvolveFragment {
 
 
+    private View view;
+
     public GuangYinJiFragment() {
         // Required empty public constructor
     }
@@ -29,7 +31,19 @@ public class GuangYinJiFragment extends EvolveFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = super.onCreateView(inflater, container, savedInstanceState);
+        if (view == null) {
+            view = super.onCreateView(inflater, container, savedInstanceState);
+        }
         return view;
+    }
+
+    /**
+     * 销毁view
+     */
+    @Override
+    public void onDestroyView() {
+        ViewGroup parent = (ViewGroup) view.getParent();
+        parent.removeView(view);
+        super.onDestroyView();
     }
 }
