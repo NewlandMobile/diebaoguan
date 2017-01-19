@@ -38,7 +38,7 @@ public class MainActivity extends FragmentActivity {
         setAddTab(R.string.diebaoguan, DieBaoGuanFragment.class, R.drawable.inducator_selector);
         setAddTab(R.string.fengshanbiao, FengShangBiaoFragment.class, R.drawable.inducator_selector);
         setAddTab(R.string.guangyinji, GuangYinJiFragment.class, R.drawable.inducator_selector);
-        setAddTab(R.string.aimeifang, AiMeiFangFragment.class, R.drawable.inducator_selector);
+        setAddTab(R.string.aimeifang, AiMeiFangFragment.class, R.drawable.inducator_amf_select);
     }
 
     private void judgeFirstPage() {
@@ -62,7 +62,7 @@ public class MainActivity extends FragmentActivity {
     private void setAddTab(int indicator, Class<?> cls, int srcID) {
         TabHost.TabSpec newTabSpec = mTabHost.newTabSpec(indicator + "");
         View view = getLayoutInflater().inflate(R.layout.item_inducator, null);
-        TextView textview = (TextView) view.findViewById(R.id.inducator_text);
+        final TextView textview = (TextView) view.findViewById(R.id.inducator_text);
         textview.setText(getResources().getString(indicator));
         textview.setTextSize(14);
         textview.setTextColor(getResources().getColor(R.color.white));
@@ -76,7 +76,8 @@ public class MainActivity extends FragmentActivity {
                      * 预留 TODO 做跳转使用
                      */
                     Toast.makeText(MainActivity.this, "==长点击==", Toast.LENGTH_SHORT).show();
-                    mTabHost.setCurrentTab(0);
+                    textview.setBackground(getResources().getDrawable(R.drawable.diya_choice_bgon));
+//                    mTabHost.setCurrentTab(0);
                     return true;
                 }
             });
