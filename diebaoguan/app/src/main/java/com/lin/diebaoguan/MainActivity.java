@@ -2,12 +2,20 @@ package com.lin.diebaoguan;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,10 +31,19 @@ import com.lin.diebaoguan.menu.AppRecommActivity;
 import com.lin.diebaoguan.menu.CollectActivity;
 import com.lin.diebaoguan.menu.SettingActivity;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 
 public class MainActivity extends FragmentActivity {
     private FragmentTabHost mTabHost;
+
     private SharedPreferences sharedPreferences;
+    private ArrayList<String> arrayList = new ArrayList<>();
+    private static final int ITEM_ID = 33;
+    private PopupWindow popupWindow;
+    private int screenWidth;//屏幕宽度
+    private int height;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +56,25 @@ public class MainActivity extends FragmentActivity {
         setAddTab(R.string.fengshanbiao, FengShangBiaoFragment.class, R.drawable.inducator_selector);
         setAddTab(R.string.guangyinji, GuangYinJiFragment.class, R.drawable.inducator_selector);
         setAddTab(R.string.aimeifang, AiMeiFangFragment.class, R.drawable.inducator_amf_select);
+        initList();
+        //获取屏幕宽度
+        screenWidth = getWindowManager().getDefaultDisplay().getWidth();
+        View inflate = getLayoutInflater().inflate(R.layout.view_popupwindow, null);
+        ListView listView = (ListView) inflate.findViewById(R.id.pop_listview);
+        listView.setAdapter(new MyAdapter());
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(screenWidth / 4, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.setMargins(screenWidth * 3 / 4, 0, 0, height);
+        listView.setLayoutParams(params);
+        popupWindow = new PopupWindow(inflate, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        popupWindow.setFocusable(true);
+        //给popupwindow添加一个空背景，使点击popupwindow时能使其消失。
+        Drawable background = new BitmapDrawable();
+        popupWindow.setBackgroundDrawable(background);
+
+    }
+
+    private void initList() {
+        Collections.addAll(arrayList, Const.POP_TITLE);
     }
 
     private void judgeFirstPage() {
@@ -61,8 +97,9 @@ public class MainActivity extends FragmentActivity {
      */
     private void setAddTab(int indicator, Class<?> cls, int srcID) {
         TabHost.TabSpec newTabSpec = mTabHost.newTabSpec(indicator + "");
-        View view = getLayoutInflater().inflate(R.layout.item_inducator, null);
+        final View view = getLayoutInflater().inflate(R.layout.item_inducator, null);
         final TextView textview = (TextView) view.findViewById(R.id.inducator_text);
+        height = textview.getHeight();
         textview.setText(getResources().getString(indicator));
         textview.setTextSize(14);
         textview.setTextColor(getResources().getColor(R.color.white));
@@ -77,14 +114,14 @@ public class MainActivity extends FragmentActivity {
                      */
                     Toast.makeText(MainActivity.this, "==长点击==", Toast.LENGTH_SHORT).show();
                     textview.setBackground(getResources().getDrawable(R.drawable.diya_choice_bgon));
-//                    mTabHost.setCurrentTab(0);
+                    int[] location = new int[2];
+                    textview.getLocationOnScreen(location);
+                    popupWindow.showAtLocation(mTabHost, Gravity.CENTER, location[0], location[1]);
                     return true;
                 }
             });
         }
     }
-
-    private static final int ITEM_ID = 33;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -124,5 +161,33 @@ public class MainActivity extends FragmentActivity {
 
         }
         return true;
+    }
+
+    class MyAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return arrayList.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return arrayList.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View inflate = getLayoutInflater().inflate(R.layout.item_popupwindow, null);
+            TextView text = (TextView) inflate.findViewById(R.id.itempop_text);
+//            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(screenWidth / 4, ViewGroup.LayoutParams.WRAP_CONTENT);
+//            text.setLayoutParams(layoutParams);
+            text.setText(arrayList.get(position));
+            return inflate;
+        }
     }
 }

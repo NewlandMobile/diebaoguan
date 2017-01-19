@@ -36,6 +36,8 @@ public class Const {
     public static Class[] GYJ_Fragments = new Class[]{GYJSyntheticalFragment.class, OriginalFragment.class, DigitalFragment.class, PhoneFragment.class, TabletFragment.class};
     public static Class[] COLLECT_Fragments = new Class[]{DBFragment.class, LifeFragment.class, PicFragment.class};
 
+    public static String[] POP_TITLE = new String[]{"爱美妆", "爱美坊", "雯琰文", "爱美志", "应用谍报", "体验谍报", "价格谍报", "新品谍报"};
+
     public static String COMMENTSUCCESS = "60000011";//评论成功返回码
     //    public final static int ROWS = 20;//分页用
     public final static int ROWS = 10;//分页用
