@@ -13,6 +13,7 @@ import com.lin.diebaoguan.MyAppication;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.network.response.BaseResponseTemplate;
 import com.lin.diebaoguan.network.send.BaseSendTemplate;
+import com.lin.diebaoguan.network.send.CollectlistDS;
 import com.lin.diebaoguan.network.send.CommentDS;
 import com.lin.diebaoguan.network.send.NormalDS;
 import com.lin.diebaoguan.uibase.PullToRefreshBaseFragment;
@@ -273,8 +274,9 @@ public class CommonUtils<T extends BaseResponseTemplate> {
 
     /**
      * 删除SP项
+     *
      * @param context
-     * @param key 键
+     * @param key     键
      */
     public static void deleteSp(Context context, String key) {
         SharedPreferences sp = context.getSharedPreferences(context.getString(R.string.spNmae), Context.MODE_PRIVATE);
@@ -357,6 +359,25 @@ public class CommonUtils<T extends BaseResponseTemplate> {
             e.printStackTrace();
         }
         return pi;
+    }
+
+    /**
+     * 获取个人收藏列表数据
+     *
+     * @param cid            cid 为 1，2,3 ，分别对应谍报收藏，生活收藏，图片收藏
+     * @param pageOffset
+     * @param volleyListener
+     */
+    public static void fetchDataAtCollect(Fragment fragment, int cid, int pageOffset, VolleyListener volleyListener) {
+        CollectlistDS collectlistDS = new CollectlistDS();
+        collectlistDS.setModule("api_libraries_sjdbg_collectlist");
+        collectlistDS.setCid("" + cid);
+        if (MyAppication.hasLogined()) {
+            collectlistDS.setUid(MyAppication.getUid());
+        }
+        collectlistDS.setOffset("" + pageOffset);
+        collectlistDS.initTimePart();
+        CommonUtils.httpGet(fragment, collectlistDS.parseParams(), volleyListener);
     }
 }
 

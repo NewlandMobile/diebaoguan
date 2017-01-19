@@ -3,6 +3,8 @@ package com.lin.diebaoguan.menu;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -36,6 +38,10 @@ public class CollectActivity extends BaseRedTitleBarActivity {
         View view = getLayoutInflater().inflate(R.layout.item_inducator_top, null);
         TextView textview = (TextView) view.findViewById(R.id.inducator_top_text);
         textview.setText(indicator);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        textview.setLayoutParams(layoutParams);
+        layoutParams.setMargins(50, 10, 50, 10);
+        textview.setBackground(getResources().getDrawable(R.drawable.inducator_top_selector));
         mTabHost.addTab(newTabSpec.setIndicator(view), cls, null);
     }
 }

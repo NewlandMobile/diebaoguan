@@ -16,6 +16,8 @@ import com.lin.diebaoguan.gyj.fragment.OriginalFragment;
 import com.lin.diebaoguan.gyj.fragment.PhoneFragment;
 import com.lin.diebaoguan.gyj.fragment.TabletFragment;
 import com.lin.diebaoguan.menu.fragment.DBFragment;
+import com.lin.diebaoguan.menu.fragment.LifeFragment;
+import com.lin.diebaoguan.menu.fragment.PicFragment;
 
 /**
  * Created by linx on 2016/12/2116:21.
@@ -32,7 +34,7 @@ public class Const {
     public static Class[] DBG_Fragments = new Class[]{HeadlineFragment.class, NewproductFragment.class, PriceFragment.class, ExperienceFragment.class, ApplyFragment.class};
     public static Class[] FSB_Fragments = new Class[]{FSBSyntheticalFragment.class, AiMeiZhiFragment.class, WenYanWenFragment.class, FSBAiMeiFangFragment.class, AiMeiZhuangFragment.class};
     public static Class[] GYJ_Fragments = new Class[]{GYJSyntheticalFragment.class, OriginalFragment.class, DigitalFragment.class, PhoneFragment.class, TabletFragment.class};
-    public static Class[] COLLECT_Fragments = new Class[]{DBFragment.class, DBFragment.class, DBFragment.class};
+    public static Class[] COLLECT_Fragments = new Class[]{DBFragment.class, LifeFragment.class, PicFragment.class};
 
     public static String COMMENTSUCCESS = "60000011";//评论成功返回码
     //    public final static int ROWS = 20;//分页用

@@ -89,16 +89,17 @@ public class PullToRefreshBaseFragment extends Fragment {
     }
 
     public void showProgress() {
-        if (progressDialog==null){  progressDialog = CommonUtils.showProgressDialog(getActivity());
+        if (progressDialog == null) {
+            progressDialog = CommonUtils.showProgressDialog(getActivity());
         }
-        if (progressDialog.isShowing()){
+        if (progressDialog.isShowing()) {
             return;
         }
         progressDialog.show();
     }
 
     public void dismissProgress() {
-        if (progressDialog.isShowing()){
+        if (progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
 
@@ -107,12 +108,12 @@ public class PullToRefreshBaseFragment extends Fragment {
     //本类名  方便测试打印
 //    protected final String classNameString=this.getClass().getName();
 
-    public void showToast(String message){
-        Toast.makeText(getActivity(),message,Toast.LENGTH_SHORT).show();
+    public void showToast(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
-    public void showLongTimeToast(String message){
-        Toast.makeText(getActivity(),message,Toast.LENGTH_LONG).show();
+    public void showLongTimeToast(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
     }
 
 

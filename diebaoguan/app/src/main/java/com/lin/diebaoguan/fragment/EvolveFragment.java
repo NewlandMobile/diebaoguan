@@ -65,6 +65,7 @@ public class EvolveFragment extends BaseFragment {
         View view = getActivity().getLayoutInflater().inflate(R.layout.item_inducator_top, null);
         TextView textview = (TextView) view.findViewById(R.id.inducator_top_text);
         textview.setText(indicator);
+        textview.setBackground(getResources().getDrawable(R.drawable.inducator_top_selector));
         mTabHost.addTab(newTabSpec.setIndicator(view), cls, null);
     }
 }

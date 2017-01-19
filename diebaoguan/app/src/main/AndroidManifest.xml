@@ -43,8 +43,9 @@
         <activity android:name=".menu.AboutActivity" />
         <activity android:name=".menu.SettingActivity" />
         <activity android:name=".menu.TermsofServiceAndDisclaimerActivity" />
-        <activity android:name=".menu.AppRecommActivity"></activity>
+        <activity android:name=".menu.AppRecommActivity" />
         <activity android:name=".menu.CollectActivity" />
+        <activity android:name=".uibase.BaseCollectFragment"></activity>
     </application>
 
 </manifest>

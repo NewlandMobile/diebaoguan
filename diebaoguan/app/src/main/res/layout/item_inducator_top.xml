@@ -15,7 +15,6 @@
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
         android:layout_marginTop="7dp"
-        android:background="@drawable/inducator_top_selector"
         android:gravity="center"
         android:textColor="@color/inducator_top_textcolor"
         android:textSize="14sp" />

@@ -13,16 +13,16 @@ import com.lin.diebaoguan.activity.ArticleDetailsActivity;
 import com.lin.diebaoguan.uibase.BaseCollectFragment;
 
 /**
- * 谍报收藏界面
+ * 生活收藏界面
  */
-public class DBFragment extends BaseCollectFragment implements AdapterView.OnItemClickListener {
+public class LifeFragment extends BaseCollectFragment implements AdapterView.OnItemClickListener {
 
     private View view;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initCid(1);
+        initCid(2);
     }
 
     @Override

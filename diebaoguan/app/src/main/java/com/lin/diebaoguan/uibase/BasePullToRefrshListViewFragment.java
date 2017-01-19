@@ -76,8 +76,10 @@ public abstract class BasePullToRefrshListViewFragment extends PullToRefreshBase
         public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
             if (currentPageOffset >= totalPage) {
                 showToast(getString(R.string.alreadyatthebottom));
+                basePullToRefreshListView.onRefreshComplete();
+            } else {
+                getData(currentPageOffset, volleyListener);
             }
-            getData(currentPageOffset, volleyListener);
         }
     }
 
