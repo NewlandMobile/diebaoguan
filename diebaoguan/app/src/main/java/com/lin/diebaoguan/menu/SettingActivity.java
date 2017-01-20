@@ -23,6 +23,7 @@ import com.lin.diebaoguan.MyAppication;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.activity.LoginActivity;
 import com.lin.diebaoguan.common.CommonUtils;
+import com.lin.diebaoguan.common.Const;
 import com.lin.diebaoguan.common.IMAGEUtils;
 import com.lin.diebaoguan.common.LogUtils;
 import com.lin.diebaoguan.network.response.PersonInfoResponse;
@@ -223,23 +224,33 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
         btn_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialog.dismiss();
                 int id = radioGroup.getCheckedRadioButtonId();
-                String printString = null;
+                int zommNum=100;
+//                String printString = null;
                 switch (id) {
                     case R.id.radioButton_big:
-                        printString = "da";
+                        //TODO  这些值后期可调的
+                        zommNum= Const.ZOOM_BIG;
+//                        printString = "da";
                         break;
                     case R.id.radioButton_middle:
-                        printString = "zhong";
+                        zommNum=Const.ZOOM_MIDDLE;
+//                        MyAppication.setTextSizeZoom(100);
+//                        printString = "zhong";
                         break;
                     case R.id.radioButton_small:
-                        printString = "xiao";
+                        zommNum=Const.ZOOM_SMALL;
+//                        MyAppication.setTextSizeZoom(80);
+//                        printString = "xiao";
                         break;
                     default:
-                        printString = "匹配失败";
+                        zommNum=100;
+//                        printString = "匹配失败";
 
                 }
-                showToast("按键匹配：" + printString);
+                MyAppication.setTextSizeZoom(zommNum);
+//                showToast("按键匹配：" + printString);
             }
         });
         dialog.show();

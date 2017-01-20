@@ -45,4 +45,8 @@ public class Const {
     public static String SP_ISFIRSTKEY = "isFirst";
 
     public static String OFFICIAL_WEBSITE = "http://www.cnmo.com";//官网
+
+    public static final int ZOOM_BIG=130;
+    public static final int ZOOM_MIDDLE=100;
+    public static final int ZOOM_SMALL=80;
 }
