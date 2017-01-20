@@ -36,10 +36,13 @@ public class DieBaoGuanFragment extends EvolveFragment {
         return view;
     }
 
-    @Override
-    public void onDestroyView() {
-        ViewGroup parent = (ViewGroup) view.getParent();
-        parent.removeView(view);
-        super.onDestroyView();
+//    @Override
+//    public void onDestroyView() {
+//        ViewGroup parent = (ViewGroup) view.getParent();
+//        parent.removeView(view);
+//        super.onDestroyView();
+//    }
+    public void setCurrentTab(int index) {
+        mTabHost.setCurrentTab(index);
     }
 }

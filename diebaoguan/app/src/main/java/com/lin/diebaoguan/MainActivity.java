@@ -12,16 +12,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TabHost;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.lin.diebaoguan.activity.LoginActivity;
 import com.lin.diebaoguan.common.Const;
+import com.lin.diebaoguan.common.LogUtils;
 import com.lin.diebaoguan.fragment.AiMeiFangFragment;
 import com.lin.diebaoguan.fragment.DieBaoGuanFragment;
 import com.lin.diebaoguan.fragment.FengShangBiaoFragment;
@@ -35,7 +32,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements View.OnClickListener {
     private FragmentTabHost mTabHost;
 
     private SharedPreferences sharedPreferences;
@@ -43,7 +40,10 @@ public class MainActivity extends FragmentActivity {
     private static final int ITEM_ID = 33;
     private PopupWindow popupWindow;
     private int screenWidth;//屏幕宽度
-    private int height;
+    private View view_pop;//popupwindowview
+    private int[] popitems = new int[]{R.id.itempop_text1, R.id.itempop_text2, R.id.itempop_text3, R.id.itempop_text4, R.id.itempop_text5, R.id.itempop_text6, R.id.itempop_text7, R.id.itempop_text8};
+    private TextView textview;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,24 +52,29 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
         mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
-        setAddTab(R.string.diebaoguan, DieBaoGuanFragment.class, R.drawable.inducator_selector);
-        setAddTab(R.string.fengshanbiao, FengShangBiaoFragment.class, R.drawable.inducator_selector);
-        setAddTab(R.string.guangyinji, GuangYinJiFragment.class, R.drawable.inducator_selector);
-        setAddTab(R.string.aimeifang, AiMeiFangFragment.class, R.drawable.inducator_amf_select);
+        setAddTab("diebaoguan", R.string.diebaoguan, DieBaoGuanFragment.class, R.drawable.inducator_selector);
+        setAddTab("fengshanbiao", R.string.fengshanbiao, FengShangBiaoFragment.class, R.drawable.inducator_selector);
+        setAddTab("guangyinji", R.string.guangyinji, GuangYinJiFragment.class, R.drawable.inducator_selector);
+        setAddTab("aimeifang", R.string.aimeifang, AiMeiFangFragment.class, R.drawable.inducator_amf_select);
         initList();
         //获取屏幕宽度
         screenWidth = getWindowManager().getDefaultDisplay().getWidth();
-        View inflate = getLayoutInflater().inflate(R.layout.view_popupwindow, null);
-        ListView listView = (ListView) inflate.findViewById(R.id.pop_listview);
-        listView.setAdapter(new MyAdapter());
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(screenWidth / 4, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.setMargins(screenWidth * 3 / 4, 0, 0, height);
-        listView.setLayoutParams(params);
-        popupWindow = new PopupWindow(inflate, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        int height = getWindowManager().getDefaultDisplay().getHeight();
+        LogUtils.e("==screenWidth==" + screenWidth + "==" + height);
+
+        view_pop = getLayoutInflater().inflate(R.layout.view_popupwindow, null);
+        view_pop.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        popupWindow = new PopupWindow(view_pop, screenWidth / 4, ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.setFocusable(true);
         //给popupwindow添加一个空背景，使点击popupwindow时能使其消失。
         Drawable background = new BitmapDrawable();
         popupWindow.setBackgroundDrawable(background);
+        popupWindow.setOutsideTouchable(true);//点击外面窗口消失
+        for (int i = 0; i < popitems.length; i++) {
+            TextView item_text = (TextView) view_pop.findViewById(popitems[i]);
+            item_text.setText(arrayList.get(i));
+            item_text.setOnClickListener(this);
+        }
 
     }
 
@@ -95,11 +100,10 @@ public class MainActivity extends FragmentActivity {
      * @param cls
      * @param srcID     背景
      */
-    private void setAddTab(int indicator, Class<?> cls, int srcID) {
-        TabHost.TabSpec newTabSpec = mTabHost.newTabSpec(indicator + "");
+    private void setAddTab(String tag, int indicator, Class<?> cls, int srcID) {
+        TabHost.TabSpec newTabSpec = mTabHost.newTabSpec(tag);
         final View view = getLayoutInflater().inflate(R.layout.item_inducator, null);
-        final TextView textview = (TextView) view.findViewById(R.id.inducator_text);
-        height = textview.getHeight();
+        textview = (TextView) view.findViewById(R.id.inducator_text);
         textview.setText(getResources().getString(indicator));
         textview.setTextSize(14);
         textview.setTextColor(getResources().getColor(R.color.white));
@@ -109,14 +113,11 @@ public class MainActivity extends FragmentActivity {
             view.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    /**
-                     * 预留 TODO 做跳转使用
-                     */
-                    Toast.makeText(MainActivity.this, "==长点击==", Toast.LENGTH_SHORT).show();
                     textview.setBackground(getResources().getDrawable(R.drawable.diya_choice_bgon));
                     int[] location = new int[2];
                     textview.getLocationOnScreen(location);
-                    popupWindow.showAtLocation(mTabHost, Gravity.CENTER, location[0], location[1]);
+                    int height1 = view_pop.getMeasuredHeight();
+                    popupWindow.showAtLocation(textview, Gravity.NO_GRAVITY, location[0], location[1] - height1);
                     return true;
                 }
             });
@@ -132,7 +133,6 @@ public class MainActivity extends FragmentActivity {
         menu.add(Menu.NONE, ITEM_ID + 3, 4, "设置").setIcon(R.drawable.menu_settings);
         menu.add(Menu.NONE, ITEM_ID + 4, 5, "关于").setIcon(R.drawable.about);
         menu.add(Menu.NONE, ITEM_ID + 5, 6, "退出").setIcon(R.drawable.menu_exit);
-
         return true;
     }
 
@@ -163,31 +163,74 @@ public class MainActivity extends FragmentActivity {
         return true;
     }
 
-    class MyAdapter extends BaseAdapter {
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.itempop_text1:
+                popupWindow.dismiss();
+                textview.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
+                mTabHost.setCurrentTab(1);
 
-        @Override
-        public int getCount() {
-            return arrayList.size();
-        }
+//
+//                List<Fragment> list = MainActivity.this.getSupportFragmentManager().getFragments();
+//                for (Fragment fragment : list) {
+//                    if (fragment == null) {
+//                        LogUtils.e("== fragmentByTag is null");
+//                    } else {
+//                        LogUtils.e("== " + fragment.getTag());
+//                        if (fragment.getTag().equals("fengshanbiao")) {
+//                            ((FengShangBiaoFragment) fragment).setCurrentTab(4);
+//                        }
+//                    }
+//                }
 
-        @Override
-        public Object getItem(int position) {
-            return arrayList.get(position);
-        }
+//                String tag = mTabHost.getCurrentTabTag();//得到当前选项卡的tag
+//                LogUtils.e("=tag=" + tag);
+//                Fragment fragmentByTag = getSupportFragmentManager().findFragmentByTag("fengshanbiao");
+//                getSupportFragmentManager().findFragmentByTag("fengshanbiao");
+//                if (fragmentByTag == null) {
+//                    LogUtils.e("== fragmentByTag is null");
+//                }
+//                LogUtils.e("==" + fragmentByTag.toString());
+////                fragmentByTag.setCurrentTab(4);
+                break;
+            case R.id.itempop_text2:
+                popupWindow.dismiss();
+                textview.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
+                mTabHost.setCurrentTab(1);
+                break;
+            case R.id.itempop_text3:
+                popupWindow.dismiss();
+                textview.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
+                mTabHost.setCurrentTab(1);
+                break;
+            case R.id.itempop_text4:
+                popupWindow.dismiss();
+                textview.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
+                mTabHost.setCurrentTab(1);
+                break;
+            case R.id.itempop_text5:
+                popupWindow.dismiss();
+                textview.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
+                mTabHost.setCurrentTab(0);
+                break;
+            case R.id.itempop_text6:
+                popupWindow.dismiss();
+                textview.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
+                mTabHost.setCurrentTab(0);
+                break;
+            case R.id.itempop_text7:
+                popupWindow.dismiss();
+                textview.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
+                mTabHost.setCurrentTab(0);
+                break;
+            case R.id.itempop_text8:
+                popupWindow.dismiss();
+                textview.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
+                mTabHost.setCurrentTab(0);
+                break;
 
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
 
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View inflate = getLayoutInflater().inflate(R.layout.item_popupwindow, null);
-            TextView text = (TextView) inflate.findViewById(R.id.itempop_text);
-//            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(screenWidth / 4, ViewGroup.LayoutParams.WRAP_CONTENT);
-//            text.setLayoutParams(layoutParams);
-            text.setText(arrayList.get(position));
-            return inflate;
         }
     }
 }

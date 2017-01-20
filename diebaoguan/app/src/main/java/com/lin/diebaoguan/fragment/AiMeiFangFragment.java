@@ -41,10 +41,10 @@ public class AiMeiFangFragment extends BaseFragment {
         return view;
     }
 
-    @Override
-    public void onDestroyView() {
-        ViewGroup parent = (ViewGroup) view.getParent();
-        parent.removeView(view);
-        super.onDestroyView();
-    }
+//    @Override
+//    public void onDestroyView() {
+//        ViewGroup parent = (ViewGroup) view.getParent();
+//        parent.removeView(view);
+//        super.onDestroyView();
+//    }
 }

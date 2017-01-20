@@ -6,16 +6,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ImageView;
 
-import com.android.volley.VolleyError;
-import com.lin.diebaoguan.uibase.BaseActivity;
 import com.lin.diebaoguan.MainActivity;
 import com.lin.diebaoguan.R;
-import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.Const;
-import com.lin.diebaoguan.common.LogUtils;
-import com.lin.diebaoguan.network.response.NormalResponse;
 import com.lin.diebaoguan.network.send.BaseSendTemplate;
-import com.lin.lib_volley_https.VolleyListener;
+import com.lin.diebaoguan.uibase.BaseActivity;
 
 /**
  * logo（欢迎）界面
@@ -36,31 +31,32 @@ public class LogoActivity extends BaseActivity {
         BaseSendTemplate sendTemplate = new BaseSendTemplate();
         sendTemplate.setModule("api_libraries_sjdbg_startuplogo");
         sendTemplate.initTimePart();
-        CommonUtils.httpGet(sendTemplate.parseParams(), new VolleyListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                gotoNextActivity(false, volleyError.toString());
-            }
-
-            @Override
-            public void onResponse(String s) {
-                LogUtils.e(s);
-                gotoNextActivity(true, s);
-            }
-        });
+        gotoNextActivity(true,"");
+//        CommonUtils.httpGet(sendTemplate.parseParams(), new VolleyListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError volleyError) {
+//                gotoNextActivity(false, volleyError.toString());
+//            }
+//
+//            @Override
+//            public void onResponse(String s) {
+//                LogUtils.e(s);
+//                gotoNextActivity(true, s);
+//            }
+//        });
     }
 
     private void gotoNextActivity(boolean isSuccess, String message) {
-        if (isSuccess) {
-            NormalResponse normalResponse = NormalResponse.parseObject(message, NormalResponse.class);
-            if (normalResponse.getStatus() == 1) {
-                String logoSrc = normalResponse.getData().getLogoSrc();
+//        if (isSuccess) {
+//            NormalResponse normalResponse = NormalResponse.parseObject(message, NormalResponse.class);
+//            if (normalResponse.getStatus() == 1) {
+//                String logoSrc = normalResponse.getData().getLogoSrc();
 // logo的图片基本不变，为了更加迅速的进入，可以暂时不做图片的加载
 //                IMAGEUtils.displayImageWithRounder(logoSrc, imageView, 0, R.drawable.welcome);
-            }
-        } else {
-            showToast(getResources().getString(R.string.getdatafail) + message);
-        }
+//            }
+//        } else {
+//            showToast(getResources().getString(R.string.getdatafail) + message);
+//        }
 
         imageView.postDelayed(new Runnable() {
             @Override
@@ -74,6 +70,6 @@ public class LogoActivity extends BaseActivity {
                 }
                 finish();
             }
-        }, 2000);
+        }, 1000);
     }
 }

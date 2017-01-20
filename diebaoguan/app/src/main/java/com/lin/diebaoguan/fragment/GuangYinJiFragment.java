@@ -37,13 +37,13 @@ public class GuangYinJiFragment extends EvolveFragment {
         return view;
     }
 
-    /**
-     * 销毁view
-     */
-    @Override
-    public void onDestroyView() {
-        ViewGroup parent = (ViewGroup) view.getParent();
-        parent.removeView(view);
-        super.onDestroyView();
-    }
+//    /**
+//     * 销毁view
+//     */
+//    @Override
+//    public void onDestroyView() {
+//        ViewGroup parent = (ViewGroup) view.getParent();
+//        parent.removeView(view);
+//        super.onDestroyView();
+//    }
 }

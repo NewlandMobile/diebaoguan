@@ -22,7 +22,7 @@ public class EvolveFragment extends BaseFragment {
     private String[] topicList;//顶部小模块集合
     private Class[] fragmentList;//小模块结合
     private View view;
-    private FragmentTabHost mTabHost;
+    protected FragmentTabHost mTabHost;
 
     public EvolveFragment() {
         // Required empty public constructor
