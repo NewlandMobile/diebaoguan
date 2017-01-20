@@ -1,5 +1,7 @@
 package com.lin.diebaoguan.menu;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -123,7 +125,8 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
         int id = v.getId();
         switch (id) {
             case setting_rl_goto_textSize:
-                showToast("字体大小设置");
+//                showToast("字体大小设置");
+                showTextSizeChooseDialog();
                 break;
             case R.id.setting_rl_goto_clear_cache:
                 showToast("清除缓存");
@@ -148,5 +151,32 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
                 }
                 break;
         }
+    }
+
+    private void showTextSizeChooseDialog() {
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setTitle("字体大小");
+//        这个方案被否决，因为没有RadioGroup
+        /*builder.setItems(new String[]{"大","中","小"},new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                showToast("第"+which+"个按键按下");
+            }
+        });*/
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                showToast("确定键按下："+which);
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        //TODO  加入自定义View 含RadioGroup
+        AlertDialog dialog= builder.create();
+        dialog.show();
     }
 }

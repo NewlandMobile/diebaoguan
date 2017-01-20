@@ -32,6 +32,7 @@ public class EvolveFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view == null) {
             view = super.onCreateView(inflater, container, savedInstanceState);
+//            assert view != null;
             mTabHost = (FragmentTabHost) view.findViewById(android.R.id.tabhost);
             mTabHost.setup(getActivity(), getChildFragmentManager(), R.id.evolve_realtabcontent);
             for (int i = 0; i < topicList.length; i++) {
