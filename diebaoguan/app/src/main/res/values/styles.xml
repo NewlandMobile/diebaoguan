@@ -89,4 +89,25 @@
         <!--<item name="android:checked">true</item>-->
     </style>
 
+    <style name="setting_textSize_radio_btn">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:drawableRight">@android:drawable/btn_radio</item>
+        <item name="android:button">@null</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <!--无标题栏  背景透明的 对话框-->
+    <style name="add_dialog" parent="@android:style/Theme.Dialog">
+        <!--<item name="android:windowFrame">@null</item>&lt;!&ndash; 边框 &ndash;&gt;-->
+        <item name="android:windowIsFloating">true</item><!-- 是否浮现在activity之上 -->
+        <!--<item name="android:windowIsTranslucent">false</item>&lt;!&ndash; 半透明 &ndash;&gt;-->
+        <item name="android:windowNoTitle">true</item><!-- 无标题 -->
+        <item name="android:windowBackground">@android:color/transparent</item><!-- 自己想要的背景 -->
+        <!--<item name="android:backgroundDimEnabled">true</item>&lt;!&ndash; 灰背景 &ndash;&gt;
+        <item name="android:backgroundDimAmount">0.5</item> &lt;!&ndash;背景灰度值&ndash;&gt;-->
+    </style>
+
 </resources>

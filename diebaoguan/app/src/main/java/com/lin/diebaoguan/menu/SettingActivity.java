@@ -1,14 +1,21 @@
 package com.lin.diebaoguan.menu;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -23,6 +30,7 @@ import com.lin.diebaoguan.network.send.PersonInfoDS;
 import com.lin.diebaoguan.uibase.BaseRedTitleBarActivity;
 import com.lin.lib_volley_https.VolleyListener;
 
+import static com.lin.diebaoguan.R.id.dialog_cancel_setting;
 import static com.lin.diebaoguan.R.id.setting_rl_goto_textSize;
 
 /**
@@ -154,8 +162,15 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
     }
 
     private void showTextSizeChooseDialog() {
-        AlertDialog.Builder builder=new AlertDialog.Builder(this);
-        builder.setTitle("字体大小");
+//        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("字体大小");
+//        final RadioGroup radioGroup= (RadioGroup) LayoutInflater.from(this).inflate(R.layout.view_setting_textsize,null);
+        View rootView = LayoutInflater.from(this).inflate(R.layout.view_setting_textsize, null);
+        Button btn_cancel = (Button) rootView.findViewById(R.id.dialog_cancel_setting);
+        Button btn_confirm = (Button) rootView.findViewById(R.id.dialog_confirm_setting);
+        final RadioGroup radioGroup = (RadioGroup) rootView.findViewById(R.id.radio_group_textSize_setting);
+//        builder.setView(rootView);
+
 //        这个方案被否决，因为没有RadioGroup
         /*builder.setItems(new String[]{"大","中","小"},new DialogInterface.OnClickListener() {
             @Override
@@ -163,20 +178,70 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
                 showToast("第"+which+"个按键按下");
             }
         });*/
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                int id = radioGroup.getCheckedRadioButtonId();
+//                String printString = null;
+//                switch (id) {
+//                    case R.id.radioButton_big:
+//                        printString = "da";
+//                        break;
+//                    case R.id.radioButton_middle:
+//                        printString = "zhong";
+//                        break;
+//                    case R.id.radioButton_small:
+//                        printString = "xiao";
+//                        break;
+//                    default:
+//                        printString = "匹配失败";
+//
+//                }
+//                showToast("按键匹配：" + printString);
+//            }
+//        });
+//        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                dialog.dismiss();
+//            }
+//        });
+//        final AlertDialog dialog= builder.create();
+        final Dialog dialog = new Dialog(this,R.style.add_dialog);
+        ViewGroup.LayoutParams layout=new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+//        dialog.addContentView(rootView,layout);
+        dialog.setContentView(rootView);
+//        dialog.setView(rootView);
+//        ViewParent viewParent=  rootView.getParent();
+//        ((ViewGroup)viewParent).setBackgroundColor(Color.GRAY);
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                showToast("确定键按下："+which);
-            }
-        });
-        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(View v) {
                 dialog.dismiss();
             }
         });
-        //TODO  加入自定义View 含RadioGroup
-        AlertDialog dialog= builder.create();
+        btn_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int id = radioGroup.getCheckedRadioButtonId();
+                String printString = null;
+                switch (id) {
+                    case R.id.radioButton_big:
+                        printString = "da";
+                        break;
+                    case R.id.radioButton_middle:
+                        printString = "zhong";
+                        break;
+                    case R.id.radioButton_small:
+                        printString = "xiao";
+                        break;
+                    default:
+                        printString = "匹配失败";
+
+                }
+                showToast("按键匹配：" + printString);
+            }
+        });
         dialog.show();
     }
 }
