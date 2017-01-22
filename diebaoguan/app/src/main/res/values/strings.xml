@@ -124,4 +124,6 @@
     <string name="appversion">软件版本:</string>
     <string name="download">下载</string>
     <string name="spNmae">DieBaoGuan</string>
+    <string name="updatetolast">是否升级到最新版本？</string>
+    <string name="update">更新</string>
 </resources>

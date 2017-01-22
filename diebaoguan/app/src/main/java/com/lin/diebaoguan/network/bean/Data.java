@@ -46,6 +46,12 @@ public class Data implements Serializable {
     应用推荐
      */
     private RecommendAppList[] recommendAppList;
+    /*
+    版本更新
+     */
+    private String downloadUrl;
+    private int versionCode;
+    private String updateInfo;
 
     public String getUid() {
         return uid;
@@ -125,5 +131,29 @@ public class Data implements Serializable {
 
     public RecommendAppList[] getRecommendAppList() {
         return recommendAppList;
+    }
+
+    public String getDownloadUrl() {
+        return downloadUrl;
+    }
+
+    public void setDownloadUrl(String downloadUrl) {
+        this.downloadUrl = downloadUrl;
+    }
+
+    public int getVersionCode() {
+        return versionCode;
+    }
+
+    public void setVersionCode(int versionCode) {
+        this.versionCode = versionCode;
+    }
+
+    public String getUpdateInfo() {
+        return updateInfo;
+    }
+
+    public void setUpdateInfo(String updateInfo) {
+        this.updateInfo = updateInfo;
     }
 }

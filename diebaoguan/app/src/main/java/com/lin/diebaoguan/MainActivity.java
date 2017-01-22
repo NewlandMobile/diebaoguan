@@ -1,22 +1,28 @@
 package com.lin.diebaoguan;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
 import com.lin.diebaoguan.activity.LoginActivity;
+import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.Const;
 import com.lin.diebaoguan.common.LogUtils;
 import com.lin.diebaoguan.fragment.AiMeiFangFragment;
@@ -27,12 +33,17 @@ import com.lin.diebaoguan.menu.AboutActivity;
 import com.lin.diebaoguan.menu.AppRecommActivity;
 import com.lin.diebaoguan.menu.CollectActivity;
 import com.lin.diebaoguan.menu.SettingActivity;
+import com.lin.diebaoguan.network.bean.Data;
+import com.lin.diebaoguan.network.response.NormalResponse;
+import com.lin.diebaoguan.network.send.BaseSendTemplate;
+import com.lin.diebaoguan.uibase.BaseActivity;
+import com.lin.lib_volley_https.VolleyListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 
-public class MainActivity extends FragmentActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
     private FragmentTabHost mTabHost;
 
     private SharedPreferences sharedPreferences;
@@ -43,6 +54,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private View view_pop;//popupwindowview
     private int[] popitems = new int[]{R.id.itempop_text1, R.id.itempop_text2, R.id.itempop_text3, R.id.itempop_text4, R.id.itempop_text5, R.id.itempop_text6, R.id.itempop_text7, R.id.itempop_text8};
     private TextView textview;
+    private Dialog updateDialog;
+    private String downloadUrl;//下载路径
 
 
     @Override
@@ -126,7 +139,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-//        return super.onCreateOptionsMenu(menu);
         menu.add(Menu.NONE, ITEM_ID, 1, "我的收藏").setIcon(R.drawable.menu_favorites);
         menu.add(Menu.NONE, ITEM_ID + 1, 2, "应用推荐").setIcon(R.drawable.menu_apps_recommended);
         menu.add(Menu.NONE, ITEM_ID + 2, 3, "版本更新").setIcon(R.drawable.menu_update);
@@ -147,7 +159,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             case 2://应用推荐
                 startActivity(new Intent(this, AppRecommActivity.class));
                 break;
-            case 3:
+            case 3://版本更新
+                getUpdateInfo();
+
+
                 break;
             case 4:
                 startActivity(new Intent(this, SettingActivity.class));
@@ -229,8 +244,66 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 textview.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
                 mTabHost.setCurrentTab(0);
                 break;
-
+            case R.id.update_cancle:
+                updateDialog.dismiss();
+                break;
+            case R.id.update_sure:
+                updateDialog.dismiss();
+                Uri uri = Uri.parse(downloadUrl);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+                break;
 
         }
+    }
+
+    public String getUpdateInfo() {
+        final ProgressDialog dialog = CommonUtils.showProgressDialog(this, "", "正在获取版本信息");
+        dialog.show();
+        BaseSendTemplate sendTemplate = new BaseSendTemplate();
+        sendTemplate.setModule("api_libraries_sjdbg_updatedbg");
+        sendTemplate.initTimePart();
+        CommonUtils.httpGet(sendTemplate.parseParams(), new VolleyListener() {
+
+
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                dialog.dismiss();
+                showToast(getResources().getString(R.string.getdatafail));
+            }
+
+            @Override
+            public void onResponse(String s) {
+                dialog.dismiss();
+                int localVersion = CommonUtils.getVersionCode(MainActivity.this);
+                NormalResponse response = NormalResponse.parseObject(s, NormalResponse.class);
+                int status = response.getStatus();
+                if (status == 1) {
+                    Data data = response.getData();
+                    int versionCode = data.getVersionCode();
+                    if (localVersion >= versionCode) {
+                        showToast("已经是最新的版本");
+                    } else {
+                        String updateInfo = data.getUpdateInfo();
+                        downloadUrl = data.getDownloadUrl();
+                        createDialog(updateInfo);
+                    }
+                }
+            }
+        });
+        return "";
+    }
+
+    private void createDialog(String updateInfo) {
+        updateDialog = new Dialog(this, R.style.MyDialog);
+        View inflate = getLayoutInflater().inflate(R.layout.view_updateapp, null);
+        updateDialog.setContentView(inflate);
+        updateDialog.show();
+        ImageView imageView = (ImageView) inflate.findViewById(R.id.update_cancle);
+        imageView.setOnClickListener(this);
+        TextView text_info = (TextView) inflate.findViewById(R.id.update_message);
+        text_info.setText(updateInfo);
+        Button btn_sure = (Button) inflate.findViewById(R.id.update_sure);
+        btn_sure.setOnClickListener(this);
     }
 }

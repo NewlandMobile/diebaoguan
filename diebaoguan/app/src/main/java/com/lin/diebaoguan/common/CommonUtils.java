@@ -344,7 +344,9 @@ public class CommonUtils<T extends BaseResponseTemplate> {
 
     /**
      * 获取单个App版本号
-     **/
+     *
+     * @param context
+     */
     public static int getVersionCode(Context context) {
         return getPackageInfo(context).versionCode;
     }
@@ -379,5 +381,7 @@ public class CommonUtils<T extends BaseResponseTemplate> {
         collectlistDS.initTimePart();
         CommonUtils.httpGet(fragment, collectlistDS.parseParams(), volleyListener);
     }
+
+
 }
 

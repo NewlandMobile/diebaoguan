@@ -21,13 +21,12 @@ public class CollectActivity extends BaseRedTitleBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        TODO 为了不报错暂时注释掉
-        /*initTitleBar("我的收藏", true, false, false, R.layout.activity_collect);
+        initTitleBar("我的收藏", true, false, false, R.layout.activity_collect);
         mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
         for (int i = 0; i < Const.COLLECT_TOPICS.length; i++) {
             setAddTab(Const.COLLECT_TOPICS[i], Const.COLLECT_Fragments[i]);
-        }*/
+        }
     }
 
     /**
