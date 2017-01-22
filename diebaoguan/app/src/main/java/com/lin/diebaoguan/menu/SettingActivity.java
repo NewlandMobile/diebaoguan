@@ -1,26 +1,21 @@
 package com.lin.diebaoguan.menu;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.lin.diebaoguan.MyAppication;
 import com.lin.diebaoguan.R;
+import com.lin.diebaoguan.activity.GuideActivity;
 import com.lin.diebaoguan.activity.LoginActivity;
 import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.Const;
@@ -31,7 +26,6 @@ import com.lin.diebaoguan.network.send.PersonInfoDS;
 import com.lin.diebaoguan.uibase.BaseRedTitleBarActivity;
 import com.lin.lib_volley_https.VolleyListener;
 
-import static com.lin.diebaoguan.R.id.dialog_cancel_setting;
 import static com.lin.diebaoguan.R.id.setting_rl_goto_textSize;
 
 /**
@@ -143,11 +137,16 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
             case R.id.setting_rl_goto_push_server:
                 showToast("推送服务");
                 break;
-            case R.id.setting_rl_goto_feedback:
-                showToast("意见反馈");
+            case R.id.setting_rl_goto_feedback://意见反馈
+                if (MyAppication.hasLogined()) {
+                    startActivity(new Intent(this, FeedbackActivity.class));
+                } else {
+                    startActivity(new Intent(this, LoginActivity.class));
+                }
                 break;
-            case R.id.setting_rl_goto_guide:
-                showToast("新手指南");
+            case R.id.setting_rl_goto_guide://新手指南
+                startActivity(new Intent(this, GuideActivity.class));
+                finish();
                 break;
             case R.id.btn_login_or_logout:
                 showToast("登录或注销");
@@ -208,8 +207,8 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
 //            }
 //        });
 //        final AlertDialog dialog= builder.create();
-        final Dialog dialog = new Dialog(this,R.style.add_dialog);
-        ViewGroup.LayoutParams layout=new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+        final Dialog dialog = new Dialog(this, R.style.add_dialog);
+        ViewGroup.LayoutParams layout = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 //        dialog.addContentView(rootView,layout);
         dialog.setContentView(rootView);
 //        dialog.setView(rootView);
@@ -226,26 +225,26 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
             public void onClick(View v) {
                 dialog.dismiss();
                 int id = radioGroup.getCheckedRadioButtonId();
-                int zommNum=100;
+                int zommNum = 100;
 //                String printString = null;
                 switch (id) {
                     case R.id.radioButton_big:
                         //TODO  这些值后期可调的
-                        zommNum= Const.ZOOM_BIG;
+                        zommNum = Const.ZOOM_BIG;
 //                        printString = "da";
                         break;
                     case R.id.radioButton_middle:
-                        zommNum=Const.ZOOM_MIDDLE;
+                        zommNum = Const.ZOOM_MIDDLE;
 //                        MyAppication.setTextSizeZoom(100);
 //                        printString = "zhong";
                         break;
                     case R.id.radioButton_small:
-                        zommNum=Const.ZOOM_SMALL;
+                        zommNum = Const.ZOOM_SMALL;
 //                        MyAppication.setTextSizeZoom(80);
 //                        printString = "xiao";
                         break;
                     default:
-                        zommNum=100;
+                        zommNum = 100;
 //                        printString = "匹配失败";
 
                 }

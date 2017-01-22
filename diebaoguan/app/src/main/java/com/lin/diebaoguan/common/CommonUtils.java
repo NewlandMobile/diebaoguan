@@ -7,6 +7,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.SharedPreferencesCompat;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import com.lin.diebaoguan.MyAppication;
@@ -382,6 +383,16 @@ public class CommonUtils<T extends BaseResponseTemplate> {
         CommonUtils.httpGet(fragment, collectlistDS.parseParams(), volleyListener);
     }
 
-
+    /**
+     * 获取移动设备唯一识别码
+     *
+     * @param context
+     * @return
+     */
+    public static String getIMEI(Context context) {
+        TelephonyManager manager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        String deviceId = manager.getDeviceId();
+        return deviceId;
+    }
 }
 

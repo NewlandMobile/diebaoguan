@@ -126,4 +126,10 @@
     <string name="spNmae">DieBaoGuan</string>
     <string name="updatetolast">是否升级到最新版本？</string>
     <string name="update">更新</string>
+    <string name="feedback">意见反馈</string>
+    <string name="contact">联系方式</string>
+    <string name="feedback_hint">欢迎您提出宝贵的意见与建议，您的每个字都将用来改善我们的软件。</string>
+    <string name="contact_hint">邮箱/QQ/手机号</string>
+    <string name="submit">提交</string>
+    <string name="pleaseinputrightinfor">请输入正确信息</string>
 </resources>
