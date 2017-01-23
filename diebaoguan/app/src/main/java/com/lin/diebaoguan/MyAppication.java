@@ -28,6 +28,10 @@ public class MyAppication extends Application {
 
     private static boolean blockImage = false;
 
+    private static boolean settingWifi;
+
+    private static boolean offlineDownload;
+
     private static int textSizeZoom;
 
     @Override
@@ -35,7 +39,6 @@ public class MyAppication extends Application {
         super.onCreate();
         myAppication = this;
         initGlobalValiable();
-        initSettingValue();
         initImageLoader(getApplicationContext());
     }
 
@@ -45,6 +48,8 @@ public class MyAppication extends Application {
     private void initSettingValue() {
         blockImage = (boolean) CommonUtils.getSp(this, "blockImage", false);
         textSizeZoom = (int) CommonUtils.getSp(this, "textSizeZoom", 100);
+        settingWifi = (boolean) CommonUtils.getSp(this, "settingWifi", false);
+        offlineDownload = (boolean) CommonUtils.getSp(this, "offlineDownload", false);
 //        TODO  把设置项都初始化  从SP获取
     }
 
@@ -52,7 +57,7 @@ public class MyAppication extends Application {
      * 从 SharePreference 做一个全局变量的初始化
      */
     private void initGlobalValiable() {
-
+        initSettingValue();
         uid= (String) CommonUtils.getSp(this,uidSPKey,"");
         key= (String) CommonUtils.getSp(this,keySPKey,"");
         isFirstRun= (boolean) CommonUtils.getSp(this,firstRunSPKey,false);
@@ -123,6 +128,24 @@ public class MyAppication extends Application {
     public static void setTextSizeZoom(int textSizeZoom) {
         MyAppication.textSizeZoom = textSizeZoom;
         CommonUtils.saveBySp(MyAppication.getInstance(), "textSizeZoom", textSizeZoom);
+    }
+
+    public static boolean isSettingWifi() {
+        return settingWifi;
+    }
+
+    public static void setSettingWifi(boolean settingWifi) {
+        MyAppication.settingWifi = settingWifi;
+        CommonUtils.saveBySp(MyAppication.getInstance(), "settingWifi", settingWifi);
+    }
+
+    public static boolean isOfflineDownload() {
+        return offlineDownload;
+    }
+
+    public static void setOfflineDownload(boolean offlineDownload) {
+        MyAppication.offlineDownload = offlineDownload;
+        CommonUtils.saveBySp(MyAppication.getInstance(), "offlineDownload", offlineDownload);
     }
 
     /**
