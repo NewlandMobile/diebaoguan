@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:text="推送设置"
+        style="@style/setting_textView_divider" />
+
+    <RelativeLayout style="@style/setting_RL">
+
+        <CheckBox
+            android:id="@+id/setting_push_notifications"
+            style="@style/wrap_content.parent_right.setting_checkbox" />
+
+        <TextView
+            android:id="@+id/setting_tv_item_wifi_setting"
+            style="@style/wrap_content.setting_tv_item"
+            android:text="推送提醒设置" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/setting_rl_goto_quiet_time"
+        style="@style/setting_RL">
+
+        <ImageView style="@style/wrap_content.parent_right.setting_imageView_right_arrow" />
+
+        <TextView
+            android:id="@+id/setting_tv_item_push_server"
+            style="@style/wrap_content.setting_tv_item"
+            android:text="静音时间段" />
+
+        <TextView
+            android:id="@+id/setting_tv_quiet_time_detail"
+            style="@style/wrap_content.setting_tv_item_instruction"
+            android:layout_below="@+id/setting_tv_item_push_server"
+            android:text="每日22:00-次日7:00" />
+    </RelativeLayout>
+
+    <RelativeLayout style="@style/setting_RL">
+
+        <CheckBox
+            android:id="@+id/setting_sound"
+            style="@style/wrap_content.parent_right.setting_checkbox" />
+
+        <TextView
+            android:id="@+id/setting_tv_item_sound"
+            style="@style/wrap_content.setting_tv_item"
+            android:text="声音" />
+
+        <TextView
+            style="@style/wrap_content.setting_tv_item_instruction"
+            android:layout_below="@id/setting_tv_item_sound"
+            android:text="设置声音提醒" />
+    </RelativeLayout>
+
+    <RelativeLayout style="@style/setting_RL">
+
+        <CheckBox
+            android:id="@+id/setting_Vibration"
+            style="@style/wrap_content.parent_right.setting_checkbox" />
+
+        <TextView
+            android:id="@+id/setting_tv_item_Vibration"
+            style="@style/wrap_content.setting_tv_item"
+            android:text="震动" />
+
+        <TextView
+            style="@style/wrap_content.setting_tv_item_instruction"
+            android:layout_below="@id/setting_tv_item_Vibration"
+            android:text="设置震动提醒" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -125,6 +125,7 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
                 MyAppication.setOfflineDownload(isChecked);
             }
         });
+        //TODO  这行内容也要初始化    后期再补
         setting_tv_item_instruction_cache = (TextView) findViewById(R.id.setting_tv_item_instruction_cache);
         findViewById(R.id.setting_rl_goto_clear_cache).setOnClickListener(this);
         findViewById(R.id.setting_rl_goto_push_server).setOnClickListener(this);
@@ -146,7 +147,8 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
                 showToast("清除缓存");
                 break;
             case R.id.setting_rl_goto_push_server:
-                showToast("推送服务");
+//                showToast("推送服务");
+                startActivity(new Intent(SettingActivity.this, PushSettingActivity.class));
                 break;
             case R.id.setting_rl_goto_feedback://意见反馈
                 if (MyAppication.hasLogined()) {
