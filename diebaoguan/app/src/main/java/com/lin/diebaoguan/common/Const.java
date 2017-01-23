@@ -39,6 +39,7 @@ public class Const {
     public static String[] POP_TITLE = new String[]{"爱美妆", "爱美坊", "雯琰文", "爱美志", "应用谍报", "体验谍报", "价格谍报", "新品谍报"};
 
     public static String COMMENTSUCCESS = "60000011";//评论成功返回码
+    public static String FEEDBACKSUCCESS = "60000001";//意见反馈返回码
     //    public final static int ROWS = 20;//分页用
     public final static int ROWS = 10;//分页用
     public static String SP_ISFIRSTNAME = "ISFIRST";//是否首次

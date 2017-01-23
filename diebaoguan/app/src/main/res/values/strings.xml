@@ -132,4 +132,6 @@
     <string name="contact_hint">邮箱/QQ/手机号</string>
     <string name="submit">提交</string>
     <string name="pleaseinputrightinfor">请输入正确信息</string>
+    <string name="datapostfail">数据发送失败</string>
+    <string name="datapostsuccess">数据发送成功</string>
 </resources>

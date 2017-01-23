@@ -9,6 +9,8 @@ import com.android.volley.VolleyError;
 import com.lin.diebaoguan.MyAppication;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.common.CommonUtils;
+import com.lin.diebaoguan.common.LogUtils;
+import com.lin.diebaoguan.network.response.BaseResponseTemplate;
 import com.lin.diebaoguan.network.send.FeedbackDS;
 import com.lin.diebaoguan.uibase.BaseRedTitleBarActivity;
 import com.lin.lib_volley_https.VolleyListener;
@@ -39,15 +41,21 @@ public class FeedbackActivity extends BaseRedTitleBarActivity {
                     feedbackDS.setImei(CommonUtils.getIMEI(FeedbackActivity.this));
                     feedbackDS.setEmail(contact);
                     feedbackDS.setContent(content);
+                    feedbackDS.initTimePart();
                     CommonUtils.httpPost(feedbackDS.parseParams(), new VolleyListener() {
                         @Override
                         public void onErrorResponse(VolleyError volleyError) {
-
+                            showToast(getResources().getString(R.string.datapostfail));
                         }
 
                         @Override
                         public void onResponse(String s) {
-
+                            LogUtils.e(s);
+                            BaseResponseTemplate response = BaseResponseTemplate.parseObject(s, BaseResponseTemplate.class);
+                            String message = response.getMessage();
+                            showToast(message);
+                            edit_feed.setText("");
+                            edit_contact.setText("");
                         }
                     });
                 }
