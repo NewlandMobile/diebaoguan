@@ -11,9 +11,7 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.lin.diebaoguan.uibase.BaseRedTitleBarActivity;
 import com.lin.diebaoguan.R;
-import com.lin.diebaoguan.network.send.CollectListDS;
 import com.lin.diebaoguan.adapter.CommentAdapter;
 import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.Const;
@@ -21,6 +19,8 @@ import com.lin.diebaoguan.common.LogUtils;
 import com.lin.diebaoguan.network.bean.Result;
 import com.lin.diebaoguan.network.response.BaseResponseTemplate;
 import com.lin.diebaoguan.network.response.NormalResponse;
+import com.lin.diebaoguan.network.send.CommentListDS;
+import com.lin.diebaoguan.uibase.BaseRedTitleBarActivity;
 import com.lin.lib_volley_https.VolleyListener;
 
 import java.util.ArrayList;
@@ -69,7 +69,7 @@ public class CommentActivity extends BaseRedTitleBarActivity implements View.OnC
      * 获取数据
      */
     public void getDate() {
-        CommentListDs commentListDs = new CommentListDs();
+        CommentListDS commentListDs = new CommentListDS();
         commentListDs.setModule("api_libraries_sjdbg_commentlist");
         commentListDs.setDocid(docid);
         commentListDs.setAvatar("middle");
@@ -89,7 +89,7 @@ public class CommentActivity extends BaseRedTitleBarActivity implements View.OnC
                 LogUtils.e(s);
                 NormalResponse normalResponse = NormalResponse.parseObject(s, NormalResponse.class);
                 Result[] result = normalResponse.getData().getResult();
-                if(result!=null){
+                if (result != null) {
                     for (Result rslt : result) {
                         list.add(rslt);
                         adapter.notifyDataSetChanged();
