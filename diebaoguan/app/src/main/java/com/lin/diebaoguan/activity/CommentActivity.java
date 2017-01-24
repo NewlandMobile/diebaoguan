@@ -20,7 +20,6 @@ import com.lin.diebaoguan.common.LogUtils;
 import com.lin.diebaoguan.network.bean.Result;
 import com.lin.diebaoguan.network.response.BaseResponseTemplate;
 import com.lin.diebaoguan.network.response.NormalResponse;
-import com.lin.diebaoguan.network.send.CommentListDs;
 import com.lin.lib_volley_https.VolleyListener;
 
 import java.util.ArrayList;
