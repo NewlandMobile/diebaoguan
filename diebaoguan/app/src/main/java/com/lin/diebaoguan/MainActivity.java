@@ -185,29 +185,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 popupWindow.dismiss();
                 textview.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
                 mTabHost.setCurrentTab(1);
-
-//
-//                List<Fragment> list = MainActivity.this.getSupportFragmentManager().getFragments();
-//                for (Fragment fragment : list) {
-//                    if (fragment == null) {
-//                        LogUtils.e("== fragmentByTag is null");
-//                    } else {
-//                        LogUtils.e("== " + fragment.getTag());
-//                        if (fragment.getTag().equals("fengshanbiao")) {
-//                            ((FengShangBiaoFragment) fragment).setCurrentTab(4);
-//                        }
-//                    }
-//                }
-
-//                String tag = mTabHost.getCurrentTabTag();//得到当前选项卡的tag
-//                LogUtils.e("=tag=" + tag);
-//                Fragment fragmentByTag = getSupportFragmentManager().findFragmentByTag("fengshanbiao");
-//                getSupportFragmentManager().findFragmentByTag("fengshanbiao");
-//                if (fragmentByTag == null) {
-//                    LogUtils.e("== fragmentByTag is null");
-//                }
-//                LogUtils.e("==" + fragmentByTag.toString());
-////                fragmentByTag.setCurrentTab(4);
                 break;
             case R.id.itempop_text2:
                 popupWindow.dismiss();
