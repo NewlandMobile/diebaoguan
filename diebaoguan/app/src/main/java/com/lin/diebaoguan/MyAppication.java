@@ -2,6 +2,7 @@ package com.lin.diebaoguan;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 
 import com.lin.diebaoguan.common.CommonUtils;
@@ -10,6 +11,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
+import java.util.HashMap;
+
 /**
  * It's Created by NewLand-JianFeng on 2016/12/27.
  */
@@ -17,12 +20,12 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 public class MyAppication extends Application {
 
     private static MyAppication myAppication;
-    private static String uid=null;
-    private static String key=null;
-    private static String userName=null;
+    private static String uid = null;
+    private static String key = null;
+    private static String userName = null;
     private static final String uidSPKey = "uid", keySPKey = "key", firstRunSPKey = "isFirstRun", userNameSPKey = "userName";
     //是否是第一次运行
-    private static boolean isFirstRun=false;
+    private static boolean isFirstRun = false;
     //是否已登录
     private static boolean isLogined;
 
@@ -33,6 +36,9 @@ public class MyAppication extends Application {
     private static boolean offlineDownload;
 
     private static int textSizeZoom;
+
+    private static HashMap<String, Fragment> fragment_map = new HashMap<>();
+
 
     @Override
     public void onCreate() {
@@ -58,16 +64,16 @@ public class MyAppication extends Application {
      */
     private void initGlobalValiable() {
         initSettingValue();
-        uid= (String) CommonUtils.getSp(this,uidSPKey,"");
-        key= (String) CommonUtils.getSp(this,keySPKey,"");
-        isFirstRun= (boolean) CommonUtils.getSp(this,firstRunSPKey,false);
-        userName= (String) CommonUtils.getSp(this,userNameSPKey,"");
+        uid = (String) CommonUtils.getSp(this, uidSPKey, "");
+        key = (String) CommonUtils.getSp(this, keySPKey, "");
+        isFirstRun = (boolean) CommonUtils.getSp(this, firstRunSPKey, false);
+        userName = (String) CommonUtils.getSp(this, userNameSPKey, "");
     }
 
     public static boolean hasLogined() {
-        if (TextUtils.isEmpty(uid)||TextUtils.isEmpty(key)){
+        if (TextUtils.isEmpty(uid) || TextUtils.isEmpty(key)) {
             return false;
-        }else {
+        } else {
             return true;
         }
     }
@@ -91,7 +97,7 @@ public class MyAppication extends Application {
 
     public static void setUid(String uid) {
         MyAppication.uid = uid;
-        CommonUtils.saveBySp(MyAppication.getInstance(),uidSPKey,uid);
+        CommonUtils.saveBySp(MyAppication.getInstance(), uidSPKey, uid);
     }
 
     public static String getKey() {
@@ -100,7 +106,7 @@ public class MyAppication extends Application {
 
     public static void setKey(String key) {
         MyAppication.key = key;
-        CommonUtils.saveBySp(MyAppication.getInstance(),keySPKey,key);
+        CommonUtils.saveBySp(MyAppication.getInstance(), keySPKey, key);
     }
 
     public static String getUserName() {
@@ -109,7 +115,7 @@ public class MyAppication extends Application {
 
     public static void setUserName(String userName) {
         MyAppication.userName = userName;
-        CommonUtils.saveBySp(MyAppication.getInstance(),userNameSPKey,userName);
+        CommonUtils.saveBySp(MyAppication.getInstance(), userNameSPKey, userName);
     }
 
     public static boolean isBlockImage() {
@@ -150,6 +156,7 @@ public class MyAppication extends Application {
 
     /**
      * image
+     *
      * @param context
      */
     private void initImageLoader(Context context) {
@@ -197,5 +204,14 @@ public class MyAppication extends Application {
         // .build(); //开始构建
         // 初始化操作
         ImageLoader.getInstance().init(config.build());
+    }
+
+
+    public static void addFragment(String log, Fragment fragment) {
+        fragment_map.put(log, fragment);
+    }
+
+    public static HashMap<String, Fragment> getFragmentList() {
+        return fragment_map;
     }
 }

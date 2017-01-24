@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTabHost;
 import android.view.Gravity;
 import android.view.Menu;
@@ -41,6 +42,7 @@ import com.lin.lib_volley_https.VolleyListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -189,8 +191,36 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.itempop_text1:
                 popupWindow.dismiss();
-                textview.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
                 mTabHost.setCurrentTab(1);
+
+                textview.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
+                HashMap<String, Fragment> fragmentMap = MyAppication.getFragmentList();
+                LogUtils.e("==" + fragmentMap.size());
+                for (String key : fragmentMap.keySet()) {
+                    Fragment fragment = fragmentMap.get(key);
+                    LogUtils.e(fragment.toString() + "==" + key);
+                    if (fragment == null) {
+                        LogUtils.e("fragment is null");
+                    } else {
+                        if (key.equals("fengshangbiao")) {
+                            ((FengShangBiaoFragment) fragment).setCurrentTab(1);
+                        }
+                    }
+                }
+//                mTabHost.setCurrentTab(1);
+//                textview.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
+//                LogUtils.e("==" + fragmentMap.size());
+//                for (String key : fragmentMap.keySet()) {
+//                    Fragment fragment = fragmentMap.get(key);
+//                    LogUtils.e(fragment.toString() + "==" + key);
+//                    if (fragment == null) {
+//                        LogUtils.e("fragment is null");
+//                    } else {
+//                        if (key.equals("fengshangbiao")) {
+//                            ((FengShangBiaoFragment) fragment).setCurrentTab(1);
+//                        }
+//                    }
+//                }
                 break;
             case R.id.itempop_text2:
                 popupWindow.dismiss();

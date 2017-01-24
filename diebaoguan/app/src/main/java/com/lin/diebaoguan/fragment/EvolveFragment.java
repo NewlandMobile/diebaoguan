@@ -12,6 +12,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.lin.diebaoguan.R;
+import com.lin.diebaoguan.common.LogUtils;
 import com.lin.diebaoguan.uibase.BaseFragment;
 
 /**
@@ -68,5 +69,14 @@ public class EvolveFragment extends BaseFragment {
         textview.setText(indicator);
         textview.setBackground(getResources().getDrawable(R.drawable.inducator_top_selector));
         mTabHost.addTab(newTabSpec.setIndicator(view), cls, null);
+    }
+
+    public void aa() {
+        LogUtils.e(" 我是谍报馆");
+    }
+
+    public void setCurrentTab(int index) {
+        LogUtils.e("========进来了=== "+index);
+        mTabHost.setCurrentTab(index);
     }
 }
