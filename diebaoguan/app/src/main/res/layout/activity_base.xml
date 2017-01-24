@@ -58,7 +58,6 @@
             tools:text="TextView"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:layout_below="@+id/baseactivity_all"
             android:layout_centerHorizontal="true" />
     </RelativeLayout>
 

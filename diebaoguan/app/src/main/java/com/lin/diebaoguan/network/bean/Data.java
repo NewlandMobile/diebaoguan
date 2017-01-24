@@ -25,11 +25,11 @@ public class Data implements Serializable {
     date	字符串	时间
     author	字符串	作者
     picUrl	字符串	图集图片地址*/
-    String id;
-    int isCollected;
-    String title;
-    String date;
-    String author;
+    private String id;
+    private int isCollected;
+    private String title;
+    private String date;
+    private String author;
     String[] picUrl;
     String digest;
     String docUrl;
@@ -155,5 +155,25 @@ public class Data implements Serializable {
 
     public void setUpdateInfo(String updateInfo) {
         this.updateInfo = updateInfo;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setIsCollected(int isCollected) {
+        this.isCollected = isCollected;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }

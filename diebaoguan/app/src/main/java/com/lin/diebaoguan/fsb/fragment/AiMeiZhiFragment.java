@@ -78,8 +78,7 @@ public class AiMeiZhiFragment extends PullToRefreshBaseFragment implements Adapt
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        startActivity(new Intent(getActivity(),));
-        String docid = ((Result) adapter.getItem(position)).getDocid();
+        String docid = ((Result) adapter.getItem(position - 1)).getDocid();
         PicDetailDS params = new PicDetailDS();
         params.setDocid(docid);
         params.setModule("api_libraries_sjdbg_detail");

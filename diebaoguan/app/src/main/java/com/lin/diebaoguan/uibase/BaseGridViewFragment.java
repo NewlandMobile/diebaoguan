@@ -69,13 +69,13 @@ public abstract class BaseGridViewFragment extends PullToRefreshBaseFragment {
             refreshGridView = (PullToRefreshGridView) inflater.inflate(R.layout.fragment_original, null);
             refreshGridView.setMode(PullToRefreshBase.Mode.BOTH);
             parentView.addView(refreshGridView);
+            myAdapter = new BaseGridViewFragment.MyAdapter();
+            itemClickListener = new BaseGridViewFragment.MyItemClickListener();
+            refreshGridView.setOnItemClickListener(itemClickListener);
+            refreshGridView.setAdapter(myAdapter);
+            initRefreshListener();
+            fetchListData(currentOffset);
         }
-        myAdapter = new BaseGridViewFragment.MyAdapter();
-        itemClickListener = new BaseGridViewFragment.MyItemClickListener();
-        refreshGridView.setOnItemClickListener(itemClickListener);
-        refreshGridView.setAdapter(myAdapter);
-        initRefreshListener();
-        fetchListData(currentOffset);
         return view;
     }
 

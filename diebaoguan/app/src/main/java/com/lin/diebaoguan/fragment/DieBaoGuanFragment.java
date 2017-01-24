@@ -42,7 +42,4 @@ public class DieBaoGuanFragment extends EvolveFragment {
 //        parent.removeView(view);
 //        super.onDestroyView();
 //    }
-    public void setCurrentTab(int index) {
-        mTabHost.setCurrentTab(index);
-    }
 }

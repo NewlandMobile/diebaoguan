@@ -37,6 +37,7 @@ public class Const {
     public static Class[] COLLECT_Fragments = new Class[]{DBFragment.class, LifeFragment.class, PicFragment.class};
 
     public static String[] POP_TITLE = new String[]{"爱美妆", "爱美坊", "雯琰文", "爱美志", "应用谍报", "体验谍报", "价格谍报", "新品谍报"};
+    public static String[] PUSHAD = new String[]{"移动订货", "订单状态实时知晓", "图形化下单", "有事没事来溜溜，不一样的上海", "惊喜不断", "爱上不一样的生活"};
 
     public static String COMMENTSUCCESS = "60000011";//评论成功返回码
     public static String FEEDBACKSUCCESS = "60000001";//意见反馈返回码
@@ -47,7 +48,7 @@ public class Const {
 
     public static String OFFICIAL_WEBSITE = "http://www.cnmo.com";//官网
 
-    public static final int ZOOM_BIG=130;
-    public static final int ZOOM_MIDDLE=100;
-    public static final int ZOOM_SMALL=80;
+    public static final int ZOOM_BIG = 130;
+    public static final int ZOOM_MIDDLE = 100;
+    public static final int ZOOM_SMALL = 80;
 }
