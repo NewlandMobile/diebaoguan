@@ -10,10 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.activity.ArticleDetailsActivity;
 import com.lin.diebaoguan.common.CommonUtils;
+import com.lin.diebaoguan.common.Const;
 import com.lin.diebaoguan.uibase.BasePullToRefrshListViewFragment;
 import com.lin.lib_volley_https.VolleyListener;
 
@@ -37,6 +39,7 @@ public class HeadlineFragment extends BasePullToRefrshListViewFragment implement
     public boolean isDrag;//判断是否有滑动的操作
     private int beforeInt = 0;
     private View headView;
+    private TextView adtitle;//广告标题
 
     public HeadlineFragment() {
     }
@@ -52,6 +55,7 @@ public class HeadlineFragment extends BasePullToRefrshListViewFragment implement
             viewPager.setAdapter(new MyAdapter());
             refreshableView.addHeaderView(headView);
             adapter.notifyDataSetChanged();
+            adtitle = (TextView) headView.findViewById(R.id.text_adtitle);
             postDelayAd();
             viewPager.setOnPageChangeListener(this);
             refreshableView.setOnItemClickListener(this);
@@ -113,6 +117,7 @@ public class HeadlineFragment extends BasePullToRefrshListViewFragment implement
             int pi = position % 6;
             pointList.get(pi).setBackground(getResources().getDrawable(R.drawable.red_point));
             pointList.get(beforeInt).setBackground(getResources().getDrawable(R.drawable.gray_point));
+            adtitle.setText(Const.PUSHAD[pi]);
             beforeInt = pi;
         }
     }
@@ -137,7 +142,7 @@ public class HeadlineFragment extends BasePullToRefrshListViewFragment implement
 
         @Override
         public int getCount() {
-            return 3000000;
+            return 300000;
         }
 
         @Override

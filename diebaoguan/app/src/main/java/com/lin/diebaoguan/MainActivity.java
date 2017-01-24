@@ -88,6 +88,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             item_text.setText(arrayList.get(i));
             item_text.setOnClickListener(this);
         }
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                textview.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
+            }
+        });
 
     }
 
