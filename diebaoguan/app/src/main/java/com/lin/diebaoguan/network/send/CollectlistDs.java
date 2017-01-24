@@ -5,7 +5,7 @@ package com.lin.diebaoguan.network.send;
  * mail :1057705307@QQ.com.
  * describe:收藏列表
  */
-public class CollectlistDS extends BaseSendTemplate {
+public class CollectListDS extends BaseSendTemplate {
     private String cid;
     private String uid;
     private String offset;
