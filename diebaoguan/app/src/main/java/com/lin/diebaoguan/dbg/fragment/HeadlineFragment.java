@@ -16,6 +16,7 @@ import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.activity.ArticleDetailsActivity;
 import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.Const;
+import com.lin.diebaoguan.common.LogUtils;
 import com.lin.diebaoguan.uibase.BasePullToRefrshListViewFragment;
 import com.lin.lib_volley_https.VolleyListener;
 
@@ -41,6 +42,7 @@ public class HeadlineFragment extends BasePullToRefrshListViewFragment implement
     private int beforeInt = 0;
     private View headView;
     private TextView adtitle;//广告标题
+    private List<ImageView> reList = new ArrayList<>();
 
     public HeadlineFragment() {
     }
@@ -140,6 +142,7 @@ public class HeadlineFragment extends BasePullToRefrshListViewFragment implement
     }
 
     class MyAdapter extends PagerAdapter {
+        ImageView imageView = null;
 
         @Override
         public int getCount() {
@@ -153,12 +156,22 @@ public class HeadlineFragment extends BasePullToRefrshListViewFragment implement
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
+            LogUtils.e("removeView=====position:" + position);
             container.removeView((View) object);
+            reList.add((ImageView) object);
         }
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            ImageView imageView = list.get(position % 6);
+            LogUtils.e("instantiateItem=====position:" + position);
+            int size = reList.size();
+            if (size == 0) {
+                imageView = new ImageView(getActivity());
+            } else {
+                imageView = reList.get(0);
+                reList.remove(imageView);
+            }
+            imageView.setBackground(getResources().getDrawable(imageId[position % 6]));
             container.addView(imageView);
             return imageView;
         }
