@@ -126,10 +126,11 @@ public class ArticalItemFragment extends Fragment {
             docUrl = info.getString("docUrl");
             type = info.getString("type");
             content = info.getString("content");
+            String docid = info.getString("docid");
 
             parentActivity.setCid(info.getInt("cid"));
             String isCollected = info.getString("isCollected");
-            parentActivity.setCollected(("1").equals(isCollected));
+            parentActivity.setCollected(("1").equals(isCollected),docid);
             text_time.setText(date);
             text_title.setText(title);
         } catch (JSONException e) {

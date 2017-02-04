@@ -19,6 +19,7 @@ import com.lin.diebaoguan.common.Const;
 import com.lin.diebaoguan.uibase.BasePullToRefrshListViewFragment;
 import com.lin.lib_volley_https.VolleyListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -167,7 +168,7 @@ public class HeadlineFragment extends BasePullToRefrshListViewFragment implement
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(getActivity(), ArticleDetailsActivity.class);
         intent.putExtra("currentOffset", position - 2);
-        intent.putExtra("allItem", dataList.toArray());
+        intent.putExtra("allItem", (Serializable) dataList);
         startActivity(intent);
     }
 

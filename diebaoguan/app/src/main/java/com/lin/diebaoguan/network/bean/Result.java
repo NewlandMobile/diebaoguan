@@ -37,54 +37,50 @@ public class Result implements Serializable {
         return docid;
     }
 
-    //
-//    public void setDocid(int docid) {
-//        this.docid = docid;
-//    }
-//
+
     public String getTitle() {
         return title;
     }
 
-    //
-//    public void setTitle(String title) {
-//        this.title = title;
-//    }
-//
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getDate() {
         return date;
     }
 
-    //
-//    public void setDate(String date) {
-//        this.date = date;
-//    }
-//
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public String getPicUrl() {
         return picUrl;
     }
 
-    //
-//    public void setPicUrl(String picUrl) {
-//        this.picUrl = picUrl;
-//    }
-//
+
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
+    }
+
     public String getContent() {
         return content;
     }
 
-    //
-//    public void setContent(String content) {
-//        this.content = content;
-//    }
-//
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     public String getType() {
         return type;
     }
-//
-//    public void setType(String type) {
-//        this.type = type;
-//    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
 
     public int getPicid() {
@@ -122,5 +118,13 @@ public class Result implements Serializable {
 
     public String getAuthor() {
         return author;
+    }
+
+    public void setPicid(int picid) {
+        this.picid = picid;
+    }
+
+    public void setDocid(String docid) {
+        this.docid = docid;
     }
 }

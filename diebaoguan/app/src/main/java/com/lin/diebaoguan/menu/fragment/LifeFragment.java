@@ -12,6 +12,8 @@ import android.widget.AdapterView;
 import com.lin.diebaoguan.activity.ArticleDetailsActivity;
 import com.lin.diebaoguan.uibase.BaseCollectFragment;
 
+import java.io.Serializable;
+
 /**
  * 生活收藏界面
  */
@@ -38,7 +40,7 @@ public class LifeFragment extends BaseCollectFragment implements AdapterView.OnI
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(getActivity(), ArticleDetailsActivity.class);
         intent.putExtra("currentOffset", position - 1);
-        intent.putExtra("allItem", dataList.toArray());
+        intent.putExtra("allItem", (Serializable) dataList);
         startActivity(intent);
     }
 }

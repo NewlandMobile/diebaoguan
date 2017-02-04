@@ -1,17 +1,5 @@
 package com.lin.diebaoguan.uibase;
 
-import com.android.volley.VolleyError;
-import com.lin.diebaoguan.activity.CommentActivity;
-import com.lin.diebaoguan.activity.LoginActivity;
-import com.lin.diebaoguan.MyAppication;
-import com.lin.diebaoguan.R;
-import com.lin.diebaoguan.common.CommonUtils;
-import com.lin.diebaoguan.common.Const;
-import com.lin.diebaoguan.common.LogUtils;
-import com.lin.diebaoguan.network.response.BaseResponseTemplate;
-import com.lin.diebaoguan.network.send.ArticleCollectDS;
-import com.lin.lib_volley_https.VolleyListener;
-
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
@@ -21,21 +9,34 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
+import com.lin.diebaoguan.MyAppication;
+import com.lin.diebaoguan.R;
+import com.lin.diebaoguan.activity.CommentActivity;
+import com.lin.diebaoguan.activity.LoginActivity;
+import com.lin.diebaoguan.common.CommonUtils;
+import com.lin.diebaoguan.common.Const;
+import com.lin.diebaoguan.common.LogUtils;
+import com.lin.diebaoguan.network.response.BaseResponseTemplate;
+import com.lin.diebaoguan.network.send.ArticleCollectDS;
+import com.lin.lib_volley_https.VolleyListener;
+
 /**
  * It's Created by NewLand-JianFeng on 2017/1/10.
  */
 
 public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity implements View.OnClickListener {
     protected String docid;
-    private boolean isCollected;
-    private int cid;
-    private RelativeLayout rl1;
-    private RelativeLayout rl2;
-    private EditText edit_txt;
-    private ImageView image_collect;
-    private boolean hasLogin;
+    protected boolean isCollected;
+    protected int cid;
+    protected RelativeLayout rl1;
+    protected RelativeLayout rl2;
+    protected EditText edit_txt;
+    protected ImageView image_collect;
+    protected boolean hasLogin;
+    private Runnable runnable;
 
-    protected void initPublicUI(String title, boolean showImage, int layoutId){
+    protected void initPublicUI(String title, boolean showImage, int layoutId) {
         initTitleBar(title, true, true, showImage, layoutId);
         btn_comments.setOnClickListener(this);
         btn_back.setOnClickListener(this);
@@ -45,25 +46,18 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
     @Override
     protected void onResume() {
         super.onResume();
-        hasLogin=MyAppication.getInstance().hasLogined();
+        hasLogin = MyAppication.getInstance().hasLogined();
     }
 
-    private void changeCollectState(boolean collected ){
+    public void changeCollectState(boolean collected) {
         if (collected) {
-            image_collect.setImageResource(R.drawable.collection_icon);
+            image_collect.setBackgroundResource(R.drawable.a_n);
         } else {
-            image_collect.setImageResource(R.drawable.uncollection);
+            image_collect.setBackgroundResource(R.drawable.a_l);
         }
     }
 
-    private void initBottomPart(){
-//        TextView textView = (TextView) inflate.findViewById(R.id.detail_textview);
-//        Button btn_share = (Button) inflate.findViewById(R.id.detail_share);
-//        image_collect = (ImageView) inflate.findViewById(R.id.detail_collect);
-//        rl1 = (RelativeLayout) inflate.findViewById(R.id.rl1);
-//        rl2 = (RelativeLayout) inflate.findViewById(R.id.rl2);
-//        Button btn_send = (Button) inflate.findViewById(R.id.detail_send);
-//        edit_txt = (EditText) inflate.findViewById(R.id.detail_edit);
+    private void initBottomPart() {
 
         TextView textView = (TextView) findViewById(R.id.detail_textview);
         Button btn_share = (Button) findViewById(R.id.detail_share);
@@ -80,18 +74,11 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
         image_collect.setOnClickListener(this);
     }
 
-//    public boolean isCollected() {
-//        return isCollected;
-//    }
-
     public void setCollected(boolean collected) {
         isCollected = collected;
         changeCollectState(collected);
     }
 
-//    public String getCid() {
-//        return cid;
-//    }
 
     public void setCid(int cid) {
         this.cid = cid;
@@ -104,8 +91,6 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
                 finish();
                 break;
             case R.id.baseactivity_comments:
-//                MyAppication application = MyAppication.getInstance();
-//                boolean isLogined = application.hasLogined();
                 if (hasLogin) {
                     Intent intent = new Intent(this, CommentActivity.class);
                     intent.putExtra("docid", docid);
@@ -122,7 +107,7 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
                 break;
             case R.id.detail_collect:
                 if (hasLogin) {
-                   postCollect();
+                    postCollect();
                 } else {
                     startActivity(new Intent(BaseCommentAndShareActivity.this, LoginActivity.class));
                 }
@@ -210,23 +195,17 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
             if (status == 1) {
                 showToast(message);
                 setCollected(code.equals("60000015"));
-//                if (code.equals("60000015")) {
-//                    image_collect.setImageDrawable(getResources().getDrawable(R.drawable.collection_icon));
-//                    isCollected = "1";
-//                } else {
-//                    image_collect.setImageDrawable(getResources().getDrawable(R.drawable.uncollection));
-//                    isCollected = "0";
-//                }
+                if (runnable != null) {
+                    runnable.run();
+                }
             } else {
                 showToast(getString(R.string.collectedfailed) + message);
             }
+            //
         }
     };
 
-//    @Override
-//    public void onClick(View v) {
-//        switch (v.getId()) {
-//
-//        }
-//    }
+    public void setRunnable(Runnable runnable) {
+        this.runnable = runnable;
+    }
 }

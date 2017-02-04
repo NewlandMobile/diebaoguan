@@ -21,6 +21,7 @@ import com.lin.diebaoguan.network.bean.Result;
 import com.lin.diebaoguan.network.response.NormalResponse;
 import com.lin.lib_volley_https.VolleyListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -89,7 +90,7 @@ public abstract class BasePullToRefrshListViewFragment extends PullToRefreshBase
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(getActivity(), ArticleDetailsActivity.class);
         intent.putExtra("currentOffset", position - 1);
-        intent.putExtra("allItem", dataList.toArray());
+        intent.putExtra("allItem", (Serializable) dataList);
         addSpecialArgu(intent);
         startActivity(intent);
     }

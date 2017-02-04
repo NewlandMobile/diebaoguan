@@ -102,7 +102,7 @@
             android:layout_alignParentTop="true"
             android:layout_toStartOf="@+id/ddline_bet_collect_save"
             android:scaleType="center"
-            android:src="@drawable/uncollection" />
+            android:background="@drawable/a_l" />
 
         <Button
             android:id="@+id/detail_share"

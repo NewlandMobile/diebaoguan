@@ -119,15 +119,17 @@ public class BaseCollectFragment extends PullToRefreshBaseFragment {
                 Collections.addAll(dataList, result);
                 adapter.notifyDataSetChanged();
                 Paging paging = normalResponse.getData().getPaging();
-                totalPage = paging.getPages();
-                final int offset = currentPageOffset * Const.ROWS - 1;
-                refreshableView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        refreshableView.smoothScrollToPosition(offset);
-                    }
-                });
-                currentPageOffset += 1;
+                if (paging != null) {
+                    totalPage = paging.getPages();
+                    final int offset = currentPageOffset * Const.ROWS - 1;
+                    refreshableView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            refreshableView.smoothScrollToPosition(offset);
+                        }
+                    });
+                    currentPageOffset += 1;
+                }
             }
         }
     };
@@ -185,7 +187,7 @@ public class BaseCollectFragment extends PullToRefreshBaseFragment {
         ArticleCollectDS articleCollectDS = new ArticleCollectDS();
         articleCollectDS.setModule("api_libraries_sjdbg_articlecollect");
         articleCollectDS.setDocid(docid);
-        articleCollectDS.setCid(1);
+        articleCollectDS.setCid(cid);
         articleCollectDS.setAuthkey(MyAppication.getKey());
         articleCollectDS.setUid(MyAppication.getUid());
         articleCollectDS.setMethod("cancel");
@@ -216,4 +218,8 @@ public class BaseCollectFragment extends PullToRefreshBaseFragment {
             }
         }
     };
+
+    public void setCid(int cid){
+
+    }
 }
