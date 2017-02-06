@@ -112,7 +112,12 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
                     startActivity(new Intent(BaseCommentAndShareActivity.this, LoginActivity.class));
                 }
                 break;
-            case R.id.detail_share:
+            case R.id.detail_share://分享
+
+
+
+
+
                 break;
             case R.id.detail_send:
                 String trim = edit_txt.getText().toString().trim();

@@ -28,7 +28,12 @@
             android:label="@string/title_activity_base" />
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.ArticleDetailsActivity" />
+        <activity android:name=".activity.ArticleDetailsActivity">
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".activity.GyjOriginalDetailsActivity" />
         <activity android:name=".activity.GyjDetailPicActivity" />
         <activity android:name=".activity.CommentActivity" />
@@ -48,6 +53,14 @@
         <activity android:name=".menu.CollectActivity" />
         <activity android:name=".menu.FeedbackActivity" />
         <activity android:name=".menu.PushSettingActivity" />
+        <!--微博-->
+        <activity
+            android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false" >
+        </activity>
+
     </application>
 
 </manifest>
