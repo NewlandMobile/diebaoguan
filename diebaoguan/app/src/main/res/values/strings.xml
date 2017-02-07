@@ -134,4 +134,11 @@
     <string name="pleaseinputrightinfor">请输入正确信息</string>
     <string name="datapostfail">数据发送失败</string>
     <string name="datapostsuccess">数据发送成功</string>
+
+    <!-- 分享成功失败的 Toast -->
+    <string name="weibosdk_demo_toast_share_success">分享成功</string>
+    <string name="weibosdk_demo_toast_share_failed">分享失败</string>
+    <string name="weibosdk_demo_toast_share_canceled">取消分享</string>
+    <string name="weibosdk_demo_toast_share_response_args_success">收到微博发起的请求成功</string>
+    <string name="weibosdk_demo_toast_share_response_args_failed">收到客户端请求消息失败</string>
 </resources>

@@ -28,19 +28,22 @@ import com.lin.lib_volley_https.VolleyListener;
 import com.sina.weibo.sdk.api.ImageObject;
 import com.sina.weibo.sdk.api.TextObject;
 import com.sina.weibo.sdk.api.WeiboMultiMessage;
+import com.sina.weibo.sdk.api.share.BaseResponse;
+import com.sina.weibo.sdk.api.share.IWeiboHandler;
 import com.sina.weibo.sdk.api.share.IWeiboShareAPI;
 import com.sina.weibo.sdk.api.share.SendMultiMessageToWeiboRequest;
 import com.sina.weibo.sdk.api.share.WeiboShareSDK;
 import com.sina.weibo.sdk.auth.AuthInfo;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.WeiboAuthListener;
+import com.sina.weibo.sdk.constant.WBConstants;
 import com.sina.weibo.sdk.exception.WeiboException;
 
 /**
  * It's Created by NewLand-JianFeng on 2017/1/10.
  */
 
-public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity implements View.OnClickListener {
+public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity implements View.OnClickListener, IWeiboHandler.Response {
     protected String docid;
     protected boolean isCollected;
     protected int cid;
@@ -135,7 +138,6 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
             case R.id.detail_share://分享
                 Toast.makeText(this, "进入分享", Toast.LENGTH_SHORT).show();
                 sendMultiMessage();
-
                 break;
             case R.id.detail_send:
                 String trim = edit_txt.getText().toString().trim();
@@ -236,6 +238,7 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
     private TextObject getTextObj() {
         TextObject textObject = new TextObject();
         textObject.text = mTitle;
+        LogUtils.e("===" + mTitle);
         return textObject;
     }
 
@@ -310,5 +313,44 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
         imageObject.setImageObject(bitmap);
         return imageObject;
+    }
+
+    /**
+     *
+     */
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        // 从当前应用唤起微博并进行分享后，返回到当前应用时，需要在此处调用该函数
+        // 来接收微博客户端返回的数据；执行成功，返回 true，并调用
+        // {@link IWeiboHandler.Response#onResponse}；失败返回 false，不调用上述回调
+        mWeiboShareAPI.handleWeiboResponse(intent, this);
+    }
+
+    /**
+     * 接收微客户端博请求的数据。
+     * 当微博客户端唤起当前应用并进行分享时，该方法被调用。
+     *
+     * @param baseResp 微博请求数据对象
+     * @see {@link IWeiboShareAPI#handleWeiboRequest}
+     */
+    @Override
+    public void onResponse(BaseResponse baseResp) {
+        if (baseResp != null) {
+            switch (baseResp.errCode) {
+                case WBConstants.ErrorCode.ERR_OK:
+                    Toast.makeText(this, R.string.weibosdk_demo_toast_share_success, Toast.LENGTH_LONG).show();
+                    break;
+                case WBConstants.ErrorCode.ERR_CANCEL:
+                    Toast.makeText(this, R.string.weibosdk_demo_toast_share_canceled, Toast.LENGTH_LONG).show();
+                    break;
+                case WBConstants.ErrorCode.ERR_FAIL:
+                    Toast.makeText(this,
+                            getString(R.string.weibosdk_demo_toast_share_failed) + "Error Message: " + baseResp.errMsg,
+                            Toast.LENGTH_LONG).show();
+                    break;
+            }
+        }
     }
 }

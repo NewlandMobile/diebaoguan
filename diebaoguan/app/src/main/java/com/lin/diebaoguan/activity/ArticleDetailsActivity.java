@@ -51,6 +51,7 @@ public class ArticleDetailsActivity extends BaseCommentAndShareActivity {
                 Detail detail = new Detail();
                 detail.setPicid(item.getPicid());
                 detail.setCollected(false);
+                detail.setTitle(item.getTitle());
                 detailList.add(detail);
             }
         } else {
@@ -59,6 +60,7 @@ public class ArticleDetailsActivity extends BaseCommentAndShareActivity {
                 Detail detail = new Detail();
                 detail.setDocid(item.getDocid());
                 detail.setCollected(false);
+                detail.setTitle(item.getTitle());
                 detailList.add(detail);
             }
         }
@@ -142,12 +144,14 @@ public class ArticleDetailsActivity extends BaseCommentAndShareActivity {
             if (docid.equals(item.getDocid())) {
                 item.setCollected(collected);
                 item.setTitle(item.getTitle());
+                LogUtils.e(item.getTitle());
             }
         }
         //获取当前的item并将其是否收藏的值传入
         detail = dataArray.get(currentOffset);
         boolean collected1 = detail.isCollected();
         isCollected = collected1;
+        setTitle(detail.getTitle());
         changeCollectState(collected1);
     }
 

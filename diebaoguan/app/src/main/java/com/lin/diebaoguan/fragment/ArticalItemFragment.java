@@ -17,7 +17,6 @@ import com.lin.diebaoguan.MyAppication;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.activity.ArticleDetailsActivity;
 import com.lin.diebaoguan.common.CommonUtils;
-import com.lin.diebaoguan.common.LogUtils;
 import com.lin.diebaoguan.network.send.ArticleDetailDS;
 import com.lin.lib_volley_https.VolleyListener;
 
@@ -100,13 +99,13 @@ public class ArticalItemFragment extends Fragment {
         CommonUtils.httpGet(sendParam.parseParams(), new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                LogUtils.e(volleyError.toString());
+//                LogUtils.e(volleyError.toString());
                 Toast.makeText(getActivity(), getString(R.string.getdatafail) + volleyError.toString(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onResponse(String s) {
-                LogUtils.e(s);
+//                LogUtils.e(s);
                 updateUI(s);
             }
         });
