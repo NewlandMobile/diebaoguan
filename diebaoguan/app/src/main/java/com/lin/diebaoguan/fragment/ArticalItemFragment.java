@@ -130,7 +130,7 @@ public class ArticalItemFragment extends Fragment {
 
             parentActivity.setCid(info.getInt("cid"));
             String isCollected = info.getString("isCollected");
-            parentActivity.setCollected(("1").equals(isCollected),docid);
+            parentActivity.setCollectedAndTitle(("1").equals(isCollected),docid);
             text_time.setText(date);
             text_title.setText(title);
         } catch (JSONException e) {

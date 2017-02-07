@@ -80,7 +80,7 @@ public class AmzDetailActivity extends BaseCommentAndShareActivity {
             title = jsonObject.getString("title");
             tv_title.setText(title);
             isCollected = jsonObject.getString("isCollected");
-            setCollected("1".equals(isCollected));
+            setCollectedAndTitle("1".equals(isCollected),title);
             JSONArray content = jsonObject.getJSONArray("content");
             for (int i = 0; i < content.length(); i++) {
                 contentStr = (String) content.get(i);

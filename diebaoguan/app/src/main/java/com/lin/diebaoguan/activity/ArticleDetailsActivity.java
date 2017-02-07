@@ -137,10 +137,11 @@ public class ArticleDetailsActivity extends BaseCommentAndShareActivity {
      *
      * @param collected
      */
-    public void setCollected(boolean collected, String docid) {
+    public void setCollectedAndTitle(boolean collected, String docid) {
         for (Detail item : dataArray) {
             if (docid.equals(item.getDocid())) {
                 item.setCollected(collected);
+                item.setTitle(item.getTitle());
             }
         }
         //获取当前的item并将其是否收藏的值传入

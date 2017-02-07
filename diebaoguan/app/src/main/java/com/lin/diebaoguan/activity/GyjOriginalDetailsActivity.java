@@ -61,7 +61,7 @@ public class GyjOriginalDetailsActivity extends BaseCommentAndShareActivity {
         if (data != null) {
             docid = data.getId();
             setCid(data.getCid());
-            setCollected("1".equals(data.getIsCollected()));
+            setCollectedAndTitle("1".equals(data.getIsCollected()), data.getTitle());
             initViewPager(data);
             initTextPart(data);
         }

@@ -156,14 +156,14 @@ public class HeadlineFragment extends BasePullToRefrshListViewFragment implement
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            LogUtils.e("removeView=====position:" + position);
+//            LogUtils.e("removeView=====position:" + position);
             container.removeView((View) object);
             reList.add((ImageView) object);
         }
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            LogUtils.e("instantiateItem=====position:" + position);
+//            LogUtils.e("instantiateItem=====position:" + position);
             int size = reList.size();
             if (size == 0) {
                 imageView = new ImageView(getActivity());

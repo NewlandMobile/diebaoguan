@@ -1,6 +1,9 @@
 package com.lin.diebaoguan.uibase;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -8,18 +11,30 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.lin.diebaoguan.MyAppication;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.activity.CommentActivity;
 import com.lin.diebaoguan.activity.LoginActivity;
+import com.lin.diebaoguan.common.AccessTokenKeeper;
 import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.Const;
 import com.lin.diebaoguan.common.LogUtils;
 import com.lin.diebaoguan.network.response.BaseResponseTemplate;
 import com.lin.diebaoguan.network.send.ArticleCollectDS;
 import com.lin.lib_volley_https.VolleyListener;
+import com.sina.weibo.sdk.api.ImageObject;
+import com.sina.weibo.sdk.api.TextObject;
+import com.sina.weibo.sdk.api.WeiboMultiMessage;
+import com.sina.weibo.sdk.api.share.IWeiboShareAPI;
+import com.sina.weibo.sdk.api.share.SendMultiMessageToWeiboRequest;
+import com.sina.weibo.sdk.api.share.WeiboShareSDK;
+import com.sina.weibo.sdk.auth.AuthInfo;
+import com.sina.weibo.sdk.auth.Oauth2AccessToken;
+import com.sina.weibo.sdk.auth.WeiboAuthListener;
+import com.sina.weibo.sdk.exception.WeiboException;
 
 /**
  * It's Created by NewLand-JianFeng on 2017/1/10.
@@ -34,7 +49,9 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
     protected EditText edit_txt;
     protected ImageView image_collect;
     protected boolean hasLogin;
-    private Runnable runnable;
+    private Runnable runnable;//在收藏取消时外部的操作
+    private String mTitle;//标题
+    private IWeiboShareAPI mWeiboShareAPI;//微博分享
 
     protected void initPublicUI(String title, boolean showImage, int layoutId) {
         initTitleBar(title, true, true, showImage, layoutId);
@@ -47,6 +64,8 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
     protected void onResume() {
         super.onResume();
         hasLogin = MyAppication.getInstance().hasLogined();
+        mWeiboShareAPI = WeiboShareSDK.createWeiboAPI(this, Const.KEY_WEIBO);
+        mWeiboShareAPI.registerApp();    // 将应用注册到微博客户端
     }
 
     public void changeCollectState(boolean collected) {
@@ -74,8 +93,9 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
         image_collect.setOnClickListener(this);
     }
 
-    public void setCollected(boolean collected) {
+    public void setCollectedAndTitle(boolean collected, String title) {
         isCollected = collected;
+        this.mTitle = title;
         changeCollectState(collected);
     }
 
@@ -113,10 +133,8 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
                 }
                 break;
             case R.id.detail_share://分享
-
-
-
-
+                Toast.makeText(this, "进入分享", Toast.LENGTH_SHORT).show();
+                sendMultiMessage();
 
                 break;
             case R.id.detail_send:
@@ -199,7 +217,7 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
             String message = response.getMessage();
             if (status == 1) {
                 showToast(message);
-                setCollected(code.equals("60000015"));
+                setCollectedAndTitle(code.equals("60000015"), mTitle);
                 if (runnable != null) {
                     runnable.run();
                 }
@@ -212,5 +230,85 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
 
     public void setRunnable(Runnable runnable) {
         this.runnable = runnable;
+    }
+
+    //创建要分享的文本内容
+    private TextObject getTextObj() {
+        TextObject textObject = new TextObject();
+        textObject.text = mTitle;
+        return textObject;
+    }
+
+    /**
+     * 第三方应用发送请求消息到微博，唤起微博分享界面。
+     * 注意：当 {@link IWeiboShareAPI#getWeiboAppSupportAPI()} >= 10351 时，支持同时分享多条消息，
+     * 同时可以分享文本、图片以及其它媒体资源（网页、音乐、视频、声音中的一种）。
+     */
+    private void sendMultiMessage() {
+
+        // 1. 初始化微博的分享消息
+        WeiboMultiMessage weiboMessage = new WeiboMultiMessage();
+        weiboMessage.textObject = getTextObj();
+        weiboMessage.imageObject = getImageObj();
+
+        // 2. 初始化从第三方到微博的消息请求
+        SendMultiMessageToWeiboRequest request = new SendMultiMessageToWeiboRequest();
+        // 用transaction唯一标识一个请求
+        request.transaction = String.valueOf(System.currentTimeMillis());
+        request.multiMessage = weiboMessage;
+
+        // 3. 发送请求消息到微博，唤起微博分享界面
+//        if (mShareType == SHARE_CLIENT) {
+//            mWeiboShareAPI.sendRequest(this, request);
+//        } else if (mShareType == SHARE_ALL_IN_ONE) {
+        AuthInfo authInfo = new AuthInfo(this, Const.KEY_WEIBO, Const.REDIRECT_URL, Const.SCOPE);
+        Oauth2AccessToken accessToken = AccessTokenKeeper.readAccessToken(getApplicationContext());
+        String token = "";
+        if (accessToken != null) {
+            token = accessToken.getToken();
+        } else {
+            LogUtils.e("==============null");
+        }
+        mWeiboShareAPI.sendRequest(this, request, authInfo, token, new WeiboAuthListener() {
+
+            @Override
+            public void onWeiboException(WeiboException arg0) {
+            }
+
+            @Override
+            public void onComplete(Bundle bundle) {
+                // TODO Auto-generated method stub
+                Oauth2AccessToken newToken = Oauth2AccessToken.parseAccessToken(bundle);
+                AccessTokenKeeper.writeAccessToken(getApplicationContext(), newToken);
+                Toast.makeText(getApplicationContext(), "onAuthorizeComplete token = " + newToken.getToken(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancel() {
+            }
+        });
+//        }
+    }
+
+    /**
+     * 设置title用于分享使用
+     *
+     * @param title
+     */
+    protected void setTitle(String title) {
+        this.mTitle = title;
+    }
+
+    /**
+     * 创建图片消息对象。
+     *
+     * @return 图片消息对象。
+     */
+    private ImageObject getImageObj() {
+        ImageObject imageObject = new ImageObject();
+        //设置缩略图。 注意：最终压缩过的缩略图大小不得超过 32kb。
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+        imageObject.setImageObject(bitmap);
+        return imageObject;
     }
 }
