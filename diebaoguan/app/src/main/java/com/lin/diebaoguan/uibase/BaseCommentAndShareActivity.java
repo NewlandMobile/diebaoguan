@@ -3,12 +3,16 @@ package com.lin.diebaoguan.uibase;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,6 +59,7 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
     private Runnable runnable;//在收藏取消时外部的操作
     private String mTitle;//标题
     private IWeiboShareAPI mWeiboShareAPI;//微博分享
+    private PopupWindow mPopupWindow;// 分享弹出界面
 
     protected void initPublicUI(String title, boolean showImage, int layoutId) {
         initTitleBar(title, true, true, showImage, layoutId);
@@ -94,6 +99,22 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
         textView.setOnClickListener(this);
         btn_share.setOnClickListener(this);
         image_collect.setOnClickListener(this);
+        //popupwindow控件
+        View popView = getLayoutInflater().inflate(R.layout.view_shared, null);
+        mPopupWindow = new PopupWindow(popView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+        //设置popwindow弹出窗口可点击，这句话必须添加，并且是true，设置可以获取焦点
+        mPopupWindow.setFocusable(true);
+        // 为了防止弹出的窗口获取焦点之后，点击其他组件没有反应
+        ColorDrawable colorDrawable = new ColorDrawable(0xcdcdcd);
+        mPopupWindow.setBackgroundDrawable(colorDrawable);
+
+        /** 获取popwindow里面的控件 */
+        TextView text_blank = (TextView) popView.findViewById(R.id.share_text_blank);
+        text_blank.setOnClickListener(this);
+        ImageView image_shareqq = (ImageView) popView.findViewById(R.id.share_image_qq);
+        image_shareqq.setOnClickListener(this);
+        ImageView image_shareweibo = (ImageView) popView.findViewById(R.id.share_image_weibo);
+        image_shareweibo.setOnClickListener(this);
     }
 
     public void setCollectedAndTitle(boolean collected, String title) {
@@ -137,7 +158,7 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
                 break;
             case R.id.detail_share://分享
                 Toast.makeText(this, "进入分享", Toast.LENGTH_SHORT).show();
-                sendMultiMessage();
+                mPopupWindow.showAtLocation(text_title, Gravity.BOTTOM, 0, 0);
                 break;
             case R.id.detail_send:
                 String trim = edit_txt.getText().toString().trim();
@@ -154,6 +175,14 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
                         startActivity(new Intent(BaseCommentAndShareActivity.this, LoginActivity.class));
                     }
                 }
+                break;
+            case R.id.share_text_blank://点击空白取消popupwindown
+                mPopupWindow.dismiss();
+                break;
+            case R.id.share_image_qq:
+                break;
+            case R.id.share_image_weibo:
+                sendMultiMessageByWb();
                 break;
         }
     }
@@ -247,7 +276,7 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
      * 注意：当 {@link IWeiboShareAPI#getWeiboAppSupportAPI()} >= 10351 时，支持同时分享多条消息，
      * 同时可以分享文本、图片以及其它媒体资源（网页、音乐、视频、声音中的一种）。
      */
-    private void sendMultiMessage() {
+    private void sendMultiMessageByWb() {
 
         // 1. 初始化微博的分享消息
         WeiboMultiMessage weiboMessage = new WeiboMultiMessage();

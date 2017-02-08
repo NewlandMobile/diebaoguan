@@ -13,5 +13,6 @@
     <color name="red">#ffD51924</color>
     <color name="deepgray">#acacac</color>
     <color name="dark_gray">#36393c</color>
+    <color name="translucent">#55000000</color>
 
 </resources>
