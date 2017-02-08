@@ -42,6 +42,10 @@ import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.WeiboAuthListener;
 import com.sina.weibo.sdk.constant.WBConstants;
 import com.sina.weibo.sdk.exception.WeiboException;
+import com.tencent.connect.share.QQShare;
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.Tencent;
+import com.tencent.tauth.UiError;
 
 /**
  * It's Created by NewLand-JianFeng on 2017/1/10.
@@ -59,6 +63,7 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
     private Runnable runnable;//在收藏取消时外部的操作
     private String mTitle;//标题
     private IWeiboShareAPI mWeiboShareAPI;//微博分享
+    private Tencent mTencent;//腾讯sdk
     private PopupWindow mPopupWindow;// 分享弹出界面
 
     protected void initPublicUI(String title, boolean showImage, int layoutId) {
@@ -74,6 +79,8 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
         hasLogin = MyAppication.getInstance().hasLogined();
         mWeiboShareAPI = WeiboShareSDK.createWeiboAPI(this, Const.KEY_WEIBO);
         mWeiboShareAPI.registerApp();    // 将应用注册到微博客户端
+        //对腾讯服务初始化
+        mTencent = Tencent.createInstance(Const.APP_ID, this);
     }
 
     public void changeCollectState(boolean collected) {
@@ -180,6 +187,7 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
                 mPopupWindow.dismiss();
                 break;
             case R.id.share_image_qq:
+                sendMessageByQQ();
                 break;
             case R.id.share_image_weibo:
                 sendMultiMessageByWb();
@@ -381,5 +389,46 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
                     break;
             }
         }
+        mPopupWindow.dismiss();
     }
+
+    /**
+     * qq分享
+     * SHARE_TO_QQ_KEY_TYPE必填 分享的类型。图文分享(普通分享)填Tencent.SHARE_TO_QQ_TYPE_DEFAULT
+     * QQShare.PARAM_TITLE必填 分享的标题, 最长30个字符。
+     * QQShare.PARAM_TARGET_URL必填 这条分享消息被好友点击后的跳转URL。
+     */
+    private void sendMessageByQQ() {
+        final Bundle params = new Bundle();
+        params.putInt(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_DEFAULT);
+        params.putString(QQShare.SHARE_TO_QQ_TITLE, "手机中国");
+        params.putString(QQShare.SHARE_TO_QQ_SUMMARY, "" + mTitle);
+        params.putString(QQShare.SHARE_TO_QQ_TARGET_URL, "http://www.cnmo.com/");
+        params.putString(QQShare.SHARE_TO_QQ_IMAGE_URL, "https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=851093657,93675911&fm=58&s=3A42C81284A05D01427C6DEE0");
+        params.putString(QQShare.SHARE_TO_QQ_APP_NAME, "shared by dbg");
+        mTencent.shareToQQ(this, params, new QQSharedUiListener());
+    }
+
+    class QQSharedUiListener implements IUiListener {
+
+        @Override
+        public void onCancel() {
+            Toast.makeText(BaseCommentAndShareActivity.this, getString(R.string.weibosdk_demo_toast_share_canceled), Toast.LENGTH_SHORT).show();
+            mPopupWindow.dismiss();
+        }
+
+        @Override
+        public void onComplete(Object arg0) {
+            Toast.makeText(BaseCommentAndShareActivity.this, getString(R.string.weibosdk_demo_toast_share_success), Toast.LENGTH_SHORT).show();
+            mPopupWindow.dismiss();
+        }
+
+        @Override
+        public void onError(UiError arg0) {
+            Toast.makeText(BaseCommentAndShareActivity.this, getString(R.string.weibosdk_demo_toast_share_failed), Toast.LENGTH_SHORT).show();
+            mPopupWindow.dismiss();
+        }
+
+    }
+
 }
