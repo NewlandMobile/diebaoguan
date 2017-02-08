@@ -141,4 +141,5 @@
     <string name="weibosdk_demo_toast_share_canceled">取消分享</string>
     <string name="weibosdk_demo_toast_share_response_args_success">收到微博发起的请求成功</string>
     <string name="weibosdk_demo_toast_share_response_args_failed">收到客户端请求消息失败</string>
+    <string name="isHaveSdcard">请先确认是否外部存储已经挂载</string>
 </resources>

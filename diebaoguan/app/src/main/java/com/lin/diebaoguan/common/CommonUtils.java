@@ -2,13 +2,18 @@ package com.lin.diebaoguan.common;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.SharedPreferencesCompat;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.View;
 
 import com.lin.diebaoguan.MyAppication;
 import com.lin.diebaoguan.R;
@@ -20,9 +25,15 @@ import com.lin.diebaoguan.network.send.NormalDS;
 import com.lin.diebaoguan.uibase.PullToRefreshBaseFragment;
 import com.lin.lib_volley_https.VolleyListener;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -394,5 +405,50 @@ public class CommonUtils<T extends BaseResponseTemplate> {
         String deviceId = manager.getDeviceId();
         return deviceId;
     }
+
+    /**
+     * 保存bitmap到指定位置
+     *
+     * @param view 图片源
+     */
+    public static void saveBitmapToSDCard(Context context, View view) {
+        Bitmap mBitmap = convertViewToBitmap(view);
+        String absolutePath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        LogUtils.e("===absolutePath==="+absolutePath);
+        String dir =absolutePath + "/diebaoguan/pic/";
+        //通过时间来命名，如果1s内要存储多份文件，最好要加上文件名的判断，以防重复
+        Calendar now = new GregorianCalendar();
+        SimpleDateFormat simpleDate = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
+        String fileName = simpleDate.format(now.getTime());
+        try {
+            File file = new File(dir + fileName + ".jpg");
+            FileOutputStream out = new FileOutputStream(file);
+            mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            out.flush();
+            out.close();
+            //将Bitmap对象保存成外部存储中的一个jpg格式的文件。但此时该文件只是保存在外部存储的一个目录中，
+            // 必须进入其所在的目录中才可以看到。在系统图库，相册和其他应用中无法看到新建的图片文件。
+            //保存图片后发送广播通知更新数据库
+            Uri uri = Uri.fromFile(file);
+            context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 将view装成bitmap
+     *
+     * @param view
+     * @return
+     */
+    public static Bitmap convertViewToBitmap(View view) {
+        view.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+        view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+        view.buildDrawingCache();
+        Bitmap bitmap = view.getDrawingCache();
+        return bitmap;
+    }
+
 }
 

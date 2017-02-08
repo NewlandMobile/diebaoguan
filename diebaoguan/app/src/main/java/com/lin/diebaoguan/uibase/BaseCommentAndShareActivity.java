@@ -65,6 +65,7 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
     private IWeiboShareAPI mWeiboShareAPI;//微博分享
     private Tencent mTencent;//腾讯sdk
     private PopupWindow mPopupWindow;// 分享弹出界面
+    protected View mCurrenView;//将要保存的view
 
     protected void initPublicUI(String title, boolean showImage, int layoutId) {
         initTitleBar(title, true, true, showImage, layoutId);
@@ -95,10 +96,10 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
 
         TextView textView = (TextView) findViewById(R.id.detail_textview);
         Button btn_share = (Button) findViewById(R.id.detail_share);
+        Button btn_send = (Button) findViewById(R.id.detail_send);
         image_collect = (ImageView) findViewById(R.id.detail_collect);
         rl1 = (RelativeLayout) findViewById(R.id.rl1);
         rl2 = (RelativeLayout) findViewById(R.id.rl2);
-        Button btn_send = (Button) findViewById(R.id.detail_send);
         edit_txt = (EditText) findViewById(R.id.detail_edit);
 
         btn_send.setOnClickListener(this);
@@ -429,6 +430,10 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
             mPopupWindow.dismiss();
         }
 
+    }
+
+    public void setView(View mCurrenView) {
+        this.mCurrenView = mCurrenView;
     }
 
 }

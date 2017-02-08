@@ -2,6 +2,7 @@ package com.lin.diebaoguan.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -9,8 +10,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lin.diebaoguan.R;
+import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.IMAGEUtils;
 import com.lin.diebaoguan.common.LogUtils;
 import com.lin.diebaoguan.network.bean.Data;
@@ -46,6 +49,8 @@ public class GyjOriginalDetailsActivity extends BaseCommentAndShareActivity {
     int picCount = 0;
     private String[] urls;
     private Data data;
+
+    private View mCurrentView;//当前的viewpager's item
 //    private String picId;
 
     @Override
@@ -159,6 +164,7 @@ public class GyjOriginalDetailsActivity extends BaseCommentAndShareActivity {
             @Override
             public void onPageSelected(int position) {
                 LogUtils.d("position:" + position);
+
                 tv_pageNum.setText((position + 1) + "/" + picCount);
             }
 
@@ -217,6 +223,16 @@ public class GyjOriginalDetailsActivity extends BaseCommentAndShareActivity {
 //            LogUtils.d("after removeView at"+position);
 //            container.removeView();
         }
+
+        @Override
+        public void setPrimaryItem(ViewGroup container, int position, Object object) {
+//           super.setPrimaryItem(container, position, object);//这一步在源码中其实什么都没有实现，可以去掉
+            //因为该方法是在selected之后才执行，所以操作应该放在当前方法中，不可放在onPageSelected中
+            mCurrentView = (View) object;
+            setView(mCurrentView);
+
+
+        }
     }
 
     private void initView() {
@@ -230,7 +246,16 @@ public class GyjOriginalDetailsActivity extends BaseCommentAndShareActivity {
         detail_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO  保存
+                Toast.makeText(GyjOriginalDetailsActivity.this, "进入保存", Toast.LENGTH_SHORT).show();
+                //获取内部存储状态
+                String state = Environment.getExternalStorageState();
+                //如果状态不是mounted，无法读写
+                if (!state.equals(Environment.MEDIA_MOUNTED)) {
+                    Toast.makeText(GyjOriginalDetailsActivity.this, R.string.isHaveSdcard, Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    CommonUtils.saveBitmapToSDCard(GyjOriginalDetailsActivity.this, mCurrenView);
+                }
             }
         });
 //        detail_share = (Button) findViewById(R.id.detail_share);

@@ -24,4 +24,5 @@ dependencies {
     compile project(':lib_volley_https')
     compile files('libs/jsoup-1.10.2.jar')
     compile project(':weiboSDK')
+    compile files('libs/open_sdk_r5781.jar')
 }
