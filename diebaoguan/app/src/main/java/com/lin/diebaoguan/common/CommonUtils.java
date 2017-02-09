@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
@@ -451,10 +452,18 @@ public class CommonUtils<T extends BaseResponseTemplate> {
      * @return
      */
     public static Bitmap convertViewToBitmap(View view) {
-        view.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-        view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
-        view.buildDrawingCache();
-        Bitmap bitmap = view.getDrawingCache();
+//        view.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+//        view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+//        view.buildDrawingCache();
+//        Bitmap bitmap = view.getDrawingCache();
+//        Bitmap copy = bitmap.copy(Bitmap.Config.ARGB_8888, true);
+        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(),
+                Bitmap.Config.ARGB_8888);
+        //利用bitmap生成画布
+        Canvas canvas = new Canvas(bitmap);
+
+        //把view中的内容绘制在画布上
+        view.draw(canvas);
         return bitmap;
     }
 
