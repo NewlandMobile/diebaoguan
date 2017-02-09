@@ -31,7 +31,7 @@ public class IMAGEUtils {
         @Override
         public void onLoadingComplete(String imageUri, View view,
                                       Bitmap loadedImage) {
-            LogUtils.d("imageUri:"+imageUri);
+            LogUtils.d("imageUri:" + imageUri);
             if (loadedImage != null) {
                 ImageView imageView = (ImageView) view;
                 boolean firstDisplay = !displayedImages.contains(imageUri);
@@ -52,11 +52,17 @@ public class IMAGEUtils {
     public static void displayImage(String imageUrls, ImageView mImageView) {
         // 如果 要屏蔽图片下载 就不执行具体
         if (MyAppication.isBlockImage()) {
+            if (MyAppication.isWifi()) {
+                initOptions();
+                ImageLoader.getInstance().displayImage(imageUrls, mImageView, options, animateFirstListener);
+            } else {
+                mImageView.setBackgroundResource(R.drawable.default_article_list);
+            }
             return;
+        } else {
+            initOptions();
+            ImageLoader.getInstance().displayImage(imageUrls, mImageView, options, animateFirstListener);
         }
-        initOptions();
-        ImageLoader.getInstance().displayImage(imageUrls, mImageView, options,
-                animateFirstListener);
     }
 
     /**

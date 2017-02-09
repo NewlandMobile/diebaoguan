@@ -1,11 +1,16 @@
 package com.lin.diebaoguan;
 
 import android.app.Application;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 
 import com.lin.diebaoguan.common.CommonUtils;
+import com.lin.diebaoguan.common.LogUtils;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -23,6 +28,8 @@ public class MyAppication extends Application {
     private static String uid = null;
     private static String key = null;
     private static String userName = null;
+    private static boolean isWifi = false;//网络类型是否是wifi状态
+
     private static final String uidSPKey = "uid", keySPKey = "key", firstRunSPKey = "isFirstRun", userNameSPKey = "userName";
     //是否是第一次运行
     private static boolean isFirstRun = false;
@@ -39,6 +46,23 @@ public class MyAppication extends Application {
 
     private static HashMap<String, Fragment> fragment_map = new HashMap<>();
 
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            LogUtils.e("======");
+            initNetworkType();
+        }
+    };
+
+    /**
+     * 获取是否是wifi
+     *
+     * @return
+     */
+    public static boolean isWifi() {
+        return isWifi;
+    }
+
 
     @Override
     public void onCreate() {
@@ -46,6 +70,21 @@ public class MyAppication extends Application {
         myAppication = this;
         initGlobalValiable();
         initImageLoader(getApplicationContext());
+        initNetworkType();
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(receiver, filter);
+    }
+
+    /**
+     * 判断当前网络状态
+     */
+    private void initNetworkType() {
+        String networkType = CommonUtils.getNetworkType(this);
+        if ("Wi-Fi".equals(networkType)) {
+            isWifi = true;
+        } else {
+            isWifi = false;
+        }
     }
 
     /**
@@ -160,7 +199,6 @@ public class MyAppication extends Application {
      * @param context
      */
     private void initImageLoader(Context context) {
-
         // 使用默认的配置
         // ImageLoaderConfiguration configuration =
         // ImageLoaderConfiguration.createDefault(this);
