@@ -2,6 +2,7 @@ package com.lin.diebaoguan.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -9,8 +10,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lin.diebaoguan.R;
+import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.IMAGEUtils;
 import com.lin.diebaoguan.uibase.BaseCommentAndShareActivity;
 
@@ -40,6 +43,7 @@ public class AmzDetailActivity extends BaseCommentAndShareActivity {
     private String contentStr = "";//文章内容
     private MyViewPagerAdapter adapter;
     private String title;
+    private View mCurrentView;//当前的viewpager's item
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +60,16 @@ public class AmzDetailActivity extends BaseCommentAndShareActivity {
         detail_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO  保存
+                Toast.makeText(AmzDetailActivity.this, "进入保存", Toast.LENGTH_SHORT).show();
+                //获取内部存储状态
+                String state = Environment.getExternalStorageState();
+                //如果状态不是mounted，无法读写
+                if (!state.equals(Environment.MEDIA_MOUNTED)) {
+                    Toast.makeText(AmzDetailActivity.this, R.string.isHaveSdcard, Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    CommonUtils.saveBitmapToSDCard(AmzDetailActivity.this, mCurrentView);
+                }
             }
         });
         tv_content = (TextView) findViewById(R.id.tv_content);
@@ -78,7 +91,9 @@ public class AmzDetailActivity extends BaseCommentAndShareActivity {
             title = jsonObject.getString("title");
             tv_title.setText(title);
             isCollected = jsonObject.getString("isCollected");
+            int cid = jsonObject.getInt("cid");
             setCollectedAndTitle("1".equals(isCollected), title);
+            setCid(cid);
             JSONArray content = jsonObject.getJSONArray("content");
             for (int i = 0; i < content.length(); i++) {
                 contentStr = (String) content.get(i);
@@ -148,6 +163,12 @@ public class AmzDetailActivity extends BaseCommentAndShareActivity {
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView((View) object);
+        }
+        @Override
+        public void setPrimaryItem(ViewGroup container, int position, Object object) {
+//           super.setPrimaryItem(container, position, object);//这一步在源码中其实什么都没有实现，可以去掉
+            //因为该方法是在selected之后才执行，所以操作应该放在当前方法中，不可放在onPageSelected中
+            mCurrentView = (View) object;
         }
     }
 

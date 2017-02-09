@@ -59,8 +59,6 @@ public class GyjOriginalDetailsActivity extends BaseCommentAndShareActivity {
         initPublicUI(getString(R.string.picdetail), true,
                 R.layout.activity_gyj_original_details);
         initShowMoreImageBtn();
-//        initTitleBar(getString(R.string.JingPinOrigin), true, true, true, R.layout.activity_gyj_original_details);
-//        iniTitleButton();
         initView();
         data = (Data) getIntent().getSerializableExtra("Data");
         if (data != null) {
@@ -89,35 +87,6 @@ public class GyjOriginalDetailsActivity extends BaseCommentAndShareActivity {
             }
         });
     }
-
-//    private void iniTitleButton() {
-//        btn_back.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
-//        imageView_allpic.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent=new Intent(GyjOriginalDetailsActivity.this,GyjDetailPicActivity.class);
-//                intent.putExtra("Data",data);
-////                intent.putExtra("Title",tv_title.getText());
-////                intent.putExtra("Pics",urls);
-//                startActivityForResult(intent,1);
-////                startActivity(intent);
-////                viewPager_gyj.setCurrentItem();
-//            }
-//        });
-//        btn_comments.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent=new Intent(GyjOriginalDetailsActivity.this,CommentActivity.class);
-//                intent.putExtra("docid",picId);
-//                startActivity(intent);
-//            }
-//        });
-//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -150,8 +119,6 @@ public class GyjOriginalDetailsActivity extends BaseCommentAndShareActivity {
         cachViewsList = new ArrayList<>(4);
         for (int i = 0; i < 4; i++) {
             ImageView imageView = new ImageView(this);
-//            IMAGEUtils.displayImage(url,imageView);
-//            viewPager_gyj.addView(imageView);
             cachViewsList.add(imageView);
         }
         viewPager_gyj.setAdapter(adapter);
@@ -186,16 +153,11 @@ public class GyjOriginalDetailsActivity extends BaseCommentAndShareActivity {
 
         @Override
         public boolean isViewFromObject(View view, Object object) {
-//            LogUtils.d("View:"+view+";Object:"+object);
             return view.equals(object);
-//            return true;
         }
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-//            String url=urls[position];
-//            ImageView imageView=new ImageView(GyjOriginalDetailsActivity.this);
-//            IMAGEUtils.displayImage(url,imageView);
 
             ImageView view = null;
             if (cachViewsList.size() != 0) {
@@ -208,8 +170,6 @@ public class GyjOriginalDetailsActivity extends BaseCommentAndShareActivity {
             }
             IMAGEUtils.displayImage(urls[position], view);
             viewPager_gyj.addView(view);
-//            LogUtils.d("after addView at"+position);
-//            return super.instantiateItem(container, position);
             return view;
         }
 
@@ -232,11 +192,6 @@ public class GyjOriginalDetailsActivity extends BaseCommentAndShareActivity {
     }
 
     private void initView() {
-
-//        detail_textview = (TextView) findViewById(R.id.detail_textview);
-//        detail_textview.setOnClickListener(this);
-//        detail_collect = (ImageView) findViewById(R.id.detail_collect);
-//        detail_collect.setOnClickListener(this);
         detail_save = (Button) findViewById(R.id.detail_save);
         detail_save.setVisibility(View.VISIBLE);
         detail_save.setOnClickListener(new View.OnClickListener() {
@@ -254,16 +209,6 @@ public class GyjOriginalDetailsActivity extends BaseCommentAndShareActivity {
                 }
             }
         });
-//        detail_share = (Button) findViewById(R.id.detail_share);
-//        detail_share.setOnClickListener(this);
-//        rl1 = (LinearLayout) findViewById(R.id.rl1);
-//        detail_send = (Button) findViewById(R.id.detail_send);
-//        detail_send.setOnClickListener(this);
-//        detail_edit = (EditText) findViewById(R.id.detail_edit);
-//        detail_edit.setOnClickListener(this);
-//        rl2 = (RelativeLayout) findViewById(R.id.rl2);
-//        rl2.setOnClickListener(this);
-//        relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
         tv_content = (TextView) findViewById(R.id.tv_content);
         tv_title = (TextView) findViewById(R.id.tv_title);
         tv_pageNum = (TextView) findViewById(R.id.tv_pageNum);
@@ -274,10 +219,7 @@ public class GyjOriginalDetailsActivity extends BaseCommentAndShareActivity {
                 changeShowMoreState();
             }
         });
-//        ll_title_part = (LinearLayout) findViewById(R.id.ll_title_part);
         viewPager_gyj = (ViewPager) findViewById(R.id.viewPager_gyj);
-//        viewPager_gyj.setCurrentItem();
-//        viewPager_gyj.setOnClickListener(this);
     }
 
     private void changeShowMoreState() {
@@ -289,15 +231,4 @@ public class GyjOriginalDetailsActivity extends BaseCommentAndShareActivity {
         }
         showMoreImageView.setSelected(!isSelect);
     }
-
-//    private void submit() {
-//        // validate
-//        String edit = detail_edit.getText().toString().trim();
-//        if (TextUtils.isEmpty(edit)) {
-//            Toast.makeText(this, "edit不能为空", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//
-//    }
 }
