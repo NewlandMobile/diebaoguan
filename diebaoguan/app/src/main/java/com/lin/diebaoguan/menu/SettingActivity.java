@@ -146,6 +146,8 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
                 break;
             case R.id.setting_rl_goto_clear_cache:
                 showToast("清除缓存");
+
+
                 break;
             case R.id.setting_rl_goto_push_server:
 //                showToast("推送服务");
