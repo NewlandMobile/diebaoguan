@@ -56,7 +56,7 @@ public class GyjOriginalDetailsActivity extends BaseCommentAndShareActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initPublicUI(getString(R.string.JingPinOrigin), true,
+        initPublicUI(getString(R.string.picdetail), true,
                 R.layout.activity_gyj_original_details);
         initShowMoreImageBtn();
 //        initTitleBar(getString(R.string.JingPinOrigin), true, true, true, R.layout.activity_gyj_original_details);
@@ -164,7 +164,6 @@ public class GyjOriginalDetailsActivity extends BaseCommentAndShareActivity {
             @Override
             public void onPageSelected(int position) {
                 LogUtils.d("position:" + position);
-
                 tv_pageNum.setText((position + 1) + "/" + picCount);
             }
 
@@ -229,9 +228,6 @@ public class GyjOriginalDetailsActivity extends BaseCommentAndShareActivity {
 //           super.setPrimaryItem(container, position, object);//这一步在源码中其实什么都没有实现，可以去掉
             //因为该方法是在selected之后才执行，所以操作应该放在当前方法中，不可放在onPageSelected中
             mCurrentView = (View) object;
-            setView(mCurrentView);
-
-
         }
     }
 
@@ -254,7 +250,7 @@ public class GyjOriginalDetailsActivity extends BaseCommentAndShareActivity {
                     Toast.makeText(GyjOriginalDetailsActivity.this, R.string.isHaveSdcard, Toast.LENGTH_SHORT).show();
                     return;
                 } else {
-                    CommonUtils.saveBitmapToSDCard(GyjOriginalDetailsActivity.this, mCurrenView);
+                    CommonUtils.saveBitmapToSDCard(GyjOriginalDetailsActivity.this, mCurrentView);
                 }
             }
         });

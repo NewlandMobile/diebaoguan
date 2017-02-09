@@ -65,7 +65,6 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
     private IWeiboShareAPI mWeiboShareAPI;//微博分享
     private Tencent mTencent;//腾讯sdk
     private PopupWindow mPopupWindow;// 分享弹出界面
-    protected View mCurrenView;//将要保存的view
 
     protected void initPublicUI(String title, boolean showImage, int layoutId) {
         initTitleBar(title, true, true, showImage, layoutId);
@@ -431,9 +430,4 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
         }
 
     }
-
-    public void setView(View mCurrenView) {
-        this.mCurrenView = mCurrenView;
-    }
-
 }

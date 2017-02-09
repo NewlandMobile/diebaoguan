@@ -413,16 +413,24 @@ public class CommonUtils<T extends BaseResponseTemplate> {
      */
     public static void saveBitmapToSDCard(Context context, View view) {
         Bitmap mBitmap = convertViewToBitmap(view);
-        String absolutePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-        LogUtils.e("===absolutePath==="+absolutePath);
-        String dir =absolutePath + "/diebaoguan/pic/";
+        String absolutePath = Environment.getExternalStorageDirectory().getPath();
+        LogUtils.e("===absolutePath===" + absolutePath);
+        String dir = absolutePath + "/diebaoguan/pic/";
         //通过时间来命名，如果1s内要存储多份文件，最好要加上文件名的判断，以防重复
         Calendar now = new GregorianCalendar();
         SimpleDateFormat simpleDate = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
         String fileName = simpleDate.format(now.getTime());
         try {
-            File file = new File(dir + fileName + ".jpg");
-            FileOutputStream out = new FileOutputStream(file);
+            File file = new File(dir);
+            if (!file.exists()) {
+                //多层文件目录
+                file.mkdirs();
+            }
+            File file1 = new File(dir + fileName + ".jpg");
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileOutputStream out = new FileOutputStream(file1);
             mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
             out.flush();
             out.close();

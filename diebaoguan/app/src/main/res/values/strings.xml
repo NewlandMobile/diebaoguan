@@ -31,6 +31,7 @@
     <string name="collectedfailed">收藏（取消）失败</string>
     <string name="startexperience">开始体验</string>
     <string name="aimeizhi">爱美志</string>
+    <string name="picdetail">图片详情</string>
 
     <!--menu-->
     <string name="aboutwe">关于我们</string>
