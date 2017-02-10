@@ -146,4 +146,5 @@
     <string name="toclearthecache">确定清楚缓存吗？</string>
     <string name="clear">清除</string>
     <string name="cacle">取消</string>
+    <string name="pleaseselectpushsetting">请先选择推送设置</string>
 </resources>

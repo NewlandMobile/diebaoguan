@@ -654,7 +654,8 @@ public class CommonUtils<T extends BaseResponseTemplate> {
     }
 
     /**
-     * 删除方法 这里只会删除某个文件夹下的文件，如果传入的directory是个文件，将不做处理 * * @param directory
+     * 删除方法 这里只会删除某个文件夹下的文件
+     * @param dir
      */
     private static boolean deleteFilesByDirectory(File dir) {
 
@@ -668,14 +669,6 @@ public class CommonUtils<T extends BaseResponseTemplate> {
             }
         }
         return dir.delete();
-//        if (directory != null && directory.exists() && directory.isDirectory()) {
-//                    for (File item : directory.listFiles()) {
-//                        String name = item.getName();
-//                        LogUtils.e("==name==" + name);
-//                        item.delete();
-//
-//                    }
-//        }
     }
 
     /**

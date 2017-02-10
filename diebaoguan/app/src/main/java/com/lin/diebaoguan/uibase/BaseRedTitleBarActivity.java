@@ -26,7 +26,6 @@ public class BaseRedTitleBarActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
         initTitleViews();
-
     }
 
     /**

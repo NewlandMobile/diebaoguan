@@ -29,6 +29,7 @@ public class MyAppication extends Application {
     private static String key = null;
     private static String userName = null;
     private static boolean isWifi = false;//网络类型是否是wifi状态
+    private static boolean isPushNotification = false;//判断是否需要开启推送服务
 
     private static final String uidSPKey = "uid", keySPKey = "key", firstRunSPKey = "isFirstRun", userNameSPKey = "userName";
     //是否是第一次运行
@@ -63,6 +64,15 @@ public class MyAppication extends Application {
         return isWifi;
     }
 
+    public static boolean isPushNotification() {
+        return isPushNotification;
+    }
+
+    public static void setIsPushNotification(boolean isPushNotification) {
+        MyAppication.isPushNotification = isPushNotification;
+        CommonUtils.saveBySp(MyAppication.getInstance(), "isPushNotification", isPushNotification);
+    }
+
 
     @Override
     public void onCreate() {
@@ -95,6 +105,7 @@ public class MyAppication extends Application {
         textSizeZoom = (int) CommonUtils.getSp(this, "textSizeZoom", 100);
         settingWifi = (boolean) CommonUtils.getSp(this, "settingWifi", false);
         offlineDownload = (boolean) CommonUtils.getSp(this, "offlineDownload", false);
+        isPushNotification = (boolean) CommonUtils.getSp(this, "isPushNotification", false);
 //        TODO  把设置项都初始化  从SP获取
     }
 
