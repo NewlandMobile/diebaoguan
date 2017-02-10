@@ -14,5 +14,6 @@
     <color name="deepgray">#acacac</color>
     <color name="dark_gray">#36393c</color>
     <color name="translucent">#55000000</color>
+    <color name="deepblue">#354855</color>
 
 </resources>

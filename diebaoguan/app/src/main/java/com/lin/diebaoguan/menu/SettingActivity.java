@@ -40,6 +40,7 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
     private CheckBox setting_checkbox_offline_download;
     private TextView setting_tv_item_instruction_cache;
     private Button btn_login;
+    private Dialog clearDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,6 +135,14 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
         findViewById(R.id.setting_rl_goto_guide).setOnClickListener(this);
         btn_login = (Button) findViewById(R.id.btn_login_or_logout);
         btn_login.setOnClickListener(this);
+        //设置缓存大小
+        String totalCacheSize = null;
+        try {
+            totalCacheSize = CommonUtils.getTotalCacheSize(this);
+            setting_tv_item_instruction_cache.setText("" + totalCacheSize);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -146,8 +155,7 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
                 break;
             case R.id.setting_rl_goto_clear_cache:
                 showToast("清除缓存");
-
-
+                GreateClearCacheDialog();
                 break;
             case R.id.setting_rl_goto_push_server:
 //                showToast("推送服务");
@@ -174,7 +182,30 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
                     finish();
                 }
                 break;
+            case R.id.clear_sure:
+                CommonUtils.cleanInternalCache(this);
+                setting_tv_item_instruction_cache.setText("0k");
+                clearDialog.dismiss();
+                break;
+            case R.id.clear_cancle:
+                clearDialog.dismiss();
+                break;
         }
+    }
+
+    /**
+     * 创建清楚缓存dialog
+     */
+    private void GreateClearCacheDialog() {
+        clearDialog = new Dialog(this, R.style.MyDialog);
+        View inflate = getLayoutInflater().inflate(R.layout.view_clear, null);
+        clearDialog.setContentView(inflate);
+        clearDialog.setCanceledOnTouchOutside(true);
+        clearDialog.show();
+        TextView text_clear = (TextView) inflate.findViewById(R.id.clear_sure);
+        TextView text_cancle = (TextView) inflate.findViewById(R.id.clear_cancle);
+        text_clear.setOnClickListener(this);
+        text_cancle.setOnClickListener(this);
     }
 
     private void showTextSizeChooseDialog() {

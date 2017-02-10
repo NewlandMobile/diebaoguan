@@ -169,8 +169,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case 3://版本更新
                 getUpdateInfo();
-
-
                 break;
             case 4:
                 startActivity(new Intent(this, SettingActivity.class));
@@ -270,6 +268,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
+    /**
+     * 版本更新
+     *
+     * @return
+     */
     public String getUpdateInfo() {
         final ProgressDialog dialog = CommonUtils.showProgressDialog(this, "", "正在获取版本信息");
         dialog.show();
@@ -311,6 +314,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         updateDialog = new Dialog(this, R.style.MyDialog);
         View inflate = getLayoutInflater().inflate(R.layout.view_updateapp, null);
         updateDialog.setContentView(inflate);
+        updateDialog.setCanceledOnTouchOutside(true);
         updateDialog.show();
         ImageView imageView = (ImageView) inflate.findViewById(R.id.update_cancle);
         imageView.setOnClickListener(this);
