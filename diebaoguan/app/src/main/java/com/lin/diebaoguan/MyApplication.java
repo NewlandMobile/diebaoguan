@@ -35,7 +35,7 @@ public class MyApplication extends Application {
     //是否是第一次运行
     private static boolean isFirstRun = false;
     //是否已登录
-    private static boolean isLogined;
+//    private static boolean isLogined;
 
     private static boolean blockImage = false;
 
