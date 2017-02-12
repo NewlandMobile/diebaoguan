@@ -34,17 +34,11 @@ public class AiMeiFangFragment extends BaseFragment {
         if (view == null) {
             view = super.onCreateView(inflater, container, savedInstanceState);
             FragmentManager fragmentManager = getFragmentManager();//获得管理器
+            // 这手偷梁换柱真是漂亮
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();//开启一个新事务
             fragmentTransaction.add(R.id.framelayout, new FSBAiMeiFangFragment());
             fragmentTransaction.commit();
         }
         return view;
     }
-
-//    @Override
-//    public void onDestroyView() {
-//        ViewGroup parent = (ViewGroup) view.getParent();
-//        parent.removeView(view);
-//        super.onDestroyView();
-//    }
 }
