@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.lin.diebaoguan.MyAppication;
+import com.lin.diebaoguan.MyApplication;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.Const;
@@ -188,8 +188,8 @@ public class BaseCollectFragment extends PullToRefreshBaseFragment {
         articleCollectDS.setModule("api_libraries_sjdbg_articlecollect");
         articleCollectDS.setDocid(docid);
         articleCollectDS.setCid(cid);
-        articleCollectDS.setAuthkey(MyAppication.getKey());
-        articleCollectDS.setUid(MyAppication.getUid());
+        articleCollectDS.setAuthkey(MyApplication.getKey());
+        articleCollectDS.setUid(MyApplication.getUid());
         articleCollectDS.setMethod("cancel");
         articleCollectDS.initTimePart();
         CommonUtils.httpPost(articleCollectDS.parseParams(), collectListener);

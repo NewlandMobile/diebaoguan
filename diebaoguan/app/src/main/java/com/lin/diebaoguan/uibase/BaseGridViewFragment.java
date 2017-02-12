@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
-import com.lin.diebaoguan.MyAppication;
+import com.lin.diebaoguan.MyApplication;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.activity.GyjOriginalDetailsActivity;
 import com.lin.diebaoguan.common.CommonUtils;
@@ -91,7 +91,7 @@ public abstract class BaseGridViewFragment extends PullToRefreshBaseFragment {
         NormalDS params = new NormalDS();
         params.setPicid(picid);
         params.setModule("api_libraries_sjdbg_tudetail");
-        params.setUid(MyAppication.getUid());
+        params.setUid(MyApplication.getUid());
         params.setSize(500);
         CommonUtils.normalGetWayFetch(params, this, new VolleyListener() {
             @Override

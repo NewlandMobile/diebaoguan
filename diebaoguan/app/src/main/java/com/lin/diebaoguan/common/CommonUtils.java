@@ -18,7 +18,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 
-import com.lin.diebaoguan.MyAppication;
+import com.lin.diebaoguan.MyApplication;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.network.response.BaseResponseTemplate;
 import com.lin.diebaoguan.network.send.BaseSendTemplate;
@@ -104,7 +104,7 @@ public class CommonUtils<T extends BaseResponseTemplate> {
      * @param volleyListener
      */
     public static void httpPost(Map<String, String> params, VolleyListener volleyListener) {
-        com.lin.lib_volley_https.HTTPUtils.post(MyAppication.getInstance(), URL, params, volleyListener);
+        com.lin.lib_volley_https.HTTPUtils.post(MyApplication.getInstance(), URL, params, volleyListener);
     }
 
     /**
@@ -115,7 +115,7 @@ public class CommonUtils<T extends BaseResponseTemplate> {
      * @param volleyListener
      */
     public static void httpPost(Fragment fragment, Map<String, String> params, VolleyListener volleyListener) {
-        HttpUtils.post(MyAppication.getInstance(), fragment, URL, params, volleyListener);
+        HttpUtils.post(MyApplication.getInstance(), fragment, URL, params, volleyListener);
     }
 
     /**
@@ -125,7 +125,7 @@ public class CommonUtils<T extends BaseResponseTemplate> {
      * @param volleyListener
      */
     public static void httpGet(String url, VolleyListener volleyListener) {
-        com.lin.lib_volley_https.HTTPUtils.get(MyAppication.getInstance(), url, volleyListener);
+        com.lin.lib_volley_https.HTTPUtils.get(MyApplication.getInstance(), url, volleyListener);
     }
 
     /**
@@ -148,7 +148,7 @@ public class CommonUtils<T extends BaseResponseTemplate> {
         url = URL + "?" + encodedParams.toString();
         String finalUrl = url.substring(0, url.length() - 1);
         Log.e("get请求带参数", "==URL：" + finalUrl);
-        com.lin.lib_volley_https.HTTPUtils.get(MyAppication.getInstance(), finalUrl, volleyListener);
+        com.lin.lib_volley_https.HTTPUtils.get(MyApplication.getInstance(), finalUrl, volleyListener);
     }
 
     /**
@@ -172,7 +172,7 @@ public class CommonUtils<T extends BaseResponseTemplate> {
         url = URL + "?" + encodedParams.toString();
         String finalUrl = url.substring(0, url.length() - 1);
         Log.e("get请求带参数", "==URL：" + finalUrl);
-        HttpUtils.get(MyAppication.getInstance(), fragment, finalUrl, volleyListener);
+        HttpUtils.get(MyApplication.getInstance(), fragment, finalUrl, volleyListener);
     }
 
     /**
@@ -276,11 +276,11 @@ public class CommonUtils<T extends BaseResponseTemplate> {
      */
     public static void sendComment(String content, String docid, VolleyListener volleyListener) {
         CommentDS commentDS = new CommentDS();
-        commentDS.setAuthkey(MyAppication.getKey());
+        commentDS.setAuthkey(MyApplication.getKey());
         commentDS.setModule("api_libraries_sjdbg_comment");
         commentDS.setDocid(docid);
-        commentDS.setUsername(MyAppication.getUserName());
-        commentDS.setUid(MyAppication.getUid());
+        commentDS.setUsername(MyApplication.getUserName());
+        commentDS.setUid(MyApplication.getUid());
         commentDS.setContent(content);
         commentDS.initTimePart();
 
@@ -390,8 +390,8 @@ public class CommonUtils<T extends BaseResponseTemplate> {
         CollectListDS collectListDS = new CollectListDS();
         collectListDS.setModule("api_libraries_sjdbg_collectlist");
         collectListDS.setCid("" + cid);
-        if (MyAppication.hasLogined()) {
-            collectListDS.setUid(MyAppication.getUid());
+        if (MyApplication.hasLogined()) {
+            collectListDS.setUid(MyApplication.getUid());
         }
         collectListDS.setOffset("" + pageOffset);
         collectListDS.initTimePart();

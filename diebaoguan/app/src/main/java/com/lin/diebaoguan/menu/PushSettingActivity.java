@@ -5,7 +5,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Toast;
 
-import com.lin.diebaoguan.MyAppication;
+import com.lin.diebaoguan.MyApplication;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.uibase.BaseRedTitleBarActivity;
 
@@ -29,7 +29,7 @@ public class PushSettingActivity extends BaseRedTitleBarActivity implements Comp
         cb_sound.setOnCheckedChangeListener(this);
         cb_vibration.setOnCheckedChangeListener(this);
 
-        cb_notification.setChecked(MyAppication.isPushNotification());
+        cb_notification.setChecked(MyApplication.isPushNotification());
     }
 
     @Override
@@ -37,7 +37,7 @@ public class PushSettingActivity extends BaseRedTitleBarActivity implements Comp
         switch (buttonView.getId()) {
             case R.id.setting_push_notifications:
                 //传到application进行保存，并且此时开启获取推送的服务
-                MyAppication.setIsPushNotification(isChecked);
+                MyApplication.setIsPushNotification(isChecked);
                 if (isChecked) {//开启服务
 //startService(new Intent())
                 } else {//关闭服务
@@ -47,14 +47,14 @@ public class PushSettingActivity extends BaseRedTitleBarActivity implements Comp
 
                 break;
             case R.id.setting_sound:
-                if (MyAppication.isPushNotification()) {
+                if (MyApplication.isPushNotification()) {
 
                 } else {
                     Toast.makeText(this, R.string.pleaseselectpushsetting, Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.setting_Vibration:
-                if (MyAppication.isPushNotification()) {
+                if (MyApplication.isPushNotification()) {
 
                 } else {
                     Toast.makeText(this, R.string.pleaseselectpushsetting, Toast.LENGTH_SHORT).show();

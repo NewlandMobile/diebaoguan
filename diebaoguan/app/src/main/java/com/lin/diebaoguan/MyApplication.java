@@ -22,9 +22,9 @@ import java.util.HashMap;
  * It's Created by NewLand-JianFeng on 2016/12/27.
  */
 
-public class MyAppication extends Application {
+public class MyApplication extends Application {
 
-    private static MyAppication myAppication;
+    private static MyApplication myAppication;
     private static String uid = null;
     private static String key = null;
     private static String userName = null;
@@ -69,8 +69,8 @@ public class MyAppication extends Application {
     }
 
     public static void setIsPushNotification(boolean isPushNotification) {
-        MyAppication.isPushNotification = isPushNotification;
-        CommonUtils.saveBySp(MyAppication.getInstance(), "isPushNotification", isPushNotification);
+        MyApplication.isPushNotification = isPushNotification;
+        CommonUtils.saveBySp(MyApplication.getInstance(), "isPushNotification", isPushNotification);
     }
 
 
@@ -130,13 +130,13 @@ public class MyAppication extends Application {
 
     public static void logout() {
         //TODO  退出账号  删除 账户相关信息
-        CommonUtils.deleteSp(MyAppication.getInstance(), uidSPKey);
-        CommonUtils.deleteSp(MyAppication.getInstance(), keySPKey);
+        CommonUtils.deleteSp(MyApplication.getInstance(), uidSPKey);
+        CommonUtils.deleteSp(MyApplication.getInstance(), keySPKey);
     }
 
-    public static MyAppication getInstance() {
+    public static MyApplication getInstance() {
         if (myAppication == null) {
-            myAppication = new MyAppication();
+            myAppication = new MyApplication();
         }
         return myAppication;
     }
@@ -146,8 +146,8 @@ public class MyAppication extends Application {
     }
 
     public static void setUid(String uid) {
-        MyAppication.uid = uid;
-        CommonUtils.saveBySp(MyAppication.getInstance(), uidSPKey, uid);
+        MyApplication.uid = uid;
+        CommonUtils.saveBySp(MyApplication.getInstance(), uidSPKey, uid);
     }
 
     public static String getKey() {
@@ -155,8 +155,8 @@ public class MyAppication extends Application {
     }
 
     public static void setKey(String key) {
-        MyAppication.key = key;
-        CommonUtils.saveBySp(MyAppication.getInstance(), keySPKey, key);
+        MyApplication.key = key;
+        CommonUtils.saveBySp(MyApplication.getInstance(), keySPKey, key);
     }
 
     public static String getUserName() {
@@ -164,8 +164,8 @@ public class MyAppication extends Application {
     }
 
     public static void setUserName(String userName) {
-        MyAppication.userName = userName;
-        CommonUtils.saveBySp(MyAppication.getInstance(), userNameSPKey, userName);
+        MyApplication.userName = userName;
+        CommonUtils.saveBySp(MyApplication.getInstance(), userNameSPKey, userName);
     }
 
     public static boolean isBlockImage() {
@@ -173,8 +173,8 @@ public class MyAppication extends Application {
     }
 
     public static void setBlockImage(boolean blockImage) {
-        MyAppication.blockImage = blockImage;
-        CommonUtils.saveBySp(MyAppication.getInstance(), "blockImage", blockImage);
+        MyApplication.blockImage = blockImage;
+        CommonUtils.saveBySp(MyApplication.getInstance(), "blockImage", blockImage);
     }
 
     public static int getTextSizeZoom() {
@@ -182,8 +182,8 @@ public class MyAppication extends Application {
     }
 
     public static void setTextSizeZoom(int textSizeZoom) {
-        MyAppication.textSizeZoom = textSizeZoom;
-        CommonUtils.saveBySp(MyAppication.getInstance(), "textSizeZoom", textSizeZoom);
+        MyApplication.textSizeZoom = textSizeZoom;
+        CommonUtils.saveBySp(MyApplication.getInstance(), "textSizeZoom", textSizeZoom);
     }
 
     public static boolean isSettingWifi() {
@@ -191,8 +191,8 @@ public class MyAppication extends Application {
     }
 
     public static void setSettingWifi(boolean settingWifi) {
-        MyAppication.settingWifi = settingWifi;
-        CommonUtils.saveBySp(MyAppication.getInstance(), "settingWifi", settingWifi);
+        MyApplication.settingWifi = settingWifi;
+        CommonUtils.saveBySp(MyApplication.getInstance(), "settingWifi", settingWifi);
     }
 
     public static boolean isOfflineDownload() {
@@ -200,8 +200,8 @@ public class MyAppication extends Application {
     }
 
     public static void setOfflineDownload(boolean offlineDownload) {
-        MyAppication.offlineDownload = offlineDownload;
-        CommonUtils.saveBySp(MyAppication.getInstance(), "offlineDownload", offlineDownload);
+        MyApplication.offlineDownload = offlineDownload;
+        CommonUtils.saveBySp(MyApplication.getInstance(), "offlineDownload", offlineDownload);
     }
 
     /**
@@ -222,45 +222,15 @@ public class MyAppication extends Application {
         config.diskCacheSize(50 * 1024 * 1024); // 50 MiB
         config.tasksProcessingOrder(QueueProcessingType.LIFO);
         config.writeDebugLogs();
-
-        // 可以设置自己想要的 不需要的不用设置（较全面）
-        // File cacheDir = StorageUtils.getCacheDirectory(context); //缓存文件夹路径
-        // ImageLoaderConfiguration config = new
-        // ImageLoaderConfiguration.Builder(context)
-        // .memoryCacheExtraOptions(480, 800) // default = device screen
-        // dimensions 内存缓存文件的最大长宽
-        // // .diskCacheExtraOptions(480, 800, null) //
-        // 本地缓存的详细信息(缓存的最大长宽)，最好不要设置这个
-        // // .taskExecutor(...)
-        // // .taskExecutorForCachedImages(...)
-        // .threadPoolSize(3) // default 线程池内加载的数量
-        // .threadPriority(Thread.NORM_PRIORITY - 2) // default 设置当前线程的优先级
-        // .tasksProcessingOrder(QueueProcessingType.LIFO)
-        // .denyCacheImageMultipleSizesInMemory()
-        // .memoryCache(new LruMemoryCache(2 * 1024 * 1024)) //可以通过自己的内存缓存实现
-        // .memoryCacheSize(2 * 1024 * 1024) // 内存缓存的最大值
-        // .memoryCacheSizePercentage(13) // default
-        // .diskCache(new UnlimitedDiskCache(cacheDir)) // default 可以自定义缓存路径
-        // .diskCacheSize(50 * 1024 * 1024) // 50 Mb sd卡(本地)缓存的最大值
-        // .diskCacheFileCount(100) // 可以缓存的文件数量
-        // // default为使用HASHCODE对UIL进行加密命名， 还可以用MD5(new
-        // Md5FileNameGenerator())加密
-        // .diskCacheFileNameGenerator(new Md5FileNameGenerator())
-        // .imageDownloader(new BaseImageDownloader(context)) // default
-        // .defaultDisplayImageOptions(DisplayImageOptions.createSimple()) //
-        // default
-        // .writeDebugLogs() // 打印debug log
-        // .build(); //开始构建
-        // 初始化操作
         ImageLoader.getInstance().init(config.build());
     }
 
 
-    public static void addFragment(String log, Fragment fragment) {
-        fragment_map.put(log, fragment);
-    }
-
-    public static HashMap<String, Fragment> getFragmentList() {
-        return fragment_map;
-    }
+//    public static void addFragment(String log, Fragment fragment) {
+//        fragment_map.put(log, fragment);
+//    }
+//
+//    public static HashMap<String, Fragment> getFragmentList() {
+//        return fragment_map;
+//    }
 }

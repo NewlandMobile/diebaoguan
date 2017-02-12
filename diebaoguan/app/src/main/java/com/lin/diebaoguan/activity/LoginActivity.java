@@ -11,7 +11,7 @@ import android.widget.EditText;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.lin.diebaoguan.uibase.BaseActivity;
-import com.lin.diebaoguan.MyAppication;
+import com.lin.diebaoguan.MyApplication;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.LogUtils;
@@ -110,9 +110,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             return;
                         }
                         LogUtils.d("用户ID："+loginResponse.getData().getUid());
-                        MyAppication.setKey(loginResponse.getData().getKey());
-                        MyAppication.setUid(loginResponse.getData().getUid());
-                        MyAppication.setUserName(name);
+                        MyApplication.setKey(loginResponse.getData().getKey());
+                        MyApplication.setUid(loginResponse.getData().getUid());
+                        MyApplication.setUserName(name);
                         gotoMainActivity();
                     }
 

@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.lin.diebaoguan.uibase.BaseActivity;
-import com.lin.diebaoguan.MyAppication;
+import com.lin.diebaoguan.MyApplication;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.LogUtils;
@@ -192,8 +192,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                             showToast(registerResponse.getMessage());
                             return;
                         }
-                        MyAppication.setKey(registerResponse.getData().getKey());
-                        MyAppication.setUid(registerResponse.getData().getUid());
+                        MyApplication.setKey(registerResponse.getData().getKey());
+                        MyApplication.setUid(registerResponse.getData().getUid());
                     }
                 });
     }

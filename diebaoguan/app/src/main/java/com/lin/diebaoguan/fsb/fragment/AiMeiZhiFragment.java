@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.lin.diebaoguan.MyAppication;
+import com.lin.diebaoguan.MyApplication;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.activity.AmzDetailActivity;
 import com.lin.diebaoguan.common.CommonUtils;
@@ -82,7 +82,7 @@ public class AiMeiZhiFragment extends PullToRefreshBaseFragment implements Adapt
         PicDetailDS params = new PicDetailDS();
         params.setDocid(docid);
         params.setModule("api_libraries_sjdbg_detail");
-        params.setUid(MyAppication.getUid());
+        params.setUid(MyApplication.getUid());
         params.setSize("" + 500);
         params.initTimePart();
         CommonUtils.httpGet(this, params.parseParams(), new VolleyListener() {

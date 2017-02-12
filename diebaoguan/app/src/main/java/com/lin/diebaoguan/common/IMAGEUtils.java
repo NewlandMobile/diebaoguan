@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.lin.diebaoguan.MyAppication;
+import com.lin.diebaoguan.MyApplication;
 import com.lin.diebaoguan.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -51,8 +51,8 @@ public class IMAGEUtils {
      */
     public static void displayImage(String imageUrls, ImageView mImageView) {
         // 如果 要屏蔽图片下载 就不执行具体
-        if (MyAppication.isBlockImage()) {
-            if (MyAppication.isWifi()) {
+        if (MyApplication.isBlockImage()) {
+            if (MyApplication.isWifi()) {
                 initOptions();
                 ImageLoader.getInstance().displayImage(imageUrls, mImageView, options, animateFirstListener);
             } else {

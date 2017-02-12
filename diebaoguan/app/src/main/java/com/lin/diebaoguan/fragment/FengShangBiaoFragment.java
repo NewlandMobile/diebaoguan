@@ -8,10 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lin.diebaoguan.MyAppication;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.common.Const;
-import com.lin.diebaoguan.common.LogUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,8 +33,8 @@ public class FengShangBiaoFragment extends EvolveFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view == null) {
             view = super.onCreateView(inflater, container, savedInstanceState);
-            LogUtils.e("fengshangbiao");
-            MyAppication.addFragment("fengshangbiao", this);
+//            LogUtils.e("fengshangbiao");
+//            MyAppication.addFragment("fengshangbiao", this);
         }
         return view;
     }

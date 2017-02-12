@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
-import com.lin.diebaoguan.MyAppication;
+import com.lin.diebaoguan.MyApplication;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.activity.CommentActivity;
 import com.lin.diebaoguan.activity.LoginActivity;
@@ -76,7 +76,7 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
     @Override
     protected void onResume() {
         super.onResume();
-        hasLogin = MyAppication.getInstance().hasLogined();
+        hasLogin = MyApplication.getInstance().hasLogined();
         mWeiboShareAPI = WeiboShareSDK.createWeiboAPI(this, Const.KEY_WEIBO);
         mWeiboShareAPI.registerApp();    // 将应用注册到微博客户端
         //对腾讯服务初始化
@@ -200,8 +200,8 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
         articleCollectDS.setModule("api_libraries_sjdbg_articlecollect");
         articleCollectDS.setDocid(docid);
         articleCollectDS.setCid(cid);
-        articleCollectDS.setAuthkey(MyAppication.getKey());
-        articleCollectDS.setUid(MyAppication.getUid());
+        articleCollectDS.setAuthkey(MyApplication.getKey());
+        articleCollectDS.setUid(MyApplication.getUid());
         if (!isCollected) {
             articleCollectDS.setMethod("collection");
         } else {

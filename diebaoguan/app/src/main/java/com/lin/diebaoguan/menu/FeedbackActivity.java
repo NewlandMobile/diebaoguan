@@ -6,7 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.android.volley.VolleyError;
-import com.lin.diebaoguan.MyAppication;
+import com.lin.diebaoguan.MyApplication;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.LogUtils;
@@ -36,8 +36,8 @@ public class FeedbackActivity extends BaseRedTitleBarActivity {
                 } else {
                     FeedbackDS feedbackDS = new FeedbackDS();
                     feedbackDS.setModule("api_libraries_common_feedback");
-                    feedbackDS.setUsername(MyAppication.getUserName());
-                    feedbackDS.setUid(MyAppication.getUid());
+                    feedbackDS.setUsername(MyApplication.getUserName());
+                    feedbackDS.setUid(MyApplication.getUid());
                     feedbackDS.setImei(CommonUtils.getIMEI(FeedbackActivity.this));
                     feedbackDS.setEmail(contact);
                     feedbackDS.setContent(content);

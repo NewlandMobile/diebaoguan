@@ -13,7 +13,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
-import com.lin.diebaoguan.MyAppication;
+import com.lin.diebaoguan.MyApplication;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.activity.GuideActivity;
 import com.lin.diebaoguan.activity.LoginActivity;
@@ -51,16 +51,16 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
     }
 
     private void initUIContent() {
-        if (MyAppication.hasLogined()) {
+        if (MyApplication.hasLogined()) {
             btn_login.setText("注销");
-            String uid = MyAppication.getUid();
+            String uid = MyApplication.getUid();
             fetchUserData(uid);
         } else {
             btn_login.setText("登录");
         }
-        boolean offlineDownload = MyAppication.isOfflineDownload();
-        boolean settingWifi = MyAppication.isSettingWifi();
-        boolean blockImage = MyAppication.isBlockImage();
+        boolean offlineDownload = MyApplication.isOfflineDownload();
+        boolean settingWifi = MyApplication.isSettingWifi();
+        boolean blockImage = MyApplication.isBlockImage();
         setting_checkbox_wifi.setChecked(settingWifi);
 //        setting_checkbox_save_flow.setChecked(blockImage);
 //        setting_checkbox_offline_download.setChecked(offlineDownload);
@@ -104,11 +104,11 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
         account_Image = (ImageView) findViewById(R.id.account_Image);
         findViewById(setting_rl_goto_textSize).setOnClickListener(this);
         setting_checkbox_wifi = (CheckBox) findViewById(R.id.setting_checkbox_wifi);
-        setting_checkbox_wifi.setChecked(MyAppication.isBlockImage());
+        setting_checkbox_wifi.setChecked(MyApplication.isBlockImage());
         setting_checkbox_wifi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                MyAppication.setSettingWifi(isChecked);
+                MyApplication.setSettingWifi(isChecked);
             }
         });
         /**
@@ -161,7 +161,7 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
                 startActivity(new Intent(SettingActivity.this, PushSettingActivity.class));
                 break;
             case R.id.setting_rl_goto_feedback://意见反馈
-                if (MyAppication.hasLogined()) {
+                if (MyApplication.hasLogined()) {
                     startActivity(new Intent(this, FeedbackActivity.class));
                 } else {
                     startActivity(new Intent(this, LoginActivity.class));
@@ -173,8 +173,8 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
                 break;
             case R.id.btn_login_or_logout:
                 showToast("登录或注销");
-                if (MyAppication.hasLogined()) {
-                    MyAppication.logout();
+                if (MyApplication.hasLogined()) {
+                    MyApplication.logout();
                     btn_login.setText("登录");
                 } else {
                     startActivity(new Intent(SettingActivity.this, LoginActivity.class));
@@ -242,7 +242,7 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
                     default:
                         zoomNum = 100;
                 }
-                MyAppication.setTextSizeZoom(zoomNum);
+                MyApplication.setTextSizeZoom(zoomNum);
             }
         });
         dialog.show();

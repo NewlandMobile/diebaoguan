@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.android.volley.VolleyError;
-import com.lin.diebaoguan.MyAppication;
+import com.lin.diebaoguan.MyApplication;
 import com.lin.diebaoguan.activity.GyjOriginalDetailsActivity;
 import com.lin.diebaoguan.common.CommonUtils;
 import com.lin.diebaoguan.common.LogUtils;
@@ -52,7 +52,7 @@ public class PicFragment extends BaseCollectFragment implements AdapterView.OnIt
         NormalDS params = new NormalDS();
         params.setPicid(picid);
         params.setModule("api_libraries_sjdbg_tudetail");
-        params.setUid(MyAppication.getUid());
+        params.setUid(MyApplication.getUid());
         params.setSize(500);
         CommonUtils.normalGetWayFetch(params, this, new VolleyListener() {
             @Override

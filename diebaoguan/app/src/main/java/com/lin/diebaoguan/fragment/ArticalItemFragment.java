@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
-import com.lin.diebaoguan.MyAppication;
+import com.lin.diebaoguan.MyApplication;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.activity.ArticleDetailsActivity;
 import com.lin.diebaoguan.common.CommonUtils;
@@ -57,8 +57,8 @@ public class ArticalItemFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (inflate == null) {
-            if (MyAppication.getInstance().hasLogined()) {
-                uid = MyAppication.getUid();
+            if (MyApplication.getInstance().hasLogined()) {
+                uid = MyApplication.getUid();
             }
             inflate = inflater.inflate(R.layout.fragment_artical_item, container, false);
             initView();
@@ -93,7 +93,7 @@ public class ArticalItemFragment extends Fragment {
         sendParam.setDocid(docid);
         sendParam.setSize("" + 500);
         sendParam.setOffset("" + 0);
-        if (MyAppication.getInstance().hasLogined()) {
+        if (MyApplication.getInstance().hasLogined()) {
             sendParam.setUid(uid);
         }
         CommonUtils.httpGet(sendParam.parseParams(), new VolleyListener() {
@@ -139,9 +139,9 @@ public class ArticalItemFragment extends Fragment {
         webSettings.setJavaScriptEnabled(true);
         webSettings.setLoadWithOverviewMode(true);
 //        拦截图片下载 测试
-        webSettings.setBlockNetworkImage(MyAppication.isBlockImage());
+        webSettings.setBlockNetworkImage(MyApplication.isBlockImage());
         // 字体大小 测试
-        webSettings.setTextZoom(MyAppication.getTextSizeZoom());
+        webSettings.setTextZoom(MyApplication.getTextSizeZoom());
 //        webSettings.setTextSize(WebSettings.TextSize.);
 
         Document doc = Jsoup.parse(content);

@@ -8,10 +8,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -45,7 +43,6 @@ import com.lin.lib_volley_https.VolleyListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -58,7 +55,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private int screenWidth;//屏幕宽度
     private View view_pop;//popupwindowview
     private int[] popitems = new int[]{R.id.itempop_text1, R.id.itempop_text2, R.id.itempop_text3, R.id.itempop_text4, R.id.itempop_text5, R.id.itempop_text6, R.id.itempop_text7, R.id.itempop_text8};
-    private TextView textview;
+    private TextView lastTabofToplevel;
     private Dialog updateDialog;
     private String downloadUrl;//下载路径
     private FragmentManager myFragmentManager;
@@ -99,7 +96,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-                textview.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
+                lastTabofToplevel.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
             }
         });
 
@@ -121,7 +118,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         SharedPreferences.Editor edit = sharedPreferences.edit();
         edit.putBoolean(Const.SP_ISFIRSTKEY, false);
         edit.commit();
-        if (!MyAppication.getInstance().hasLogined()) {
+        if (!MyApplication.getInstance().hasLogined()) {
             Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(loginIntent);
         }
@@ -136,21 +133,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private void setAddTab(String tag, int indicator, Class<?> cls, int srcID) {
         TabHost.TabSpec newTabSpec = mTabHost.newTabSpec(tag);
         final View view = getLayoutInflater().inflate(R.layout.item_inducator, null);
-        textview = (TextView) view.findViewById(R.id.inducator_text);
-        textview.setText(getResources().getString(indicator));
-        textview.setTextSize(14);
-        textview.setTextColor(getResources().getColor(R.color.white));
-        textview.setBackgroundResource(srcID);
+        TextView textView;
+        textView = (TextView) view.findViewById(R.id.inducator_text);
+        textView.setText(getResources().getString(indicator));
+        textView.setTextSize(14);
+        textView.setTextColor(getResources().getColor(R.color.white));
+        textView.setBackgroundResource(srcID);
         mTabHost.addTab(newTabSpec.setIndicator(view), cls, null);
         if (indicator == R.string.aimeifang) {
+            lastTabofToplevel =textView;
             view.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    textview.setBackground(getResources().getDrawable(R.drawable.diya_choice_bgon));
+                    lastTabofToplevel.setBackground(getResources().getDrawable(R.drawable.diya_choice_bgon));
                     int[] location = new int[2];
-                    textview.getLocationOnScreen(location);
+                    lastTabofToplevel.getLocationOnScreen(location);
                     int height1 = view_pop.getMeasuredHeight();
-                    popupWindow.showAtLocation(textview, Gravity.NO_GRAVITY, location[0], location[1] - height1);
+                    popupWindow.showAtLocation(lastTabofToplevel, Gravity.NO_GRAVITY, location[0], location[1] - height1);
                     return true;
                 }
             });
@@ -196,25 +195,51 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         return true;
     }
 
+    private void jumpToSpecFramgent(final int topLevelNum, final int secondLevelNum){
+        mTabHost.setCurrentTab(topLevelNum);
+        Runnable updateLevel2TabHost=new Runnable() {
+            @Override
+            public void run() {
+                EvolveFragment topLevelFragment= (EvolveFragment) myFragmentManager.findFragmentByTag(tagsArray[topLevelNum]);
+                if (topLevelFragment!=null){
+                    topLevelFragment.setCurrentTab(secondLevelNum);
+                }else {
+                    LogUtils.e("没能拿到Fragment");
+                }
+            }
+        };
+        mTabHost.post(updateLevel2TabHost);
+    }
+
+    private void lastTabLongClickHandleWithFramgentNums(int topLevelNum, int secondLevelNum){
+        popupWindow.dismiss();
+//        lastTabofToplevel.setBackgroundResource(R.drawable.inducator_amf_select);
+//        lastTabofToplevel.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
+        jumpToSpecFramgent(topLevelNum,secondLevelNum);
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.itempop_text1:
-                popupWindow.dismiss();
-                mTabHost.setCurrentTab(1);
-                textview.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
-                Runnable updateLevel2TabHost=new Runnable() {
-                    @Override
-                    public void run() {
-                        EvolveFragment fsbFragment= (EvolveFragment) myFragmentManager.findFragmentByTag(tagsArray[1]);
-                        if (fsbFragment!=null){
-                            fsbFragment.setCurrentTab(4);
-                        }else {
-                            LogUtils.e("没能拿到Fragment");
-                        }
-                    }
-                };
-                mTabHost.post(updateLevel2TabHost);
+                lastTabLongClickHandleWithFramgentNums(1,4);
+//                popupWindow.dismiss();
+//
+//                lastTabofToplevel.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
+//                jumpToSpecFramgent(1,4);
+
+//                Runnable updateLevel2TabHost=new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        EvolveFragment fsbFragment= (EvolveFragment) myFragmentManager.findFragmentByTag(tagsArray[1]);
+//                        if (fsbFragment!=null){
+//                            fsbFragment.setCurrentTab(4);
+//                        }else {
+//                            LogUtils.e("没能拿到Fragment");
+//                        }
+//                    }
+//                };
+//                mTabHost.post(updateLevel2TabHost);
 
 //                HashMap<String, Fragment> fragmentMap = MyAppication.getFragmentList();
 //                LogUtils.e("==" + fragmentMap.size());
@@ -232,37 +257,37 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.itempop_text2:
                 popupWindow.dismiss();
-                textview.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
+                lastTabofToplevel.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
                 mTabHost.setCurrentTab(1);
                 break;
             case R.id.itempop_text3:
                 popupWindow.dismiss();
-                textview.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
+                lastTabofToplevel.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
                 mTabHost.setCurrentTab(1);
                 break;
             case R.id.itempop_text4:
                 popupWindow.dismiss();
-                textview.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
+                lastTabofToplevel.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
                 mTabHost.setCurrentTab(1);
                 break;
             case R.id.itempop_text5:
                 popupWindow.dismiss();
-                textview.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
+                lastTabofToplevel.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
                 mTabHost.setCurrentTab(0);
                 break;
             case R.id.itempop_text6:
                 popupWindow.dismiss();
-                textview.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
+                lastTabofToplevel.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
                 mTabHost.setCurrentTab(0);
                 break;
             case R.id.itempop_text7:
                 popupWindow.dismiss();
-                textview.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
+                lastTabofToplevel.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
                 mTabHost.setCurrentTab(0);
                 break;
             case R.id.itempop_text8:
                 popupWindow.dismiss();
-                textview.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
+                lastTabofToplevel.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
                 mTabHost.setCurrentTab(0);
                 break;
             case R.id.update_cancle:
