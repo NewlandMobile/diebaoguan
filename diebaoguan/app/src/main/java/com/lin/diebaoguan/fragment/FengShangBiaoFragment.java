@@ -48,11 +48,18 @@ public class FengShangBiaoFragment extends EvolveFragment {
 //        super.onDestroyView();
 //    }
 
-    public void aa(){
-        LogUtils.e(" 我是风尚标");
-    }
-    public void setCurrentTab(int index) {
-        LogUtils.e("=====FSB===进来了=== "+index);
-        mTabHost.setCurrentTab(index);
-    }
+//    public void aa(){
+//        LogUtils.e(" 我是风尚标");
+//    }
+
+//    public void setCurrentTab(final int index) {
+//        LogUtils.e("=====FSB===进来了=== "+index);
+//        mTabHost.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                mTabHost.setCurrentTab(index);
+//            }
+//        });
+////        mTabHost.setCurrentTab(index);
+//    }
 }

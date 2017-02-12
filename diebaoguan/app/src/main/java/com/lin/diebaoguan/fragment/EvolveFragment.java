@@ -71,12 +71,12 @@ public class EvolveFragment extends BaseFragment {
         mTabHost.addTab(newTabSpec.setIndicator(view), cls, null);
     }
 
-    public void aa() {
-        LogUtils.e(" 我是谍报馆");
-    }
+//    public void aa() {
+//        LogUtils.e(" 我是谍报馆");
+//    }
 
     public void setCurrentTab(int index) {
-        LogUtils.e("========进来了=== "+index);
+//        LogUtils.e("setCurrentTab==进来了=== "+index);
         mTabHost.setCurrentTab(index);
     }
 }

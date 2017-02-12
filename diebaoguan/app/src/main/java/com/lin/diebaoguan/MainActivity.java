@@ -9,7 +9,9 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +30,7 @@ import com.lin.diebaoguan.common.Const;
 import com.lin.diebaoguan.common.LogUtils;
 import com.lin.diebaoguan.fragment.AiMeiFangFragment;
 import com.lin.diebaoguan.fragment.DieBaoGuanFragment;
+import com.lin.diebaoguan.fragment.EvolveFragment;
 import com.lin.diebaoguan.fragment.FengShangBiaoFragment;
 import com.lin.diebaoguan.fragment.GuangYinJiFragment;
 import com.lin.diebaoguan.menu.AboutActivity;
@@ -58,6 +61,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private TextView textview;
     private Dialog updateDialog;
     private String downloadUrl;//下载路径
+    private FragmentManager myFragmentManager;
+    private String[] tagsArray=new String[]{"diebaoguan","fengshanbiao","guangyinji","aimeifang"};
 
 
     @Override
@@ -66,11 +71,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         judgeFirstPage();
         setContentView(R.layout.activity_main);
         mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
-        mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
-        setAddTab("diebaoguan", R.string.diebaoguan, DieBaoGuanFragment.class, R.drawable.inducator_selector);
-        setAddTab("fengshanbiao", R.string.fengshanbiao, FengShangBiaoFragment.class, R.drawable.inducator_selector);
-        setAddTab("guangyinji", R.string.guangyinji, GuangYinJiFragment.class, R.drawable.inducator_selector);
-        setAddTab("aimeifang", R.string.aimeifang, AiMeiFangFragment.class, R.drawable.inducator_amf_select);
+        myFragmentManager=getSupportFragmentManager();
+        mTabHost.setup(this,myFragmentManager , R.id.realtabcontent);
+        setAddTab(tagsArray[0], R.string.diebaoguan, DieBaoGuanFragment.class, R.drawable.inducator_selector);
+        setAddTab(tagsArray[1], R.string.fengshanbiao, FengShangBiaoFragment.class, R.drawable.inducator_selector);
+        setAddTab(tagsArray[2], R.string.guangyinji, GuangYinJiFragment.class, R.drawable.inducator_selector);
+        setAddTab(tagsArray[3], R.string.aimeifang, AiMeiFangFragment.class, R.drawable.inducator_amf_select);
         initList();
         //获取屏幕宽度
         screenWidth = getWindowManager().getDefaultDisplay().getWidth();
@@ -97,6 +103,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
         });
 
+//        getWindow().getDecorView().post(new Runnable() {
+//            @Override
+//            public void run() {
+//                LogUtils.e("test");
+//            }
+//        });
     }
 
     private void initList() {
@@ -190,32 +202,30 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.itempop_text1:
                 popupWindow.dismiss();
                 mTabHost.setCurrentTab(1);
-
                 textview.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
-                HashMap<String, Fragment> fragmentMap = MyAppication.getFragmentList();
-                LogUtils.e("==" + fragmentMap.size());
-                for (String key : fragmentMap.keySet()) {
-                    Fragment fragment = fragmentMap.get(key);
-                    LogUtils.e(fragment.toString() + "==" + key);
-                    if (fragment == null) {
-                        LogUtils.e("fragment is null");
-                    } else {
-                        if (key.equals("fengshangbiao")) {
-                            ((FengShangBiaoFragment) fragment).setCurrentTab(1);
+                Runnable updateLevel2TabHost=new Runnable() {
+                    @Override
+                    public void run() {
+                        EvolveFragment fsbFragment= (EvolveFragment) myFragmentManager.findFragmentByTag(tagsArray[1]);
+                        if (fsbFragment!=null){
+                            fsbFragment.setCurrentTab(4);
+                        }else {
+                            LogUtils.e("没能拿到Fragment");
                         }
                     }
-                }
-//                mTabHost.setCurrentTab(1);
-//                textview.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
+                };
+                mTabHost.post(updateLevel2TabHost);
+
+//                HashMap<String, Fragment> fragmentMap = MyAppication.getFragmentList();
 //                LogUtils.e("==" + fragmentMap.size());
 //                for (String key : fragmentMap.keySet()) {
 //                    Fragment fragment = fragmentMap.get(key);
 //                    LogUtils.e(fragment.toString() + "==" + key);
 //                    if (fragment == null) {
-//                        LogUtils.e("fragment is null");
+//                        LogUtils.e("没有从Application拿到Fragment");
 //                    } else {
 //                        if (key.equals("fengshangbiao")) {
-//                            ((FengShangBiaoFragment) fragment).setCurrentTab(1);
+//                            ((FengShangBiaoFragment) fragment).setCurrentTab(4);
 //                        }
 //                    }
 //                }
