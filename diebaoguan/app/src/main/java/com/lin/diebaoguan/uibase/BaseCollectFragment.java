@@ -79,13 +79,13 @@ public class BaseCollectFragment extends PullToRefreshBaseFragment {
      */
     private PullToRefreshBase.OnRefreshListener2 refreshListener = new PullToRefreshBase.OnRefreshListener2() {
         @Override
-        public void onPullDownToRefresh(PullToRefreshBase refreshView) {
+        public void onPullStartToRefresh(PullToRefreshBase refreshView) {
             currentPageOffset = 0;
             getData(currentPageOffset);
         }
 
         @Override
-        public void onPullUpToRefresh(PullToRefreshBase refreshView) {
+        public void onPullEndToRefresh(PullToRefreshBase refreshView) {
             if (currentPageOffset >= totalPage) {
                 showToast(getString(R.string.alreadyatthebottom));
                 basePullToRefreshListView.onRefreshComplete();

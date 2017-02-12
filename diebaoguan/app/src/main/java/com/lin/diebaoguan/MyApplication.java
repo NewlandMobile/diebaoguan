@@ -45,7 +45,7 @@ public class MyApplication extends Application {
 
     private static int textSizeZoom;
 
-    private static HashMap<String, Fragment> fragment_map = new HashMap<>();
+//    private static HashMap<String, Fragment> fragment_map = new HashMap<>();
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
@@ -129,7 +129,7 @@ public class MyApplication extends Application {
     }
 
     public static void logout() {
-        //TODO  退出账号  删除 账户相关信息
+        //  退出账号  删除 账户相关信息
         CommonUtils.deleteSp(MyApplication.getInstance(), uidSPKey);
         CommonUtils.deleteSp(MyApplication.getInstance(), keySPKey);
     }
