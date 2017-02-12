@@ -223,72 +223,27 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.itempop_text1:
                 lastTabLongClickHandleWithFramgentNums(1,4);
-//                popupWindow.dismiss();
-//
-//                lastTabofToplevel.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
-//                jumpToSpecFramgent(1,4);
-
-//                Runnable updateLevel2TabHost=new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        EvolveFragment fsbFragment= (EvolveFragment) myFragmentManager.findFragmentByTag(tagsArray[1]);
-//                        if (fsbFragment!=null){
-//                            fsbFragment.setCurrentTab(4);
-//                        }else {
-//                            LogUtils.e("没能拿到Fragment");
-//                        }
-//                    }
-//                };
-//                mTabHost.post(updateLevel2TabHost);
-
-//                HashMap<String, Fragment> fragmentMap = MyAppication.getFragmentList();
-//                LogUtils.e("==" + fragmentMap.size());
-//                for (String key : fragmentMap.keySet()) {
-//                    Fragment fragment = fragmentMap.get(key);
-//                    LogUtils.e(fragment.toString() + "==" + key);
-//                    if (fragment == null) {
-//                        LogUtils.e("没有从Application拿到Fragment");
-//                    } else {
-//                        if (key.equals("fengshangbiao")) {
-//                            ((FengShangBiaoFragment) fragment).setCurrentTab(4);
-//                        }
-//                    }
-//                }
                 break;
             case R.id.itempop_text2:
-                popupWindow.dismiss();
-                lastTabofToplevel.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
-                mTabHost.setCurrentTab(1);
+                lastTabLongClickHandleWithFramgentNums(1,3);
                 break;
             case R.id.itempop_text3:
-                popupWindow.dismiss();
-                lastTabofToplevel.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
-                mTabHost.setCurrentTab(1);
+                lastTabLongClickHandleWithFramgentNums(1,2);
                 break;
             case R.id.itempop_text4:
-                popupWindow.dismiss();
-                lastTabofToplevel.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
-                mTabHost.setCurrentTab(1);
+                lastTabLongClickHandleWithFramgentNums(1,1);
                 break;
             case R.id.itempop_text5:
-                popupWindow.dismiss();
-                lastTabofToplevel.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
-                mTabHost.setCurrentTab(0);
+                lastTabLongClickHandleWithFramgentNums(0,4);
                 break;
             case R.id.itempop_text6:
-                popupWindow.dismiss();
-                lastTabofToplevel.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
-                mTabHost.setCurrentTab(0);
+                lastTabLongClickHandleWithFramgentNums(0,3);
                 break;
             case R.id.itempop_text7:
-                popupWindow.dismiss();
-                lastTabofToplevel.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
-                mTabHost.setCurrentTab(0);
+                lastTabLongClickHandleWithFramgentNums(0,2);
                 break;
             case R.id.itempop_text8:
-                popupWindow.dismiss();
-                lastTabofToplevel.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
-                mTabHost.setCurrentTab(0);
+                lastTabLongClickHandleWithFramgentNums(0,1);
                 break;
             case R.id.update_cancle:
                 updateDialog.dismiss();
