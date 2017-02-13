@@ -1,5 +1,6 @@
 package com.lin.diebaoguan.menu;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -7,6 +8,7 @@ import android.widget.Toast;
 
 import com.lin.diebaoguan.MyApplication;
 import com.lin.diebaoguan.R;
+import com.lin.diebaoguan.service.PushNotificationService;
 import com.lin.diebaoguan.uibase.BaseRedTitleBarActivity;
 
 /**
@@ -36,15 +38,14 @@ public class PushSettingActivity extends BaseRedTitleBarActivity implements Comp
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         switch (buttonView.getId()) {
             case R.id.setting_push_notifications:
+                Intent intent = new Intent(this, PushNotificationService.class);
                 //传到application进行保存，并且此时开启获取推送的服务
                 MyApplication.setIsPushNotification(isChecked);
                 if (isChecked) {//开启服务
-//startService(new Intent())
+                    startService(intent);
                 } else {//关闭服务
-
+                    stopService(intent);
                 }
-
-
                 break;
             case R.id.setting_sound:
                 if (MyApplication.isPushNotification()) {

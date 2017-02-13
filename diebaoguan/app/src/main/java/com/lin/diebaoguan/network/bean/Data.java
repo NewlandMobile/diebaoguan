@@ -52,6 +52,14 @@ public class Data implements Serializable {
     private String downloadUrl;
     private int versionCode;
     private String updateInfo;
+    /*
+    推送服务
+     */
+    private String type;
+    private int docid;
+
+    public Data() {
+    }
 
     public String getUid() {
         return uid;
@@ -175,5 +183,21 @@ public class Data implements Serializable {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getDocid() {
+        return docid;
+    }
+
+    public void setDocid(int docid) {
+        this.docid = docid;
     }
 }
