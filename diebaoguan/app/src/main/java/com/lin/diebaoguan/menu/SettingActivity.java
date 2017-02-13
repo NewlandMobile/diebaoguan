@@ -35,8 +35,8 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
 
     private TextView tv_have_not_login;
     private ImageView account_Image;
-    private CheckBox setting_checkbox_wifi;
-    //    private CheckBox setting_checkbox_save_flow;
+//    private CheckBox setting_checkbox_wifi;
+        private CheckBox setting_checkbox_save_flow;
 //    private CheckBox setting_checkbox_offline_download;
     private TextView setting_tv_item_instruction_cache;
     private Button btn_login;
@@ -59,11 +59,10 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
             btn_login.setText("登录");
         }
         boolean offlineDownload = MyApplication.isOfflineDownload();
-        boolean settingWifi = MyApplication.isSettingWifi();
+//        boolean settingWifi = MyApplication.isSettingWifi();
         boolean blockImage = MyApplication.isBlockImage();
-        setting_checkbox_wifi.setChecked(settingWifi);
-//        setting_checkbox_save_flow.setChecked(blockImage);
-//        setting_checkbox_offline_download.setChecked(offlineDownload);
+//        setting_checkbox_wifi.setChecked(settingWifi);
+        setting_checkbox_save_flow.setChecked(blockImage);
 
     }
 
@@ -103,29 +102,30 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
         tv_have_not_login = (TextView) findViewById(R.id.tv_have_not_login);
         account_Image = (ImageView) findViewById(R.id.account_Image);
         findViewById(setting_rl_goto_textSize).setOnClickListener(this);
-        setting_checkbox_wifi = (CheckBox) findViewById(R.id.setting_checkbox_wifi);
-        setting_checkbox_wifi.setChecked(MyApplication.isBlockImage());
-        setting_checkbox_wifi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                MyApplication.setSettingWifi(isChecked);
+        setting_checkbox_save_flow = (CheckBox) findViewById(R.id.setting_checkbox_save_flow);
+        setting_checkbox_save_flow.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                MyApplication.setBlockImage(isChecked);
             }
         });
+//        setting_checkbox_wifi = (CheckBox) findViewById(R.id.setting_checkbox_wifi);
+//        setting_checkbox_wifi.setChecked(MyApplication.isBlockImage());
+//        setting_checkbox_wifi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                MyApplication.setSettingWifi(isChecked);
+//            }
+//        });
+
+
         /**
          *暂时去掉，由后期更新补上
-         setting_checkbox_save_flow = (CheckBox) findViewById(R.id.setting_checkbox_save_flow);
-         setting_checkbox_save_flow.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-        @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        MyAppication.setBlockImage(isChecked);
-        }
-        });
          setting_checkbox_offline_download = (CheckBox) findViewById(R.id.setting_checkbox_offline_download);
          setting_checkbox_offline_download.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
         @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         MyAppication.setOfflineDownload(isChecked);
         }
-        });
-         */
+        });*/
         //TODO  这行内容也要初始化    后期再补
         setting_tv_item_instruction_cache = (TextView) findViewById(R.id.setting_tv_item_instruction_cache);
         findViewById(R.id.setting_rl_goto_clear_cache).setOnClickListener(this);
