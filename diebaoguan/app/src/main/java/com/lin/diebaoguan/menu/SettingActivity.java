@@ -35,9 +35,7 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
 
     private TextView tv_have_not_login;
     private ImageView account_Image;
-//    private CheckBox setting_checkbox_wifi;
-        private CheckBox setting_checkbox_save_flow;
-//    private CheckBox setting_checkbox_offline_download;
+    private CheckBox setting_checkbox_save_flow;
     private TextView setting_tv_item_instruction_cache;
     private Button btn_login;
     private Dialog clearDialog;
@@ -58,10 +56,7 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
         } else {
             btn_login.setText("登录");
         }
-        boolean offlineDownload = MyApplication.isOfflineDownload();
-//        boolean settingWifi = MyApplication.isSettingWifi();
         boolean blockImage = MyApplication.isBlockImage();
-//        setting_checkbox_wifi.setChecked(settingWifi);
         setting_checkbox_save_flow.setChecked(blockImage);
 
     }
@@ -108,24 +103,7 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
                 MyApplication.setBlockImage(isChecked);
             }
         });
-//        setting_checkbox_wifi = (CheckBox) findViewById(R.id.setting_checkbox_wifi);
-//        setting_checkbox_wifi.setChecked(MyApplication.isBlockImage());
-//        setting_checkbox_wifi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                MyApplication.setSettingWifi(isChecked);
-//            }
-//        });
 
-
-        /**
-         *暂时去掉，由后期更新补上
-         setting_checkbox_offline_download = (CheckBox) findViewById(R.id.setting_checkbox_offline_download);
-         setting_checkbox_offline_download.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-        @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        MyAppication.setOfflineDownload(isChecked);
-        }
-        });*/
         //TODO  这行内容也要初始化    后期再补
         setting_tv_item_instruction_cache = (TextView) findViewById(R.id.setting_tv_item_instruction_cache);
         findViewById(R.id.setting_rl_goto_clear_cache).setOnClickListener(this);
@@ -135,10 +113,10 @@ public class SettingActivity extends BaseRedTitleBarActivity implements View.OnC
         btn_login = (Button) findViewById(R.id.btn_login_or_logout);
         btn_login.setOnClickListener(this);
         //设置缓存大小
-        String totalCacheSize = null;
+        String totalCacheSize;
         try {
             totalCacheSize = CommonUtils.getTotalCacheSize(this);
-            setting_tv_item_instruction_cache.setText("" + totalCacheSize);
+            setting_tv_item_instruction_cache.setText(totalCacheSize);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -143,7 +143,7 @@
     <string name="weibosdk_demo_toast_share_response_args_success">收到微博发起的请求成功</string>
     <string name="weibosdk_demo_toast_share_response_args_failed">收到客户端请求消息失败</string>
     <string name="isHaveSdcard">请先确认是否外部存储已经挂载</string>
-    <string name="toclearthecache">确定清楚缓存吗？</string>
+    <string name="toclearthecache">确定清除缓存吗？</string>
     <string name="clear">清除</string>
     <string name="cacle">取消</string>
     <string name="pleaseselectpushsetting">请先选择推送设置</string>
