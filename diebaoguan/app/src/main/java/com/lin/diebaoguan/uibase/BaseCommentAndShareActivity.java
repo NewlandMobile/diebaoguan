@@ -317,7 +317,6 @@ public class BaseCommentAndShareActivity extends BaseRedTitleBarActivity impleme
 
             @Override
             public void onComplete(Bundle bundle) {
-                // TODO Auto-generated method stub
                 Oauth2AccessToken newToken = Oauth2AccessToken.parseAccessToken(bundle);
                 AccessTokenKeeper.writeAccessToken(getApplicationContext(), newToken);
                 Toast.makeText(getApplicationContext(), "onAuthorizeComplete token = " + newToken.getToken(), Toast.LENGTH_SHORT).show();

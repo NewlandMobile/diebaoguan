@@ -126,13 +126,13 @@ public abstract class BaseGridViewFragment extends PullToRefreshBaseFragment {
     private void initRefreshListener() {
         refreshListener2 = new PullToRefreshBase.OnRefreshListener2() {
             @Override
-            public void onPullDownToRefresh(PullToRefreshBase refreshView) {
+            public void onPullStartToRefresh(PullToRefreshBase refreshView) {
                 currentOffset = 0;
                 fetchListData(0);
             }
 
             @Override
-            public void onPullUpToRefresh(PullToRefreshBase refreshView) {
+            public void onPullEndToRefresh(PullToRefreshBase refreshView) {
                 checkAndLoagMoreData();
             }
         };

@@ -152,13 +152,13 @@ public class AiMeiZhiFragment extends PullToRefreshBaseFragment implements Adapt
 
     private class CommonListRefreshListener implements PullToRefreshBase.OnRefreshListener2<ListView> {
         @Override
-        public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+        public void onPullStartToRefresh(PullToRefreshBase<ListView> refreshView) {
             currentPageOffset = 0;
             getData(currentPageOffset);
         }
 
         @Override
-        public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+        public void onPullEndToRefresh(PullToRefreshBase<ListView> refreshView) {
             if (currentPageOffset >= totalPage) {
                 showToast(getString(R.string.alreadyatthebottom));
             }

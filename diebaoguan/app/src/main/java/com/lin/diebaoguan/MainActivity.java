@@ -48,11 +48,9 @@ import java.util.Collections;
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     private FragmentTabHost mTabHost;
 
-    private SharedPreferences sharedPreferences;
     private ArrayList<String> arrayList = new ArrayList<>();
     private static final int ITEM_ID = 33;
     private PopupWindow popupWindow;
-    private int screenWidth;//屏幕宽度
     private View view_pop;//popupwindowview
     private int[] popitems = new int[]{R.id.itempop_text1, R.id.itempop_text2, R.id.itempop_text3, R.id.itempop_text4, R.id.itempop_text5, R.id.itempop_text6, R.id.itempop_text7, R.id.itempop_text8};
     private TextView lastTabofToplevel;
@@ -76,7 +74,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setAddTab(tagsArray[3], R.string.aimeifang, AiMeiFangFragment.class, R.drawable.inducator_amf_select);
         initList();
         //获取屏幕宽度
-        screenWidth = getWindowManager().getDefaultDisplay().getWidth();
+        int screenWidth = getWindowManager().getDefaultDisplay().getWidth();
         int height = getWindowManager().getDefaultDisplay().getHeight();
         LogUtils.e("==screenWidth==" + screenWidth + "==" + height);
 
@@ -96,16 +94,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-                lastTabofToplevel.setBackground(getResources().getDrawable(R.drawable.inducator_amf_select));
+                lastTabofToplevel.setBackgroundResource(R.drawable.inducator_amf_select);
             }
         });
-
-//        getWindow().getDecorView().post(new Runnable() {
-//            @Override
-//            public void run() {
-//                LogUtils.e("test");
-//            }
-//        });
     }
 
     private void initList() {
@@ -114,11 +105,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private void judgeFirstPage() {
         //保存判断为已经进入过了
-        sharedPreferences = getSharedPreferences(Const.SP_ISFIRSTNAME, MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(Const.SP_ISFIRSTNAME, MODE_PRIVATE);
         SharedPreferences.Editor edit = sharedPreferences.edit();
         edit.putBoolean(Const.SP_ISFIRSTKEY, false);
-        edit.commit();
-        if (!MyApplication.getInstance().hasLogined()) {
+        edit.apply();
+        if (!MyApplication.hasLogined()) {
             Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(loginIntent);
         }
@@ -127,7 +118,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     /**
      * @param indicator 标签
-     * @param cls
+     * @param cls      Fragment Class
      * @param srcID     背景
      */
     private void setAddTab(String tag, int indicator, Class<?> cls, int srcID) {
@@ -145,7 +136,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             view.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    lastTabofToplevel.setBackground(getResources().getDrawable(R.drawable.diya_choice_bgon));
+                    lastTabofToplevel.setBackgroundResource(R.drawable.diya_choice_bgon);
                     int[] location = new int[2];
                     lastTabofToplevel.getLocationOnScreen(location);
                     int height1 = view_pop.getMeasuredHeight();
@@ -260,8 +251,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     /**
      * 版本更新
-     *
-     * @return
      */
     public String getUpdateInfo() {
         final ProgressDialog dialog = CommonUtils.showProgressDialog(this, "", "正在获取版本信息");

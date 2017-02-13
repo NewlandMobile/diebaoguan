@@ -222,29 +222,6 @@ public class CommonUtils<T extends BaseResponseTemplate> {
         CommonUtils.httpGet(fragment, sendParams.parseParams(), volleyListener);
     }
 
-
-    /**
-     * 根据 具体板块内容，获取后台信息
-     * 用于谍报馆与风尚标模块
-     *
-     * @param isFengShangBiao 是否属于风尚标板块
-     * @param detailPageNum   具体板块的数值 （当isclass=0时，传值1,2,3,4分别对应谍报馆：新品，价格，体验，应用.
-     *                        当isclass=1时，传值1,2,3,4分别对应风尚标：综合，爱美妆，爱美访，雯琰文
-     *                        ）
-     */
-    public static void fetchDataAtFsbOrDbg(boolean isFengShangBiao, int detailPageNum, VolleyListener volleyListener) {
-        NormalDS sendParams = new NormalDS();
-        sendParams.setModule(moduleString);
-        sendParams.setIsclass(isFengShangBiao ? 1 : 0);
-        sendParams.setCid(detailPageNum);
-        //TODO 这几个参数后期要改活的
-        sendParams.setOffset(0);
-        sendParams.setRows(12);
-        sendParams.initTimePart();
-
-        CommonUtils.httpGet(sendParams.parseParams(), volleyListener);
-    }
-
     /**
      * 根据 具体板块内容，获取后台信息
      * 用于谍报馆与风尚标模块

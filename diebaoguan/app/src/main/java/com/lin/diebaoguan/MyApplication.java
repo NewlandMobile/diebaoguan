@@ -35,7 +35,7 @@ public class MyApplication extends Application {
     //是否是第一次运行
     private static boolean isFirstRun = false;
     //是否已登录
-    private static boolean isLogined;
+//    private static boolean isLogined;
 
     private static boolean blockImage = false;
 
@@ -45,7 +45,7 @@ public class MyApplication extends Application {
 
     private static int textSizeZoom;
 
-    private static HashMap<String, Fragment> fragment_map = new HashMap<>();
+//    private static HashMap<String, Fragment> fragment_map = new HashMap<>();
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
@@ -129,7 +129,7 @@ public class MyApplication extends Application {
     }
 
     public static void logout() {
-        //TODO  退出账号  删除 账户相关信息
+        //  退出账号  删除 账户相关信息
         CommonUtils.deleteSp(MyApplication.getInstance(), uidSPKey);
         CommonUtils.deleteSp(MyApplication.getInstance(), keySPKey);
     }
