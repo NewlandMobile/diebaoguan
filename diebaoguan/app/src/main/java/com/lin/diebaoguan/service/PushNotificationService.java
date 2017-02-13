@@ -120,12 +120,18 @@ public class PushNotificationService extends Service {
         List<Result> dataList = new ArrayList<>();
         //创建一个通知
         Notification.Builder builder = new Notification.Builder(context);
-        builder.setContentTitle(title);
-        builder.setContentText("===点击查看详细内容===");
-        builder.setWhen(System.currentTimeMillis());//设置显示时间
-        builder.setPriority(Notification.PRIORITY_DEFAULT);//设置优先级
-        builder.setOngoing(false);
-        builder.setSmallIcon(R.drawable.cnmo_logo_80_16);
+        builder.setContentTitle(title)
+                .setContentText("===点击查看详细内容===")
+                .setWhen(System.currentTimeMillis())
+                .setPriority(Notification.PRIORITY_DEFAULT)
+                .setOngoing(false)
+                .setSmallIcon(R.drawable.cnmo_logo_80_16);
+//        builder.setContentText("===点击查看详细内容===");
+//        builder.setWhen(System.currentTimeMillis());//设置显示时间
+//        builder.setPriority(Notification.PRIORITY_DEFAULT);//设置优先级
+//        builder.setOngoing(false);
+//        builder.setSmallIcon(R.drawable.cnmo_logo_80_16);
+        // 设置  声音等
         int defaultSet=0;
         if (MyApplication.isSound()) {
             defaultSet |= Notification.DEFAULT_SOUND;
@@ -134,29 +140,30 @@ public class PushNotificationService extends Service {
             defaultSet |= Notification.DEFAULT_VIBRATE;
         }
         builder.setDefaults(defaultSet);//向通知添加声音、闪灯和振动效果的最简单、最一致的方式是使用当前的用户默认设置，使用defaults属性，可以组合
+        Result result = new Result();
+        result.setTitle(title);
+        result.setType(type);
         if (type.equals("wz")) {
-            Result result = new Result();
-            result.setTitle(title);
-            result.setType(type);
             result.setDocid("" + docid);
-            dataList.add(result);
-            Intent intent = new Intent(context, ArticleDetailsActivity.class);
-            intent.putExtra("currentOffset", 0);
-            intent.putExtra("allItem", (Serializable) dataList);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 12315, intent, Intent.FILL_IN_ACTION);
-            builder.setContentIntent(pendingIntent);
+
         } else if (type.equals("tu")) {
-            Result result = new Result();
-            result.setTitle(title);
-            result.setType(type);
+//            Result result = new Result();
+//            result.setTitle(title);
+//            result.setType(type);
             result.setPicid(docid);
-            dataList.add(result);
-            Intent intent = new Intent(context, GyjOriginalDetailsActivity.class);
-            intent.putExtra("currentOffset", 0);
-            intent.putExtra("allItem", (Serializable) dataList);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 12315, intent, Intent.FILL_IN_ACTION);
-            builder.setContentIntent(pendingIntent);
+//            dataList.add(result);
+//            Intent intent = new Intent(context, GyjOriginalDetailsActivity.class);
+//            intent.putExtra("currentOffset", 0);
+//            intent.putExtra("allItem", (Serializable) dataList);
+//            PendingIntent pendingIntent = PendingIntent.getActivity(context, 12315, intent, Intent.FILL_IN_ACTION);
+//            builder.setContentIntent(pendingIntent);
         }
+        dataList.add(result);
+        Intent intent = new Intent(context, ArticleDetailsActivity.class);
+        intent.putExtra("currentOffset", 0);
+        intent.putExtra("allItem", (Serializable) dataList);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 12315, intent, Intent.FILL_IN_ACTION);
+        builder.setContentIntent(pendingIntent);
         Notification notification = builder.build();
         notification.flags = Notification.FLAG_ONLY_ALERT_ONCE;
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
