@@ -135,7 +135,14 @@ public class PushNotificationService extends Service {
         builder.setPriority(Notification.PRIORITY_DEFAULT);//设置优先级
         builder.setOngoing(false);
         builder.setSmallIcon(R.drawable.cnmo_logo_80_16);
-        builder.setDefaults(Notification.DEFAULT_VIBRATE);//向通知添加声音、闪灯和振动效果的最简单、最一致的方式是使用当前的用户默认设置，使用defaults属性，可以组合
+        int defaultSet=0;
+        if (MyApplication.isSound()) {
+            defaultSet |= Notification.DEFAULT_SOUND;
+        }
+        if (MyApplication.isVibrate()) {
+            defaultSet |= Notification.DEFAULT_VIBRATE;
+        }
+        builder.setDefaults(defaultSet);//向通知添加声音、闪灯和振动效果的最简单、最一致的方式是使用当前的用户默认设置，使用defaults属性，可以组合
         if (type.equals("wz")) {
             Result result = new Result();
             result.setTitle(title);
@@ -161,17 +168,19 @@ public class PushNotificationService extends Service {
         }
         Notification notification = builder.build();
         notification.flags = Notification.FLAG_ONLY_ALERT_ONCE;
-        notification.flags = Notification.FLAG_AUTO_CANCEL;
-        if (MyApplication.isSound()) {
-            notification.flags = Notification.DEFAULT_SOUND;
-        } else {
-            notification.flags |= Notification.DEFAULT_SOUND;
-        }
-        if (MyApplication.isVibrate()) {
-            notification.flags = Notification.DEFAULT_VIBRATE;
-        } else {
-            notification.flags |= Notification.DEFAULT_VIBRATE;
-        }
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+//        if (MyApplication.isSound()) {
+//            notification.flags |= Notification.DEFAULT_SOUND;
+//        }
+////        else {
+////            notification.flags |= Notification.DEFAULT_SOUND;
+////        }
+//        if (MyApplication.isVibrate()) {
+//            notification.flags = Notification.DEFAULT_VIBRATE;
+//        }
+////        else {
+////            notification.flags |= Notification.DEFAULT_VIBRATE;
+////        }
         NotificationManager systemService = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         systemService.notify(12315, notification);
     }
