@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.Toast;
 
 import com.lin.diebaoguan.MyApplication;
 import com.lin.diebaoguan.R;
@@ -32,6 +31,9 @@ public class PushSettingActivity extends BaseRedTitleBarActivity implements Comp
         cb_vibration.setOnCheckedChangeListener(this);
 
         cb_notification.setChecked(MyApplication.isPushNotification());
+
+        cb_sound.setChecked(MyApplication.isSound());
+        cb_vibration.setChecked(MyApplication.isVibrate());
     }
 
     @Override
@@ -48,18 +50,10 @@ public class PushSettingActivity extends BaseRedTitleBarActivity implements Comp
                 }
                 break;
             case R.id.setting_sound:
-                if (MyApplication.isPushNotification()) {
-
-                } else {
-                    Toast.makeText(this, R.string.pleaseselectpushsetting, Toast.LENGTH_SHORT).show();
-                }
+                MyApplication.setIsSound(isChecked);
                 break;
             case R.id.setting_Vibration:
-                if (MyApplication.isPushNotification()) {
-
-                } else {
-                    Toast.makeText(this, R.string.pleaseselectpushsetting, Toast.LENGTH_SHORT).show();
-                }
+                MyApplication.setIsVibrate(isChecked);
                 break;
         }
     }

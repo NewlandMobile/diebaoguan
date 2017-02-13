@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.IBinder;
 
 import com.android.volley.VolleyError;
+import com.lin.diebaoguan.MyApplication;
 import com.lin.diebaoguan.R;
 import com.lin.diebaoguan.activity.ArticleDetailsActivity;
 import com.lin.diebaoguan.activity.GyjOriginalDetailsActivity;
@@ -129,7 +130,7 @@ public class PushNotificationService extends Service {
         //创建一个通知
         Notification.Builder builder = new Notification.Builder(context);
         builder.setContentTitle(title);
-        builder.setContentText("点击查看详细内容===" + type + "==" + docid);
+        builder.setContentText("===点击查看详细内容===");
         builder.setWhen(System.currentTimeMillis());//设置显示时间
         builder.setPriority(Notification.PRIORITY_DEFAULT);//设置优先级
         builder.setOngoing(false);
@@ -161,8 +162,16 @@ public class PushNotificationService extends Service {
         Notification notification = builder.build();
         notification.flags = Notification.FLAG_ONLY_ALERT_ONCE;
         notification.flags = Notification.FLAG_AUTO_CANCEL;
-        notification.flags = Notification.DEFAULT_SOUND;
-        notification.flags = Notification.DEFAULT_VIBRATE;
+        if (MyApplication.isSound()) {
+            notification.flags = Notification.DEFAULT_SOUND;
+        } else {
+            notification.flags |= Notification.DEFAULT_SOUND;
+        }
+        if (MyApplication.isVibrate()) {
+            notification.flags = Notification.DEFAULT_VIBRATE;
+        } else {
+            notification.flags |= Notification.DEFAULT_VIBRATE;
+        }
         NotificationManager systemService = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         systemService.notify(12315, notification);
     }

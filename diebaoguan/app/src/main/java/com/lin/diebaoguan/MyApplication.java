@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 
 import com.lin.diebaoguan.common.CommonUtils;
@@ -15,8 +14,6 @@ import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-
-import java.util.HashMap;
 
 /**
  * It's Created by NewLand-JianFeng on 2016/12/27.
@@ -30,8 +27,10 @@ public class MyApplication extends Application {
     private static String userName = null;
     private static boolean isWifi = false;//网络类型是否是wifi状态
     private static boolean isPushNotification = false;//判断是否需要开启推送服务
+    private static boolean isSound = false;//判断是否开启了推送提醒的声音
+    private static boolean isVibrate = false;//判断是否开启了推送提醒震动
 
-    private static final String uidSPKey = "uid", keySPKey = "key", firstRunSPKey = "isFirstRun", userNameSPKey = "userName";
+    private static final String uidSPKey = "uid", keySPKey = "ke", firstRunSPKey = "isFirstRun", userNameSPKey = "userName";
     //是否是第一次运行
     private static boolean isFirstRun = false;
     //是否已登录
@@ -73,6 +72,24 @@ public class MyApplication extends Application {
         CommonUtils.saveBySp(MyApplication.getInstance(), "isPushNotification", isPushNotification);
     }
 
+    public static boolean isSound() {
+        return isSound;
+    }
+
+    public static void setIsSound(boolean isSound) {
+        MyApplication.isSound = isSound;
+        CommonUtils.saveBySp(MyApplication.getInstance(), "setIsSound", isSound);
+    }
+
+    public static boolean isVibrate() {
+        return isVibrate;
+    }
+
+    public static void setIsVibrate(boolean isVibrate) {
+        MyApplication.isVibrate = isVibrate;
+        CommonUtils.saveBySp(MyApplication.getInstance(), "setIsVibrate", isVibrate);
+    }
+
 
     @Override
     public void onCreate() {
@@ -106,6 +123,9 @@ public class MyApplication extends Application {
         settingWifi = (boolean) CommonUtils.getSp(this, "settingWifi", false);
         offlineDownload = (boolean) CommonUtils.getSp(this, "offlineDownload", false);
         isPushNotification = (boolean) CommonUtils.getSp(this, "isPushNotification", false);
+        isSound = (boolean) CommonUtils.getSp(this, "setIsSound", false);
+        isVibrate = (boolean) CommonUtils.getSp(this, "setIsVibrate", false);
+
 //        TODO  把设置项都初始化  从SP获取
     }
 
