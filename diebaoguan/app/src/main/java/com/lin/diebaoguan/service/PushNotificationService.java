@@ -35,13 +35,9 @@ public class PushNotificationService extends Service {
 
     /**
      * 只在bound service的时候有用到
-     *
-     * @param intent
-     * @return
      */
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
@@ -54,11 +50,6 @@ public class PushNotificationService extends Service {
 
     /**
      * START_STICKY  即使由于内存空间不足，被系统kill，也会在内存足够的时候恢复
-     *
-     * @param intent
-     * @param flags
-     * @param startId
-     * @return
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -76,7 +67,7 @@ public class PushNotificationService extends Service {
     class PushThread extends Thread {
         @Override
         public void run() {
-            while (true && !isStop) {
+            while (!isStop) {
                 try {
                     LogUtils.e("==获取信息线程开启==");
                     getData();
@@ -110,12 +101,12 @@ public class PushNotificationService extends Service {
                             LogUtils.e("==获取数据成功==");
                             Data[] data = response.getData();
                             if (data.length > 0) {
-                                for (int i = 0; i < data.length; i++) {
-                                    Data dataItem = data[0];
-                                    String title = dataItem.getTitle();
-                                    String type = dataItem.getType();
-                                    int docid = dataItem.getDocid();
-                                    createInform(title, type, docid);
+                                for (Data aData : data) {
+//                                    Data dataItem = data[0];
+                                    String title = aData.getTitle();
+                                    String type = aData.getType();
+                                    int docId = aData.getDocid();
+                                    createInform(title, type, docId);
                                 }
                             }
                         }
